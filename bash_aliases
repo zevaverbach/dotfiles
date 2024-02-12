@@ -1,4 +1,3 @@
-alias nvim=~/nvim-linux64/bin/nvim
 alias vi=nvim
 alias ss='source ~/.bashrc'
 alias bb='vi ~/.bashrc'
@@ -18,7 +17,3 @@ alias ga='git add --all'
 alias l='ls -l'
 alias i='ipython'
 alias python=python3
-
-function gc() {
-    git commit -m "$1"
-}

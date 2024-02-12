@@ -42,6 +42,7 @@ require("lazy").setup({
     {'neovim/nvim-lspconfig'},
     {'hrsh7th/cmp-nvim-lsp'},
     {'hrsh7th/nvim-cmp'},
+    {"mfussenegger/nvim-jdtls"},
     {'L3MON4D3/LuaSnip'},
     {"neoclide/coc.nvim", branch = 'release'},
     {
@@ -75,3 +76,37 @@ end)
 require('lspconfig').pyright.setup({
 virtual_text=false,
 })
+
+local config = {
+    cmd = {
+        --
+        "/usr/bin/java", -- Or the absolute path '/path/to/java11_or_newer/bin/java'
+        "-Declipse.application=org.eclipse.jdt.ls.core.id1",
+        "-Dosgi.bundles.defaultStartLevel=4",
+        "-Declipse.product=org.eclipse.jdt.ls.core.product",
+        "-Dlog.protocol=true",
+        "-Dlog.level=ALL",
+        "-Xms1g",
+        "--add-modules=ALL-SYSTEM",
+        "--add-opens",
+        "java.base/java.util=ALL-UNNAMED",
+        "--add-opens",
+        "java.base/java.lang=ALL-UNNAMED",
+        --
+        "-jar",
+        "/usr/local/Cellar/jdtls/1.32.0/libexec/plugins/org.eclipse.equinox.launcher_1.6.700.v20231214-2017.jar",
+        "-configuration", "/usr/local/Cellar/jdtls/1.32.0/libexec/config_mac",
+        "-data", "/Users/zev/.local/share/nvim/java"
+    },
+    settings = {
+        java = {
+            signatureHelp = {enabled = true},
+            import = {enabled = true},
+            rename = {enabled = true}
+        }
+    },
+    init_options = {
+        bundles = {}
+    }
+}
+

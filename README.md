@@ -10,7 +10,7 @@ Get up and going in Linux with some nice bash aliases, neovim configuration + pl
 
 # Installation
 
-Symlink the config files to `~/.config/nvim` and `~`, respectively. 
+Symlink the config files to `~/.config/nvim` and `~`, respectively, OR just run `./install.sh` which will do that for you.
 
     > ln -s $HOME/repos/dotfiles/init.lua $HOME/.config/nvim/init.lua
     > ln -s $HOME/repos/dotfiles/vimrc.vim $HOME/.config/nvim/vimrc.vim
@@ -21,6 +21,6 @@ After Coc is installed, install coc-pyright and pyright:
 
     # terminal:
     > npm install -g pyright
-    > sudo apt install ripgrep
+    > sudo apt install ripgrep   # or brew install
     # inside nvim:
     :CocInstall coc-pyright
