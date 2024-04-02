@@ -23,90 +23,175 @@ vim.opt.signcolumn = "yes"
 vim.opt.isfname:append("@-@")
 
 require("lazy").setup({
-    "github/copilot.vim",
     "folke/tokyonight.nvim",
     "tpope/vim-commentary",
     {
         "folke/trouble.nvim",
         dependencies = { "nvim-tree/nvim-web-devicons" },
-        opts = {
-        },
+        opts = {},
     },
     {
-        'nvim-telescope/telescope.nvim', tag = '0.1.5',
-        dependencies = { 'nvim-lua/plenary.nvim',
-    'BurntSushi/ripgrep'}
+        "nvim-telescope/telescope.nvim",
+        tag = "0.1.5",
+        dependencies = { "nvim-lua/plenary.nvim", "BurntSushi/ripgrep" },
     },
-    {'nvim-telescope/telescope-fzf-native.nvim', build = 'cmake -S. -Bbuild -DCMAKE_BUILD_TYPE=Release && cmake --build build --config Release && cmake --install build --prefix build'},
-    {'VonHeikemen/lsp-zero.nvim', branch = 'v3.x'},
-    {'neovim/nvim-lspconfig'},
-    {'hrsh7th/cmp-nvim-lsp'},
-    {'hrsh7th/nvim-cmp'},
-    {"mfussenegger/nvim-jdtls"},
-    {'L3MON4D3/LuaSnip'},
-    {"neoclide/coc.nvim", branch = 'release'},
+    {
+        "nvim-telescope/telescope-fzf-native.nvim",
+        build = "cmake -S. -Bbuild -DCMAKE_BUILD_TYPE=Release && cmake --build build --config Release && cmake --install build --prefix build",
+    },
+    { "VonHeikemen/lsp-zero.nvim", branch = "v3.x" },
+    { "neovim/nvim-lspconfig" },
+    { "nvim-treesitter/nvim-treesitter" },
+    {
+        "stevearc/conform.nvim",
+        event = { "BufReadPre", "BufNewFile" },
+        config = function()
+            require("conform").setup({
+                formatters_by_ft = {
+                    lua = { "stylua" },
+                    svelte = { { "prettierd", "prettier" } },
+                    javascript = { { "prettierd", "prettier" } },
+                    typescript = { { "prettierd", "prettier" } },
+                    javascriptreact = { { "prettierd", "prettier" } },
+                    typescriptreact = { { "prettierd", "prettier" } },
+                    json = { { "prettierd", "prettier" } },
+                    graphql = { { "prettierd", "prettier" } },
+                    java = { "google-java-format" },
+                    kotlin = { "ktlint" },
+                    ruby = { "standardrb" },
+                    markdown = { { "prettierd", "prettier" } },
+                    erb = { "htmlbeautifier" },
+                    html = { "htmlbeautifier" },
+                    bash = { "beautysh" },
+                    proto = { "buf" },
+                    rust = { "rustfmt" },
+                    yaml = { "yamlfix" },
+                    toml = { "taplo" },
+                    css = { { "prettierd", "prettier" } },
+                    scss = { { "prettierd", "prettier" } },
+                },
+                format_on_save = {
+                    -- These options will be passed to conform.format()
+                    timeout_ms = 500,
+                    lsp_fallback = true,
+                },
+            })
+        end,
+    },
+    {
+        "mfussenegger/nvim-lint",
+        event = {
+            "BufReadPre",
+            "BufNewFile",
+        },
+        config = function()
+            local lint = require("lint")
+
+            lint.linters_by_ft = {
+                javascript = { "eslint_d" },
+                typescript = { "eslint_d" },
+                javascriptreact = { "eslint_d" },
+                typescriptreact = { "eslint_d" },
+                svelte = { "eslint_d" },
+                kotlin = { "ktlint" },
+                terraform = { "tflint" },
+                ruby = { "standardrb" },
+            }
+
+            local lint_augroup = vim.api.nvim_create_augroup("lint", { clear = true })
+
+            vim.api.nvim_create_autocmd({ "BufEnter", "BufWritePost", "InsertLeave" }, {
+                group = lint_augroup,
+                callback = function()
+                    lint.try_lint()
+                end,
+            })
+
+            vim.keymap.set("n", "<leader>ll", function()
+                lint.try_lint()
+            end, { desc = "Trigger linting for current file" })
+        end,
+    },
+    { "hrsh7th/nvim-cmp" },
+    { "hrsh7th/cmp-nvim-lsp" },
+    { "hrsh7th/cmp-buffer" },
+    { "hrsh7th/vim-vsnip" },
+    { "L3MON4D3/LuaSnip" },
+    { 'czheo/mojo.vim' },
+    { "neoclide/coc.nvim", branch = "release" },
     {
         "kylechui/nvim-surround",
         version = "*",
         event = "VeryLazy",
         config = function()
-            require("nvim-surround").setup({
-            })
-        end
+            require("nvim-surround").setup({})
+        end,
     },
 })
-require('telescope').setup {
+require("telescope").setup({
     extensions = {
         fzf = {
-            fuzzy = true,                    -- false will only do exact matching
-            override_generic_sorter = true,  -- override the generic sorter
-            override_file_sorter = true,     -- override the file sorter
-            case_mode = "smart_case",        -- or "ignore_case" or "respect_case"
+            fuzzy = true, -- false will only do exact matching
+            override_generic_sorter = true, -- override the generic sorter
+            override_file_sorter = true, -- override the file sorter
+            case_mode = "smart_case", -- or "ignore_case" or "respect_case"
             -- the default case_mode is "smart_case"
-        }
-    }
-}
+        },
+    },
+})
 local vimrc = vim.fn.stdpath("config") .. "/vimrc.vim"
 vim.cmd.source(vimrc)
-local lsp_zero = require('lsp-zero')
 
-lsp_zero.on_attach(function(client, bufnr)
-    lsp_zero.default_keymaps({buffer = bufnr})
-end)
-require('lspconfig').pyright.setup({
-virtual_text=false,
+local cmp = require("cmp")
+cmp.setup({
+    snippet = {
+        expand = function(args)
+            vim.fn["vsnip#anonymous"](args.body)
+        end,
+    },
+
+    mapping = {
+        ["C-y"] = cmp.mapping.confirm({ select = true }),
+    },
+
+    sources = {
+        { name = "nvim_lsp" },
+        { name = "buffer" },
+    },
 })
 
-local config = {
-    cmd = {
-        --
-        "/usr/bin/java", -- Or the absolute path '/path/to/java11_or_newer/bin/java'
-        "-Declipse.application=org.eclipse.jdt.ls.core.id1",
-        "-Dosgi.bundles.defaultStartLevel=4",
-        "-Declipse.product=org.eclipse.jdt.ls.core.product",
-        "-Dlog.protocol=true",
-        "-Dlog.level=ALL",
-        "-Xms1g",
-        "--add-modules=ALL-SYSTEM",
-        "--add-opens",
-        "java.base/java.util=ALL-UNNAMED",
-        "--add-opens",
-        "java.base/java.lang=ALL-UNNAMED",
-        --
-        "-jar",
-        "/usr/local/Cellar/jdtls/1.32.0/libexec/plugins/org.eclipse.equinox.launcher_1.6.700.v20231214-2017.jar",
-        "-configuration", "/usr/local/Cellar/jdtls/1.32.0/libexec/config_mac",
-        "-data", "/Users/zev/.local/share/nvim/java"
-    },
-    settings = {
-        java = {
-            signatureHelp = {enabled = true},
-            import = {enabled = true},
-            rename = {enabled = true}
-        }
-    },
-    init_options = {
-        bundles = {}
-    }
-}
+local lsp_zero = require("lsp-zero")
 
+lsp_zero.on_attach(function(client, bufnr)
+    lsp_zero.default_keymaps({ buffer = bufnr })
+end)
+require("lspconfig").pyright.setup({
+    virtual_text = false,
+})
+
+local capabilities = require("cmp_nvim_lsp").default_capabilities(vim.lsp.protocol.make_client_capabilities())
+
+require("lspconfig").clangd.setup({
+    capabilities = capabilities,
+})
+vim.api.nvim_create_augroup("AutoFormat", {})
+
+vim.api.nvim_create_autocmd(
+"BufWritePost",
+{
+    pattern = "*.py",
+    group = "AutoFormat",
+    callback = function()
+        vim.cmd("silent !black --line-length=120 --quiet %")            
+        vim.cmd("edit")
+    end,
+})
+
+local function on_list(options)
+    vim.fn.setqflist({}, ' ', options)
+    vim.api.nvim_command('cfirst')
+end
+
+local bufopts = { noremap=true, silent=true, buffer=bufnr }
+vim.keymap.set('n', '<leader>d', function() vim.lsp.buf.definition{on_list=on_list} end, bufopts)
+vim.keymap.set('n', '<leader>r', function() vim.lsp.buf.references(nil, {on_list=on_list}) end, bufopts)
