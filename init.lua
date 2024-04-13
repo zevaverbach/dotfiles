@@ -158,15 +158,38 @@ local lsp_zero = require("lsp-zero")
 lsp_zero.on_attach(function(client, bufnr)
 	lsp_zero.default_keymaps({ buffer = bufnr })
 end)
-require("lspconfig").pyright.setup({
+
+lspconfig = require("lspconfig")
+
+lspconfig.pyright.setup({
 	virtual_text = false,
 })
 
 local capabilities = require("cmp_nvim_lsp").default_capabilities(vim.lsp.protocol.make_client_capabilities())
 
-require("lspconfig").clangd.setup({
+lspconfig.clangd.setup({
 	capabilities = capabilities,
 })
+
+local configs = require("lspconfig.configs")
+if not configs.jinja_lsp then
+	configs.jinja_lsp = {
+		default_config = {
+			cmd = { "/Users/zev/.cargo/bin/jinja-lsp" },
+			filetypes = { "jinja", "rs" },
+			root_dir = function(fname)
+				return lspconfig.util.find_git_ancestor(fname)
+			end,
+			settings = {
+				templates = "./templates",
+				backend = { "./app" },
+				lang = "rust",
+			},
+		},
+	}
+end
+
+lspconfig.jinja_lsp.setup({})
 vim.api.nvim_create_augroup("AutoFormat", {})
 
 vim.api.nvim_create_autocmd("BufWritePost", {
