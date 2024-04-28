@@ -53,6 +53,7 @@ vnoremap <C-k> :m '<-2<CR>gv=gv
 vnoremap <C-j> :m '>+1<CR>gv=gv
 nnoremap <C-k> :m -2<CR>
 nnoremap <C-j> :m +1<CR>
+map gf :e<cfile><cr>
 
 augroup tokyonight-night
   autocmd!
