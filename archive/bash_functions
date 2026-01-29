@@ -1,0 +1,136 @@
+alias t='tree -a -I "*.pyc|*__pycache__|.venv|.git|.data|.pytest_cache|.ruff_cache|.mypy_cache|node_modules|env"'
+alias ph='source $(poetry env info --path)/bin/activate'
+alias ta='tmux a'
+alias gb='git branch'
+alias pg='git pull origin $(git branch --show-current)'
+alias gp='git push origin $(git branch --show-current)'
+alias gs='git status'
+alias gt='git stash'
+alias pop='git stash pop'
+alias tt='vi ~/.tmux.conf'
+alias gd='git diff --diff-filter=ACMRTUXB'
+alias gha='git rev-parse --short HEAD'
+alias gf='git fetch'
+alias ga='git add --all'
+
+function gc() {
+    if [ -z "$1" ]; then
+        # No message provided, explicitly use the editor
+        # The -e flag forces Git to open the editor regardless of configuration
+        git commit --edit --allow-empty-message
+    else
+        # Message provided, use it directly
+        git commit -m "$1"
+    fi
+}
+
+function gl() {
+    local format="%C(yellow)%h%C(reset) %C(blue)%ad%C(reset) %s%C(red)%d%C(reset)"
+    # If two arguments are provided, assume they're commit hashes
+    if [ $# -eq 2 ] && [[ $1 != -* ]] && [[ $2 != -* ]]; then
+        # Show logs between the two hashes with nice formatting
+        git log $1..$2 --pretty=format:"$format" --date=short
+    else
+        # Otherwise, just run git log with whatever arguments were passed
+        git log "$@"
+    fi
+}
+
+# open fzf file search, then open the selected file in neovim
+function v() {
+    local file
+    file=$(rg --files --hidden --no-ignore \
+        --glob '!node_modules' \
+        --glob '!.git' \
+        --glob '!__pycache__' \
+        --glob '!venv' \
+        --glob '!.venv' \
+        --glob '!.reports' \
+        | fzf)
+    if [[ -n $file ]]; then
+        vi "$file"
+    fi
+}
+
+function vm() {
+    nvim -c "silent edit #<1"
+}
+
+# open neovim and immediately launch telescope live grep
+function vg() {
+    nvim -c 'lua vim.defer_fn(function() require("telescope.builtin").live_grep() end, 100)'
+}
+
+function gk() {
+    git checkout -b $1
+}
+
+function delete_branches_except() {
+    if [[ "$#" -eq 0 || "$1" != "--except" ]]; then
+        echo "Error: You must supply at least one '--except' argument."
+        return 1
+    fi
+
+    shift # Remove the '--except' argument
+
+    if [[ "$#" -eq 0 ]]; then
+        echo "Error: You must specify at least one branch to keep."
+        return 1
+    fi
+
+    # Store branches to keep in an array
+    local branches_to_keep=("$@")
+
+    # Get all local branches
+    local all_branches
+    all_branches=$(git branch --format='%(refname:short)')
+
+    # Loop through all branches and delete those not in the branches_to_keep array
+    for branch in $all_branches; do
+        if [[ ! " ${branches_to_keep[*]} " =~ " ${branch} " ]]; then
+            echo "Deleting branch: $branch"
+            git branch -D "$branch"
+        else
+            echo "Keeping branch: $branch"
+        fi
+    done
+}
+
+# open latest file in neovim
+function n() {
+    local latest_file
+    latest_file=$(find . -type f \
+        -not -path '*/\.*' \
+        -not -path '*_cache/*' \
+        -not -path '*/__pycache__/*' \
+        -not -name '*.pyc' \
+        -not -name 'pyproject.toml' \
+        -not -name 'poetry.lock' \
+        -not -name '*.db' \
+        -exec stat -f '%m %N' {} \; | sort -n | tail -1 | cut -f2- -d' ') 2>/dev/null
+    
+    if [ -n "$latest_file" ]; then
+        clear
+        nvim -c "silent :e $latest_file"
+    else
+        echo "No files found."
+    fi
+}
+# Git commit review function using fzf
+# Usage: 
+#   zf            - review latest commit (HEAD)
+#   zf abc123     - review specific commit hash
+#   zf HEAD~3     - review commit 3 commits back
+#   zf main       - review tip of main branch
+#
+# Controls:
+#   j/k - navigate up/down through files
+#   q   - quit/abort
+#   
+# Shows: file list with stats on left, diff preview on right
+function zf() {
+    local commit=${1:-HEAD}
+    git show --stat=120 --format="" "$commit" | grep '|' | fzf --ansi --disabled --bind 'j:down,k:up,q:abort' --preview="echo {} | sed 's/ *|.*//' | xargs -I% git show --color=always $commit -- %" --preview-window=right:60%
+}
+
+
