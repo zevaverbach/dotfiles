@@ -1,0 +1,269 @@
+alias pyp='vi pyproject.toml'
+alias p3='python3'
+alias cx='codex'
+alias cc='claude --dangerously-skip-permissions'
+alias ccr='claude --dangerously-skip-permissions --resume'
+alias ccc='claude --dangerously-skip-permissions --continue'
+bx() {
+    ssh zev@box.averba.ch "$@"
+}
+
+bx_scp() {
+    if [ "$#" -lt 2 ]; then
+        echo "usage: bx-scp <src> <dest>"
+        return 1
+    fi
+
+    local args=("$@")
+    local last_index=$(( $# - 1 ))
+    local host="zev@box.averba.ch"
+
+    if [[ "${args[0]}" == *:* || "${args[$last_index]}" == *:* ]]; then
+        scp "${args[@]}"
+        return
+    fi
+
+    if [[ "${args[0]}" == :* ]]; then
+        args[0]="${host}${args[0]}"
+    elif [[ "${args[$last_index]}" == :* ]]; then
+        args[$last_index]="${host}${args[$last_index]}"
+    else
+        # Default: assume dest is remote path
+        args[$last_index]="${host}:${args[$last_index]}"
+    fi
+
+    scp "${args[@]}"
+}
+
+alias bx-scp=bx_scp
+function gsn() {
+  for file in $(git ls-files --others --exclude-standard); do
+  echo "=== $file ==="
+  git diff --no-index /dev/null "$file"
+  echo
+done
+}
+alias gso='git ls-files --others --exclude-standard -z | xargs -0 $EDITOR'
+alias dv='git checkout dev'
+alias mast='git checkout master'
+alias vi='nvim'
+alias pt=pytest
+alias ss='source ~/.bashrc'
+alias gg='vi ~/.config/ghostty/config'
+alias bb='vi ~/.bashrc'
+alias ba='vi ~/.bash_functions'
+alias bs='vi ~/.bash_secret'
+alias d='cd ~/Downloads && pwd'
+alias m='cd ~/repos/main && pwd'
+alias r='cd ~/repos && pwd'
+alias docs='cd ~/Documents && pwd'
+alias vv='vi ~/.config/nvim/init.lua'
+alias dx='deactivate'
+alias ph='source $(poetry env info --path)/bin/activate'
+alias make-env-312='poetry env use $(which python3.12) && ph && poetry install'
+alias make-env-311='poetry env use $(which python3.11) && ph && poetry install'
+alias pi='poetry install'
+alias ta='tmux a'
+alias gb='git branch'
+alias pg='git pull origin $(git branch --show-current)'
+alias gp='git push origin $(git branch --show-current)'
+alias gs='git status'
+alias gt='git stash'
+alias pop='git stash pop'
+alias tt='vi ~/.tmux.conf'
+alias gd='git diff --diff-filter=ACMRTUXB'
+alias gds='git diff --staged'
+alias gha='git rev-parse --short HEAD'
+alias gf='git fetch'
+alias ga='git add --all'
+alias l='ls -lrta'
+alias i='ipython'
+alias t='tree -a -I "*.pyc|*__pycache__|.venv|.git|.data|.pytest_cache|.ruff_cache|.mypy_cache|node_modules|env"'
+alias lsd='ls -d */'
+alias tm='tmux'
+alias o='vi -c "Oil"'
+export repos=~/extra/repos
+
+
+gc() {
+    if [ -z "$1" ]; then
+        # No message provided, explicitly use the editor
+        # The -e flag forces Git to open the editor regardless of configuration
+        git commit --edit --allow-empty-message
+    else
+        # Message provided, use it directly
+        git commit -m "$1"
+    fi
+}
+
+gl() {
+    local format="%C(yellow)%h%C(reset) %C(blue)%ad%C(reset) %s%C(red)%d%C(reset)"
+    # If two arguments are provided, assume they're commit hashes
+    if [ $# -eq 2 ] && [[ $1 != -* ]] && [[ $2 != -* ]]; then
+        # Show logs between the two hashes with nice formatting
+        git log $1..$2 --pretty=format:"$format" --date=short
+    else
+        # Otherwise, just run git log with whatever arguments were passed
+        git log "$@"
+    fi
+}
+
+# open fzf file search, then open the selected file in neovim
+v() {
+    local file
+    file=$(rg --files --hidden --no-ignore \
+        --glob '!node_modules' \
+        --glob '!.git' \
+        --glob '!__pycache__' \
+        --glob '!venv' \
+        --glob '!.venv' \
+        --glob '!.reports' \
+        | fzf)
+    if [[ -n $file ]]; then
+        vi "$file"
+    fi
+}
+
+vm() {
+    nvim -c "silent edit #<1"
+}
+
+# open neovim and immediately launch telescope live grep
+vg() {
+    nvim -c 'lua vim.defer_fn(function() require("telescope.builtin").live_grep() end, 100)'
+}
+
+gk() {
+    git checkout -b $1
+}
+
+delete-branches-except() {
+    if [[ "$#" -eq 0 || "$1" != "--except" ]]; then
+        echo "Error: You must supply at least one '--except' argument."
+        return 1
+    fi
+
+    shift # Remove the '--except' argument
+
+    if [[ "$#" -eq 0 ]]; then
+        echo "Error: You must specify at least one branch to keep."
+        return 1
+    fi
+
+    # Store branches to keep in an array
+    local branches_to_keep=("$@")
+
+    # Get all local branches
+    local all_branches
+    all_branches=$(git branch --format='%(refname:short)')
+
+    # Loop through all branches and delete those not in the branches_to_keep array
+    for branch in $all_branches; do
+        if [[ ! " ${branches_to_keep[*]} " =~ " ${branch} " ]]; then
+            echo "Deleting branch: $branch"
+            git branch -D "$branch"
+        else
+            echo "Keeping branch: $branch"
+        fi
+    done
+}
+
+# open latest file in neovim
+n() {
+    local latest_file
+    latest_file=$(find . -type f \
+        -not -path '*/\.*' \
+        -not -path '*_cache/*' \
+        -not -path '*/__pycache__/*' \
+        -not -name '*.pyc' \
+        -not -name 'pyproject.toml' \
+        -not -name 'poetry.lock' \
+        -not -name '*.db' \
+        -exec stat -f '%m %N' {} \; | sort -n | tail -1 | cut -d' ' -f2-)
+
+    if [ -n "$latest_file" ]; then
+        nvim "$latest_file"
+    else
+        echo "No files found."
+    fi
+}
+
+
+# Git commit review function using fzf
+# Usage: 
+#   zf            - review latest commit (HEAD)
+#   zf abc123     - review specific commit hash
+#   zf HEAD~3     - review commit 3 commits back
+#   zf main       - review tip of main branch
+#
+# Controls:
+#   j/k - navigate up/down through files
+#   q   - quit/abort
+#   
+# Shows: file list with stats on left, diff preview on right
+zf() {
+    local commit=${1:-HEAD}
+    git show --stat=120 --format="" "$commit" | grep '|' | fzf --ansi --disabled --bind 'j:down,k:up,q:abort' --preview="echo {} | sed 's/ *|.*//' | xargs -I% git show --color=always $commit -- %" --preview-window=right:60%
+}
+
+function gdf() {
+    if [ -z "$1" ]; then
+        echo "Usage: gdf <fuzzy filename search>"
+        return 1
+    fi
+    git diff "*$1*"
+}
+
+alias git-debug-check='echo "=== DEBUG FILES - SKIP-WORKTREE ===" && git ls-files -v | grep "^S" && echo && echo "===
+  DEBUG FILES - GITIGNORED ===" && git status --ignored --porcelain | grep -E "(debug|user_directory|middleware/)"'
+
+
+tok() {
+  if [ $# -eq 0 ]; then
+      echo "provide a file"
+      return 1
+  elif [ -f "$1" ]; then
+      # First argument is a file
+      ttok -i "$1"
+  else
+      # Treat as text string
+      echo "$*" | ttok
+  fi
+}
+
+steel-clear-locks() {
+    local root="${STEEL_LOCK_ROOT:-/tmp/steel-browser-locks}"
+    local force=0
+    if [ "${1:-}" = "--force" ]; then
+        force=1
+    fi
+    if [ ! -d "$root" ]; then
+        echo "steel locks: none (${root} missing)"
+        return 0
+    fi
+    local removed=0
+    local kept=0
+    for d in "$root"/*; do
+        [ -d "$d" ] || continue
+        if [ "$force" -eq 0 ] && [ -f "$d/pid" ]; then
+            local pid
+            pid=$(cat "$d/pid" 2>/dev/null || true)
+            if [ -n "$pid" ] && kill -0 "$pid" 2>/dev/null; then
+                kept=$((kept + 1))
+                continue
+            fi
+        fi
+        rm -rf "$d"
+        removed=$((removed + 1))
+    done
+    echo "steel locks cleared: removed=${removed} kept=${kept} root=${root}"
+}
+
+function ccp() {
+    claude -p "$1"
+}
+
+# compile and run C program
+cr() {
+    gcc "$1" && ./a.out
+}
