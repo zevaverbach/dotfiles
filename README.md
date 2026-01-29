@@ -13,11 +13,28 @@ Get up and going in Linux with some nice bash aliases, neovim configuration + pl
 
 ## Symlink config files
 
+    # core configs
     > ln -s $HOME/repos/dotfiles/init.lua $HOME/.config/nvim/init.lua
-    > ln -s $HOME/repos/dotfiles/bash_funcs $HOME/.bash_aliases
+    > ln -s $HOME/repos/dotfiles/bash-funcs $HOME/.bash_functions
     > ln -s $HOME/repos/dotfiles/bashrc $HOME/.bashrc
     > ln -s $HOME/repos/dotfiles/tmux.conf $HOME/.tmux.conf
+    > ln -s $HOME/repos/dotfiles/.prettierrc.json $HOME/.prettierrc.json
+
+    # helper scripts on PATH
     > ln -s $HOME/repos/dotfiles/fzf-tmux /usr/local/bin/fzf-tmux
+    > ln -s $HOME/repos/dotfiles/get_git_branch.sh /usr/local/bin/get_git_branch.sh
+    > ln -s $HOME/repos/dotfiles/tok /usr/local/bin/tok
+
+## Symlink layout (what I actually use)
+
+    ~/.bashrc -> ~/repos/dotfiles/bashrc
+    ~/.bash_functions -> ~/repos/dotfiles/bash-funcs
+    ~/.tmux.conf -> ~/repos/dotfiles/tmux.conf
+    ~/.config/nvim/init.lua -> ~/repos/dotfiles/init.lua
+    ~/.prettierrc.json -> ~/repos/dotfiles/.prettierrc.json
+    /usr/local/bin/fzf-tmux -> ~/repos/dotfiles/fzf-tmux
+    /usr/local/bin/get_git_branch.sh -> ~/repos/dotfiles/get_git_branch.sh
+    /usr/local/bin/tok -> ~/repos/dotfiles/tok
 
 ## Install TPM (Tmux Plugin Manager)
 
