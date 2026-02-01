@@ -138,3 +138,4 @@ export EDITOR="nvim"
 export DISABLE_COPILOT=1
 export PEEKABOO_AI_PROVIDERS="openai/gpt-5.2,anthropic/claude-sonnet-4.5"
 
+export PATH="$HOME/.local/bin:$PATH"

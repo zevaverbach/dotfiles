@@ -59,5 +59,4 @@ export PATH="$PATH:/Users/zev/.radicle/bin"
 export PATH="$PATH:/Applications/Docker.app/Contents/Resources/bin"
 export ANTHROPIC_MODEL='claude-sonnet-4-20250514'
 export ANTHROPIC_SMALL_FAST_MODEL='claude-3-5-haiku-20241022'
-export HCLOUD_TOKEN=BybuWF3rVatQhd5zRQqP0VY78saxqDmBDYrAiM9YVMqswa1tx0nx6jvafvUQg0RI
 export PATH="/usr/local/Cellar/node/24.4.1/bin:$PATH"
