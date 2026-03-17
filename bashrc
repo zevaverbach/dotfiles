@@ -139,3 +139,8 @@ export DISABLE_COPILOT=1
 export PEEKABOO_AI_PROVIDERS="openai/gpt-5.2,anthropic/claude-sonnet-4.5"
 
 export PATH="$HOME/.local/bin:$PATH"
+# export GOOGLE_CLOUD_PROJECT=gen-lang-client-0962191896
+
+# PAI alias
+alias pai='bun /Users/zev/.claude/PAI/Tools/pai.ts'
+

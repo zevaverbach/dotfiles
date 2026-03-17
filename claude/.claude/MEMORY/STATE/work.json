@@ -1,0 +1,750 @@
+{
+  "sessions": {
+    "20260317-094500_onboard-user-telos-interview": {
+      "prd": "MEMORY/WORK/20260317-094500_onboard-user-telos-interview/PRD.md",
+      "task": "Onboard user via interview into TELOS files",
+      "sessionName": "Guide Personal Context Onboarding",
+      "sessionUUID": "c57f8ddb-5a87-451c-a5a8-de6dbc0056c1",
+      "phase": "complete",
+      "progress": "18/18",
+      "effort": "extended",
+      "mode": "interactive",
+      "started": "2026-03-17T09:45:00-04:00",
+      "updatedAt": "2026-03-17T10:12:10.605Z",
+      "criteria": [
+        {
+          "id": "ISC-1",
+          "description": "Goals interview covers short-term goals (next 3 months)",
+          "type": "criterion",
+          "status": "completed"
+        },
+        {
+          "id": "ISC-2",
+          "description": "Goals interview covers medium-term goals (1-2 years)",
+          "type": "criterion",
+          "status": "completed"
+        },
+        {
+          "id": "ISC-3",
+          "description": "Goals interview covers long-term life goals (5+ years)",
+          "type": "criterion",
+          "status": "completed"
+        },
+        {
+          "id": "ISC-4",
+          "description": "Values and beliefs interview captures core worldview",
+          "type": "criterion",
+          "status": "completed"
+        },
+        {
+          "id": "ISC-5",
+          "description": "Current challenges and obstacles are identified",
+          "type": "criterion",
+          "status": "completed"
+        },
+        {
+          "id": "ISC-6",
+          "description": "Current work and projects are captured",
+          "type": "criterion",
+          "status": "completed"
+        },
+        {
+          "id": "ISC-7",
+          "description": "Influential books and authors are gathered",
+          "type": "criterion",
+          "status": "completed"
+        },
+        {
+          "id": "ISC-8",
+          "description": "Mental models and frameworks are identified",
+          "type": "criterion",
+          "status": "completed"
+        },
+        {
+          "id": "ISC-9",
+          "description": "Key wisdom or life lessons are captured",
+          "type": "criterion",
+          "status": "completed"
+        },
+        {
+          "id": "ISC-10",
+          "description": "GOALS.md created with structured short/medium/long sections",
+          "type": "criterion",
+          "status": "completed"
+        },
+        {
+          "id": "ISC-11",
+          "description": "BELIEFS.md created with core beliefs and worldview",
+          "type": "criterion",
+          "status": "completed"
+        },
+        {
+          "id": "ISC-12",
+          "description": "CHALLENGES.md created with current obstacles",
+          "type": "criterion",
+          "status": "completed"
+        },
+        {
+          "id": "ISC-13",
+          "description": "BOOKS.md created with influential books",
+          "type": "criterion",
+          "status": "completed"
+        },
+        {
+          "id": "ISC-14",
+          "description": "AUTHORS.md created with influential thinkers",
+          "type": "criterion",
+          "status": "completed"
+        },
+        {
+          "id": "ISC-15",
+          "description": "FRAMES.md created with mental models",
+          "type": "criterion",
+          "status": "completed"
+        },
+        {
+          "id": "ISC-16",
+          "description": "WISDOM.md created with collected insights",
+          "type": "criterion",
+          "status": "completed"
+        },
+        {
+          "id": "ISC-17",
+          "description": "All files use",
+          "type": "criterion",
+          "status": "completed"
+        }
+      ],
+      "phaseHistory": [
+        {
+          "phase": "OBSERVE",
+          "startedAt": 1773738035116,
+          "criteriaCount": 17,
+          "agentCount": 0,
+          "completedAt": 1773738094925
+        },
+        {
+          "phase": "BUILD",
+          "startedAt": 1773738094925,
+          "criteriaCount": 17,
+          "agentCount": 0,
+          "completedAt": 1773742171974
+        },
+        {
+          "phase": "EXECUTE",
+          "startedAt": 1773742171974,
+          "criteriaCount": 17,
+          "agentCount": 0,
+          "completedAt": 1773742258630
+        },
+        {
+          "phase": "VERIFY",
+          "startedAt": 1773742258630,
+          "criteriaCount": 17,
+          "agentCount": 0,
+          "completedAt": 1773742330605
+        },
+        {
+          "phase": "COMPLETE",
+          "startedAt": 1773742330605,
+          "criteriaCount": 17,
+          "agentCount": 0
+        }
+      ]
+    },
+    "20260317-111100_read-plans-todo-md-race-condition-in-flu": {
+      "task": "Read plans/TODO.md — \"Race condition in flush_pending\" and \"flush_pending sends individual messages instead of batching.",
+      "sessionName": "Fix Flush Pending Concurrency",
+      "sessionUUID": "8e243294-1016-4d44-afac-f74609d9b1bb",
+      "phase": "native",
+      "progress": "0/0",
+      "effort": "native",
+      "mode": "native",
+      "started": "2026-03-17T10:11:05.573Z",
+      "updatedAt": "2026-03-17T10:43:29.918Z"
+    },
+    "20260317-111100_read-plans-todo-md-orphaned-action-items": {
+      "task": "Read plans/TODO.md — \"Orphaned action items and pings on thread deletion.\" Read `src/models.py` (Thread, ActionItem, Pin",
+      "sessionName": "Fix Orphaned Items Deletion",
+      "sessionUUID": "7e88d73d-335c-4618-9613-5cc637a82904",
+      "phase": "starting",
+      "progress": "0/0",
+      "effort": "standard",
+      "mode": "starting",
+      "started": "2026-03-17T10:11:09.135Z",
+      "updatedAt": "2026-03-17T10:39:44.839Z"
+    },
+    "20260317-111100_read-plans-todo-md-no-member-profile-edi": {
+      "task": "Read plans/TODO.md — \"No member profile edit endpoint.\" Add `PUT /me` that lets users update name, email, telegram_handl",
+      "sessionName": "Build Member Profile Edit",
+      "sessionUUID": "9f06f5d8-a9ad-4d00-8382-20c37d136855",
+      "phase": "native",
+      "progress": "0/0",
+      "effort": "native",
+      "mode": "native",
+      "started": "2026-03-17T10:11:14.287Z",
+      "updatedAt": "2026-03-17T10:39:27.217Z"
+    },
+    "20260317-113900_here-s-a-question-i-asked-gemini-i-ask-i": {
+      "task": "here's a question i asked Gemini, I ask it to you as well: \"is there anything built into PAI that would help me improve ",
+      "sessionName": "Improve Engineering Skills Via",
+      "sessionUUID": "d838f00b-9da1-43ff-8ef9-84e3107c38d1",
+      "phase": "starting",
+      "progress": "0/0",
+      "effort": "standard",
+      "mode": "starting",
+      "started": "2026-03-17T10:39:18.294Z",
+      "updatedAt": "2026-03-17T10:46:32.956Z"
+    },
+    "20260317-114500_for-the-dispatch-command-let-s-make-sure": {
+      "task": "for the \"/dispatch\" command, let's make sure the bash commands emitted from it are not added to bash history, kti's poll",
+      "sessionName": "Suppress Bash History Dispatch",
+      "sessionUUID": "bda5cd44-adbe-43cc-a8ea-b45d73ef6dd4",
+      "phase": "native",
+      "progress": "0/0",
+      "effort": "native",
+      "mode": "native",
+      "started": "2026-03-17T10:45:06.155Z",
+      "updatedAt": "2026-03-17T10:55:49.919Z"
+    },
+    "20260317-114500_sanity-check-am-i-defnitely-using-claude": {
+      "task": "sanity check: am i defnitely using Claude max here? not the API",
+      "sessionName": "Sanity Defnitely Claude Max",
+      "sessionUUID": "405bf514-11bf-4171-a873-fc899c40573d",
+      "phase": "native",
+      "progress": "0/0",
+      "effort": "native",
+      "mode": "native",
+      "started": "2026-03-17T10:45:29.748Z",
+      "updatedAt": "2026-03-17T10:45:29.748Z"
+    },
+    "20260317-114600_config": {
+      "task": "config",
+      "sessionName": "**configure Noko Project Settings**",
+      "sessionUUID": "3a98879d-2c98-470a-9904-d0ab66cdca4d",
+      "phase": "native",
+      "progress": "0/0",
+      "effort": "native",
+      "mode": "native",
+      "started": "2026-03-17T10:46:51.475Z",
+      "updatedAt": "2026-03-17T10:48:29.292Z"
+    },
+    "20260317-114800_config": {
+      "task": "config",
+      "sessionName": "Config Session Work Task",
+      "sessionUUID": "7490b197-2472-4062-9806-c1624fe115b7",
+      "phase": "native",
+      "progress": "0/0",
+      "effort": "native",
+      "mode": "native",
+      "started": "2026-03-17T10:48:48.040Z",
+      "updatedAt": "2026-03-17T10:48:48.040Z"
+    },
+    "20260317-100000_remove-unnecessary-db-refresh": {
+      "prd": "MEMORY/WORK/20260317-100000_remove-unnecessary-db-refresh/PRD.md",
+      "task": "Audit and remove unnecessary db.refresh() calls",
+      "sessionName": "Remove Database Refresh Calls",
+      "sessionUUID": "0b2180fe-b0f2-4227-b3ca-b1a70169e575",
+      "phase": "verify",
+      "progress": "8/8",
+      "effort": "standard",
+      "mode": "interactive",
+      "started": "2026-03-17T10:00:00-07:00",
+      "updatedAt": "2026-03-17T11:00:10.459Z",
+      "criteria": [
+        {
+          "id": "ISC-1",
+          "description": "topics.py update_topic refresh removed (line 103)",
+          "type": "criterion",
+          "status": "completed"
+        },
+        {
+          "id": "ISC-2",
+          "description": "initiatives.py update_initiative refresh removed (line 102)",
+          "type": "criterion",
+          "status": "completed"
+        },
+        {
+          "id": "ISC-3",
+          "description": "workflows.py update_workflow refresh removed (line 102)",
+          "type": "criterion",
+          "status": "completed"
+        },
+        {
+          "id": "ISC-4",
+          "description": "enrollments.py update_enrollment refresh removed (line 102)",
+          "type": "criterion",
+          "status": "completed"
+        },
+        {
+          "id": "ISC-5",
+          "description": "members.py update_me refresh removed (line 56)",
+          "type": "criterion",
+          "status": "completed"
+        },
+        {
+          "id": "ISC-6",
+          "description": "action_items.py update_action_item refresh removed (line 161)",
+          "type": "criterion",
+          "status": "completed"
+        },
+        {
+          "id": "ISC-7",
+          "description": "All post-create refresh calls preserved (10 instances)",
+          "type": "criterion",
+          "status": "completed"
+        },
+        {
+          "id": "ISC-8",
+          "description": "All tests pass after changes",
+          "type": "criterion",
+          "status": "completed"
+        }
+      ],
+      "phaseHistory": [
+        {
+          "phase": "OBSERVE",
+          "startedAt": 1773744806732,
+          "criteriaCount": 8,
+          "agentCount": 0,
+          "completedAt": 1773745210459
+        },
+        {
+          "phase": "VERIFY",
+          "startedAt": 1773745210459,
+          "criteriaCount": 8,
+          "agentCount": 0
+        }
+      ]
+    },
+    "20260317-115300_what-s-the-state-of-the-unioni-with-my-b": {
+      "task": "what's the state of the unioni with my backup game? i'm most concerned about keeping my claude code and PAI backed up in",
+      "sessionName": "Audit Laptop Backup Completeness",
+      "sessionUUID": "9e91b3f6-2559-47ca-9b4d-29bb76a9a6f2",
+      "phase": "native",
+      "progress": "0/0",
+      "effort": "native",
+      "mode": "native",
+      "started": "2026-03-17T10:53:32.535Z",
+      "updatedAt": "2026-03-17T10:56:48.840Z"
+    },
+    "20260317-100000_sql-urgency-sort": {
+      "prd": "/Users/zev/repos/noko/MEMORY/WORK/20260317-100000_sql-urgency-sort/PRD.md",
+      "task": "Move urgency sorting from Python to SQL",
+      "sessionName": "Fix Urgency Sql Sorting",
+      "sessionUUID": "e559dc68-96c8-466d-8b4b-a1ccc887ebdb",
+      "phase": "complete",
+      "progress": "8/8",
+      "effort": "standard",
+      "mode": "interactive",
+      "started": "2026-03-17T10:00:00-07:00",
+      "updatedAt": "2026-03-17T10:57:56.060Z",
+      "criteria": [
+        {
+          "id": "ISC-1",
+          "description": "list_pending uses SQLAlchemy ORDER BY, not Python sort",
+          "type": "criterion",
+          "status": "completed"
+        },
+        {
+          "id": "ISC-2",
+          "description": "case() expression puts overdue items first (deadline < now, pending status)",
+          "type": "criterion",
+          "status": "completed"
+        },
+        {
+          "id": "ISC-3",
+          "description": "Non-overdue items sorted by deadline ascending",
+          "type": "criterion",
+          "status": "completed"
+        },
+        {
+          "id": "ISC-4",
+          "description": "NULL deadline items sorted last",
+          "type": "criterion",
+          "status": "completed"
+        },
+        {
+          "id": "ISC-5",
+          "description": "Python sort_key function removed from list_pending",
+          "type": "criterion",
+          "status": "completed"
+        },
+        {
+          "id": "ISC-6",
+          "description": "Existing test_list_pending_sorted_by_urgency passes",
+          "type": "criterion",
+          "status": "completed"
+        },
+        {
+          "id": "ISC-7",
+          "description": "New test proves SQL sort correct with LIMIT applied",
+          "type": "criterion",
+          "status": "completed"
+        },
+        {
+          "id": "ISC-8",
+          "description": "Function signature and return type unchanged (added optional limit param)",
+          "type": "criterion",
+          "status": "completed"
+        }
+      ],
+      "phaseHistory": [
+        {
+          "phase": "OBSERVE",
+          "startedAt": 1773744813455,
+          "criteriaCount": 8,
+          "agentCount": 0,
+          "completedAt": 1773744973331
+        },
+        {
+          "phase": "VERIFY",
+          "startedAt": 1773744973331,
+          "criteriaCount": 8,
+          "agentCount": 0,
+          "completedAt": 1773745076060
+        },
+        {
+          "phase": "COMPLETE",
+          "startedAt": 1773745076060,
+          "criteriaCount": 8,
+          "agentCount": 0
+        }
+      ]
+    },
+    "20260317-100000_media-storage-telegram-photos": {
+      "prd": "MEMORY/WORK/20260317-100000_media-storage-telegram-photos/PRD.md",
+      "task": "Implement media storage for Telegram photos",
+      "sessionName": "Implement Telegram Media Storage",
+      "sessionUUID": "cdf314b9-4113-4e42-8cce-856d1f9c0b6f",
+      "phase": "execute",
+      "progress": "8/8",
+      "effort": "standard",
+      "mode": "interactive",
+      "started": "2026-03-17T10:00:00Z",
+      "updatedAt": "2026-03-17T10:56:47.448Z",
+      "criteria": [
+        {
+          "id": "ISC-1",
+          "description": "`MediaStorage` protocol defined in `src/media.py` with save and url methods",
+          "type": "criterion",
+          "status": "completed"
+        },
+        {
+          "id": "ISC-2",
+          "description": "`LocalMediaStorage` class implements `MediaStorage` protocol",
+          "type": "criterion",
+          "status": "completed"
+        },
+        {
+          "id": "ISC-3",
+          "description": "`LocalMediaStorage.save()` writes bytes to `media/` directory with unique filename",
+          "type": "criterion",
+          "status": "completed"
+        },
+        {
+          "id": "ISC-4",
+          "description": "`LocalMediaStorage.url()` returns serving path for a stored file",
+          "type": "criterion",
+          "status": "completed"
+        },
+        {
+          "id": "ISC-5",
+          "description": "Config fields `media_storage_dir` and `media_base_url` added to Settings",
+          "type": "criterion",
+          "status": "completed"
+        },
+        {
+          "id": "ISC-6",
+          "description": "FastAPI mounts `media/` directory as static files",
+          "type": "criterion",
+          "status": "completed"
+        },
+        {
+          "id": "ISC-7",
+          "description": "Test verifies save writes file to disk and url resolves",
+          "type": "criterion",
+          "status": "completed"
+        },
+        {
+          "id": "ISC-8",
+          "description": "Test verifies static file serving returns saved content via HTTP",
+          "type": "criterion",
+          "status": "completed"
+        }
+      ],
+      "phaseHistory": [
+        {
+          "phase": "OBSERVE",
+          "startedAt": 1773744841777,
+          "criteriaCount": 8,
+          "agentCount": 0,
+          "completedAt": 1773744917212
+        },
+        {
+          "phase": "BUILD",
+          "startedAt": 1773744917212,
+          "criteriaCount": 8,
+          "agentCount": 0,
+          "completedAt": 1773744999643
+        },
+        {
+          "phase": "EXECUTE",
+          "startedAt": 1773744999643,
+          "criteriaCount": 8,
+          "agentCount": 0
+        }
+      ]
+    },
+    "20260317-100500_live-telegram-client": {
+      "prd": "/Users/zev/repos/noko/MEMORY/WORK/20260317-100500_live-telegram-client/PRD.md",
+      "task": "Implement LiveTelegramClient wrapping python-telegram-bot library",
+      "sessionName": "Implement Live Telegram Client",
+      "sessionUUID": "3435bf71-abd3-4938-9bf2-8e2d2c8535d7",
+      "phase": "verify",
+      "progress": "8/8",
+      "effort": "standard",
+      "mode": "interactive",
+      "started": "2026-03-17T10:05:00-07:00",
+      "updatedAt": "2026-03-17T10:56:35.287Z",
+      "criteria": [
+        {
+          "id": "ISC-1",
+          "description": "LiveTelegramClient class exists in src/bot/client.py",
+          "type": "criterion",
+          "status": "completed"
+        },
+        {
+          "id": "ISC-2",
+          "description": "LiveTelegramClient.__init__ accepts bot token string parameter",
+          "type": "criterion",
+          "status": "completed"
+        },
+        {
+          "id": "ISC-3",
+          "description": "LiveTelegramClient.send_message calls telegram.Bot.send_message",
+          "type": "criterion",
+          "status": "completed"
+        },
+        {
+          "id": "ISC-4",
+          "description": "LiveTelegramClient.send_inline_keyboard builds InlineKeyboardMarkup and sends",
+          "type": "criterion",
+          "status": "completed"
+        },
+        {
+          "id": "ISC-5",
+          "description": "get_telegram_client returns LiveTelegramClient when bot token non-empty",
+          "type": "criterion",
+          "status": "completed"
+        },
+        {
+          "id": "ISC-6",
+          "description": "get_telegram_client returns MockTelegramClient when bot token empty",
+          "type": "criterion",
+          "status": "completed"
+        },
+        {
+          "id": "ISC-7",
+          "description": "Existing test_bot_routing mock tests pass unchanged",
+          "type": "criterion",
+          "status": "completed"
+        },
+        {
+          "id": "ISC-8",
+          "description": "Existing test_outbound mock tests pass unchanged",
+          "type": "criterion",
+          "status": "completed"
+        }
+      ],
+      "phaseHistory": [
+        {
+          "phase": "OBSERVE",
+          "startedAt": 1773744851282,
+          "criteriaCount": 8,
+          "agentCount": 0,
+          "completedAt": 1773744907343
+        },
+        {
+          "phase": "THINK",
+          "startedAt": 1773744907343,
+          "criteriaCount": 8,
+          "agentCount": 0,
+          "completedAt": 1773744927676
+        },
+        {
+          "phase": "PLAN",
+          "startedAt": 1773744927676,
+          "criteriaCount": 8,
+          "agentCount": 0,
+          "completedAt": 1773744933074
+        },
+        {
+          "phase": "BUILD",
+          "startedAt": 1773744933074,
+          "criteriaCount": 8,
+          "agentCount": 0,
+          "completedAt": 1773744936161
+        },
+        {
+          "phase": "EXECUTE",
+          "startedAt": 1773744936161,
+          "criteriaCount": 8,
+          "agentCount": 0,
+          "completedAt": 1773744995287
+        },
+        {
+          "phase": "VERIFY",
+          "startedAt": 1773744995287,
+          "criteriaCount": 8,
+          "agentCount": 0
+        }
+      ]
+    },
+    "20260317-100000_standardize-di-singleton-pattern": {
+      "prd": "MEMORY/WORK/20260317-100000_standardize-di-singleton-pattern/PRD.md",
+      "task": "Standardize DI pattern for singletons across app",
+      "sessionName": "Standardize Dependency Injection Singletons",
+      "sessionUUID": "1961e813-32fa-44a3-bea6-b9013ac7213e",
+      "phase": "complete",
+      "progress": "8/8",
+      "effort": "standard",
+      "mode": "interactive",
+      "started": "2026-03-17T10:00:00-07:00",
+      "updatedAt": "2026-03-17T11:00:12.423Z",
+      "criteria": [
+        {
+          "id": "ISC-1",
+          "description": "Module-level `_client` singleton removed from client.py",
+          "type": "criterion",
+          "status": "completed"
+        },
+        {
+          "id": "ISC-2",
+          "description": "`get_telegram_client` accepts `Request` parameter",
+          "type": "criterion",
+          "status": "completed"
+        },
+        {
+          "id": "ISC-3",
+          "description": "`get_telegram_client` reads from `request.app.state.telegram_client`",
+          "type": "criterion",
+          "status": "completed"
+        },
+        {
+          "id": "ISC-4",
+          "description": "`create_app()` sets `app.state.telegram_client` (Mock or Live based on config)",
+          "type": "criterion",
+          "status": "completed"
+        },
+        {
+          "id": "ISC-5",
+          "description": "Router `Depends(get_telegram_client)` still injects correctly",
+          "type": "criterion",
+          "status": "completed"
+        },
+        {
+          "id": "ISC-6",
+          "description": "Test fixture `bot_client` updated — sets `app.state.telegram_client` directly",
+          "type": "criterion",
+          "status": "completed"
+        },
+        {
+          "id": "ISC-7",
+          "description": "All 33 bot routing tests pass, all other tests pass in isolation",
+          "type": "criterion",
+          "status": "completed"
+        },
+        {
+          "id": "ISC-8",
+          "description": "Both DI functions share identical `(request: Request) -> request.app.state.X` pattern",
+          "type": "criterion",
+          "status": "completed"
+        }
+      ],
+      "phaseHistory": [
+        {
+          "phase": "OBSERVE",
+          "startedAt": 1773744864813,
+          "criteriaCount": 8,
+          "agentCount": 0,
+          "completedAt": 1773744888840
+        },
+        {
+          "phase": "THINK",
+          "startedAt": 1773744888840,
+          "criteriaCount": 8,
+          "agentCount": 0,
+          "completedAt": 1773744904584
+        },
+        {
+          "phase": "PLAN",
+          "startedAt": 1773744904584,
+          "criteriaCount": 8,
+          "agentCount": 0,
+          "completedAt": 1773744915401
+        },
+        {
+          "phase": "BUILD",
+          "startedAt": 1773744915401,
+          "criteriaCount": 8,
+          "agentCount": 0,
+          "completedAt": 1773744926160
+        },
+        {
+          "phase": "EXECUTE",
+          "startedAt": 1773744926160,
+          "criteriaCount": 8,
+          "agentCount": 0,
+          "completedAt": 1773745187712
+        },
+        {
+          "phase": "VERIFY",
+          "startedAt": 1773745187712,
+          "criteriaCount": 8,
+          "agentCount": 0,
+          "completedAt": 1773745212423
+        },
+        {
+          "phase": "COMPLETE",
+          "startedAt": 1773745212423,
+          "criteriaCount": 8,
+          "agentCount": 0
+        }
+      ]
+    },
+    "20260317-115800_i-tend-to-spawn-multiple-tmux-sessions-w": {
+      "task": "i tend to spawn multiple tmux sessions working on the same branch, and it mostly works because I'm being somewhat strate",
+      "sessionName": "Tend Spawn Tmux Sessions",
+      "sessionUUID": "63478825-6c2d-43b4-83bd-1171c9c41917",
+      "phase": "native",
+      "progress": "0/0",
+      "effort": "native",
+      "mode": "native",
+      "started": "2026-03-17T10:58:52.357Z",
+      "updatedAt": "2026-03-17T10:58:52.357Z"
+    },
+    "20260317-120000_implement-live-telegram-client": {
+      "task": "Implement Live Telegram Client",
+      "sessionName": "Implement Live Telegram Client",
+      "sessionUUID": "3435bf71-abd3-4938-9bf2-8e2d2c8535d7",
+      "phase": "native",
+      "progress": "0/0",
+      "effort": "native",
+      "mode": "native",
+      "started": "2026-03-17T11:00:05.118Z",
+      "updatedAt": "2026-03-17T11:00:27.522Z"
+    },
+    "20260317-120000_implement-telegram-media-storage": {
+      "task": "Implement Telegram Media Storage",
+      "sessionName": "Implement Telegram Media Storage",
+      "sessionUUID": "cdf314b9-4113-4e42-8cce-856d1f9c0b6f",
+      "phase": "native",
+      "progress": "0/0",
+      "effort": "native",
+      "mode": "native",
+      "started": "2026-03-17T11:00:34.804Z",
+      "updatedAt": "2026-03-17T11:00:34.804Z"
+    }
+  }
+}

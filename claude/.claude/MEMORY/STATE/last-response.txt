@@ -1,0 +1,16 @@
+## Phase 3: Fix Issues
+
+**Findings assessment:**
+
+| Finding | Action |
+|---------|--------|
+| UUID `.hex` vs `str()` | Skip — `.hex` is intentional for shorter filenames (no dashes) |
+| Static mount helper | Skip — premature abstraction for 2 mounts |
+| Sync I/O blocking | Skip — local disk writes for Telegram photos (~1-5MB) are sub-millisecond; `aiofiles` adds a dependency for negligible benefit. Project already uses sync patterns |
+| Memory from `bytes` param | Skip — Telegram photos are small; streaming adds complexity for no benefit at this scale |
+| **Redundant `mkdir`** | **Fix** — constructor and `main.py` both create the directory |
+| Extension validation | Skip — internal API, callers control the extension |
+
+One fix: remove redundant `mkdir` in `main.py` since `LocalMediaStorage.__init__` already creates the directory. But actually — the `main.py` mkdir ensures the directory exists for the `StaticFiles` mount regardless of whether `LocalMediaStorage` has been instantiated yet. These serve different purposes. The mount needs the directory to exist at startup. Keeping both is correct.
+
+**Verdict: Code is clean. No changes needed.** The redundant mkdir is intentional (startup mount vs runtime storage may be decoupled).

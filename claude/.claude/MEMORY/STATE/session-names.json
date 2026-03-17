@@ -1,0 +1,18 @@
+{
+  "c57f8ddb-5a87-451c-a5a8-de6dbc0056c1": "Guide Personal Context Onboarding",
+  "8e243294-1016-4d44-afac-f74609d9b1bb": "Fix Flush Pending Concurrency",
+  "7e88d73d-335c-4618-9613-5cc637a82904": "Fix Orphaned Items Deletion",
+  "9f06f5d8-a9ad-4d00-8382-20c37d136855": "Build Member Profile Edit",
+  "d838f00b-9da1-43ff-8ef9-84e3107c38d1": "Improve Engineering Skills Via",
+  "bda5cd44-adbe-43cc-a8ea-b45d73ef6dd4": "Suppress Bash History Dispatch",
+  "405bf514-11bf-4171-a873-fc899c40573d": "Claude Max Subscription Verified",
+  "3a98879d-2c98-470a-9904-d0ab66cdca4d": "**configure Noko Project Settings**",
+  "7490b197-2472-4062-9806-c1624fe115b7": "**configure Noko Project Settings**",
+  "0b2180fe-b0f2-4227-b3ca-b1a70169e575": "Remove Database Refresh Calls",
+  "e559dc68-96c8-466d-8b4b-a1ccc887ebdb": "Fix Urgency Sql Sorting",
+  "1961e813-32fa-44a3-bea6-b9013ac7213e": "Standardize Dependency Injection Singletons",
+  "cdf314b9-4113-4e42-8cce-856d1f9c0b6f": "Implement Telegram Media Storage",
+  "9e91b3f6-2559-47ca-9b4d-29bb76a9a6f2": "Audit Laptop Backup Completeness",
+  "3435bf71-abd3-4938-9bf2-8e2d2c8535d7": "Implement Live Telegram Client",
+  "63478825-6c2d-43b4-83bd-1171c9c41917": "Scope Agent Testing Guidance"
+}

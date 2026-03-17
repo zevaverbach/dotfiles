@@ -1,0 +1,38 @@
+# Ephemeral / generated — don't track
+__store.db
+.DS_Store
+*.backup
+history.jsonl
+output.txt
+stats-cache.json
+mcp-needs-auth-cache.json
+
+# Directories with ephemeral or session data
+backups/
+cache/
+config/
+debug/
+file-history/
+paste-cache/
+plans/
+projects/
+session-env/
+sessions/
+shell-snapshots/
+statsig/
+tasks/
+telemetry/
+todos/
+
+# Secrets
+.env
+
+# Large install artifacts
+PAI-Install/
+
+# Vendor / reinstallable from PAI install
+plugins/
+skills/
+
+# Node dependencies
+node_modules/

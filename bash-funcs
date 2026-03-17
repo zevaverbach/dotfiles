@@ -53,6 +53,7 @@ alias gg='vi ~/.config/ghostty/config'
 alias bb='vi ~/.bashrc'
 alias ba='vi ~/.bash_functions'
 alias bs='vi ~/.bash_secret'
+alias rr='vi ~/repos/README/README.md'
 alias d='cd ~/Downloads && pwd'
 alias m='cd ~/repos/main && pwd'
 alias r='cd ~/repos && pwd'
@@ -265,4 +266,40 @@ function ccp() {
 # compile and run C program
 cr() {
     gcc "$1" && ./a.out
+}
+
+bws-get() {
+  if [ -z "$1" ]; then
+    echo "Usage: bws-get <KEY_NAME>"
+    return 1
+  fi
+  bws secret list | jq -r --arg k "$1" '.[] | select(.key==$k) | .value'
+}
+
+bws-set() {
+  if [ -z "$1" ] || [ -z "$2" ]; then
+    echo "Usage: bws-set <KEY_NAME> <NEW_VALUE>"
+    return 1
+  fi
+  local key="$1"
+  local value="$2"
+  local id
+  id=$(bws secret list | jq -r --arg k "$key" '.[] | select(.key==$k) | .id')
+
+  if [ -z "$id" ]; then
+    echo "Secret '$key' not found"
+    return 1
+  fi
+
+  bws secret edit "$id" --value "$value"
+  echo "Updated '$key'"
+}
+
+bws-list() {
+  bws secret list | jq -r '.[] | "\(.key)\t\(.id)"' | column -t
+}
+
+coco() {
+    repomix --copy -i "plans/TEST_PLAN*" .
+    { printf '%s\n\n\n\n' "Can you see any glaring flaws with this partially implemented application? I don't want any optimizations, just architectural or algorithmic choices that are bad/wrong or serious lurking bugs:"; pbpaste; } | pbcopy
 }

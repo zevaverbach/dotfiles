@@ -856,6 +856,16 @@ require('lazy').setup({
     end,
   },
   {
+    'stevearc/aerial.nvim',
+    dependencies = { 'nvim-treesitter/nvim-treesitter' },
+    opts = {
+      on_attach = function(bufnr)
+        vim.keymap.set('n', '[[', '<cmd>AerialPrev<CR>', { buffer = bufnr })
+        vim.keymap.set('n', ']]', '<cmd>AerialNext<CR>', { buffer = bufnr })
+      end,
+    },
+  },
+  {
     'nvim-treesitter/nvim-treesitter-textobjects',
     dependencies = { 'nvim-treesitter/nvim-treesitter' },
   },

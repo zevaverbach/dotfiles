@@ -1,0 +1,645 @@
+{
+  "claims": [
+    {
+      "claim_number": "CFW7954479",
+      "invoice_id": "12039295",
+      "submission_date": "2026-01-05",
+      "beneficiary": "Simon Alexander AVERBACH",
+      "service_date": "02/12/2025",
+      "provider": "Unilabs Coppet - Urgences Pédiatriques",
+      "description": "Lab tests (Diagnostic tests)",
+      "amount": 189.0,
+      "currency": "CHF",
+      "emergency": true,
+      "emergency_details": {
+        "nature": "Medical emergency",
+        "place": "Urgences Pédiatriques Cité Général, Route de Chancy 98-100, 1213 Onex",
+        "circumstances": "Multiple persistent coughing fits, trouble breathing without coughing."
+      },
+      "paid": true,
+      "attachments": [
+        "~/Downloads/bills/submitted/CFW7954479.jpeg"
+      ],
+      "status": "submitted",
+      "reimbursement": {
+        "status": "paid",
+        "amount_reimbursed": 179.55,
+        "reimbursement_date": "2026-01-07",
+        "notes": "⚠ Emergency claim reimbursed at 95% (179.55 CHF) instead of 100% (189.00 CHF). MSH applied standard 5% co-pay (9.45 CHF) - emergency rate may only apply to ER visits, not follow-up lab tests."
+      }
+    },
+    {
+      "claim_number": "CFW7954704",
+      "invoice_id": "scan26010509130",
+      "submission_date": "2026-01-05",
+      "beneficiary": "Simon Alexander AVERBACH",
+      "service_date": "13/11/2025",
+      "provider": "Centre Dentaire Chêne-Bourg",
+      "description": "Orthodontic treatment",
+      "amount": 341.3,
+      "currency": "CHF",
+      "emergency": false,
+      "paid": true,
+      "attachments": [
+        "~/Downloads/bills/submitted/CFW7954704.pdf"
+      ],
+      "status": "submitted",
+      "reimbursement": {
+        "status": "paid",
+        "amount_reimbursed": 324.24,
+        "reimbursement_date": "2026-01-07",
+        "notes": ""
+      }
+    },
+    {
+      "claim_number": "CFW7954873",
+      "invoice_id": "12008744",
+      "submission_date": "2026-01-05",
+      "beneficiary": "Abigail AVERBACH",
+      "service_date": "20/11/2025",
+      "provider": "Unilabs Coppet",
+      "description": "Lab tests (Diagnostic tests)",
+      "amount": 199.4,
+      "currency": "CHF",
+      "emergency": false,
+      "paid": true,
+      "attachments": [
+        "~/Downloads/bills/submitted/CFW7954873.pdf"
+      ],
+      "status": "submitted",
+      "reimbursement": {
+        "status": "paid",
+        "amount_reimbursed": 189.43,
+        "reimbursement_date": "2026-01-07",
+        "notes": ""
+      }
+    },
+    {
+      "claim_number": "CFW7955164",
+      "invoice_id": "F_3182100400",
+      "submission_date": "2026-01-05",
+      "beneficiary": "Sylvia Hannah AVERBACH",
+      "service_date": "11/11/2025",
+      "provider": "Dr. Maneff",
+      "description": "Paediatrician (Outpatient consultations)",
+      "amount": 321.7,
+      "currency": "CHF",
+      "emergency": false,
+      "paid": true,
+      "attachments": [
+        "~/Downloads/bills/submitted/CFW7955164.pdf"
+      ],
+      "status": "submitted",
+      "reimbursement": {
+        "status": "paid",
+        "amount_reimbursed": 132.91,
+        "reimbursement_date": "2026-01-07",
+        "notes": "⚠ Partial reimbursement: MSH notice shows services for August (139.90 CHF at 95% = 132.91 CHF), not the full invoice amount (321.70 CHF). May indicate only part of invoice was submitted or processed."
+      }
+    },
+    {
+      "claim_number": "CFW7955311",
+      "invoice_id": "0117164491",
+      "submission_date": "2026-01-05",
+      "beneficiary": "Sylvia Hannah AVERBACH",
+      "service_date": "24/11/2025",
+      "provider": "Dianalabs",
+      "description": "Lab tests (Diagnostic tests)",
+      "amount": 47.7,
+      "currency": "CHF",
+      "emergency": false,
+      "paid": true,
+      "attachments": [
+        "~/Downloads/bills/submitted/CFW7955311.jpeg"
+      ],
+      "status": "submitted",
+      "reimbursement": {
+        "status": "paid",
+        "amount_reimbursed": 45.32,
+        "reimbursement_date": "2026-01-05",
+        "notes": ""
+      }
+    },
+    {
+      "claim_number": "CFW7955723",
+      "invoice_id": "14392",
+      "submission_date": "2026-01-05",
+      "beneficiary": "Zev AVERBACH",
+      "service_date": "08/12/2025",
+      "provider": "Dr A. Bérard & Dr T-M. Nguyen & Dr S. Torres",
+      "description": "Dental Check-up (Dental care)",
+      "amount": 459.2,
+      "currency": "CHF",
+      "emergency": false,
+      "paid": true,
+      "attachments": [
+        "~/Downloads/bills/submitted/CFW7955723.jpeg"
+      ],
+      "status": "submitted",
+      "reimbursement": {
+        "status": "paid",
+        "amount_reimbursed": 436.24,
+        "reimbursement_date": "2026-01-07",
+        "notes": ""
+      }
+    },
+    {
+      "claim_number": "CFW7961716",
+      "invoice_id": "359845-100600",
+      "submission_date": "2026-01-06",
+      "beneficiary": "Simon Alexander AVERBACH",
+      "service_date": "15/12/2025",
+      "provider": "Dr. FAUNDEZ Tamara (Clinique et Permanence d'Onex)",
+      "description": "G.P office visit (Outpatient consultations)",
+      "amount": 180.5,
+      "currency": "CHF",
+      "emergency": false,
+      "paid": true,
+      "attachments": [
+        "~/Downloads/bills/submitted/CFW7961716.pdf"
+      ],
+      "status": "submitted",
+      "reimbursement": {
+        "status": "paid",
+        "amount_reimbursed": 171.47,
+        "reimbursement_date": "2026-01-10",
+        "notes": ""
+      }
+    },
+    {
+      "claim_number": "CFW7961722",
+      "invoice_id": "365188-100800",
+      "submission_date": "2026-01-06",
+      "beneficiary": "August Winston Chester AVERBACH",
+      "service_date": "28/12/2025",
+      "provider": "Dr. FAUNDEZ Tamara (Clinique et Permanence d'Onex)",
+      "description": "G.P office visit (Outpatient consultations)",
+      "amount": 30.9,
+      "currency": "CHF",
+      "emergency": false,
+      "paid": true,
+      "attachments": [
+        "~/Downloads/bills/submitted/CFW7961722.jpeg"
+      ],
+      "status": "submitted",
+      "reimbursement": {
+        "status": "rejected",
+        "amount_reimbursed": 0.0,
+        "reimbursement_date": "2026-01-08",
+        "reimbursement_number": "CH260000873",
+        "notes": "REJECTED - Insufficient documentation: 'Please provide us with the itemized invoices (description of medical procedures). Receipts of payment are not sufficient proof.'"
+      }
+    },
+    {
+      "claim_number": "CFW7961735",
+      "invoice_id": "4.39.759.912",
+      "submission_date": "2026-01-06",
+      "beneficiary": "Abigail AVERBACH",
+      "service_date": "03/11/2025",
+      "provider": "Centre Médical Bachet de Pesay (Psychologue)",
+      "description": "Psychologist (Therapists)",
+      "amount": 193.5,
+      "currency": "CHF",
+      "emergency": false,
+      "paid": true,
+      "attachments": [
+        "~/Downloads/bills/submitted/CFW7961735.jpeg"
+      ],
+      "status": "submitted",
+      "reimbursement": {
+        "status": "rejected",
+        "amount_reimbursed": 0.0,
+        "reimbursement_date": "2026-01-10",
+        "reimbursement_number": "CH260000877",
+        "notes": "REJECTED - Missing attachment: 'Please send us a copy of the invoice that you forgot to attach.'"
+      }
+    },
+    {
+      "claim_number": "CFW7961778",
+      "invoice_id": "F_3180100200",
+      "submission_date": "2026-01-06",
+      "beneficiary": "August Winston Chester AVERBACH",
+      "service_date": "20/11/2025",
+      "provider": "Dre Christina Maneff - Spécialiste FMH en pédiatrie",
+      "description": "Paediatrician (Outpatient consultations)",
+      "amount": 139.9,
+      "currency": "CHF",
+      "emergency": false,
+      "paid": true,
+      "attachments": [
+        "~/Downloads/bills/submitted/CFW7961778.pdf"
+      ],
+      "status": "submitted",
+      "reimbursement": {
+        "status": "cancelled",
+        "amount_reimbursed": null,
+        "reimbursement_date": null,
+        "notes": "Claim was cancelled on 2026-01-07"
+      }
+    },
+    {
+      "claim_number": "CFW7961782",
+      "invoice_id": "F_3181100200",
+      "submission_date": "2026-01-06",
+      "beneficiary": "Simon Alexander AVERBACH",
+      "service_date": "20/11/2025",
+      "provider": "Dre Christina Maneff - Spécialiste FMH en pédiatrie",
+      "description": "Paediatrician (Outpatient consultations)",
+      "amount": 238.15,
+      "currency": "CHF",
+      "emergency": false,
+      "paid": true,
+      "attachments": [
+        "~/Downloads/bills/submitted/CFW7961782.pdf"
+      ],
+      "status": "submitted",
+      "reimbursement": {
+        "status": "paid",
+        "amount_reimbursed": 226.25,
+        "reimbursement_date": "2026-01-10",
+        "notes": ""
+      }
+    },
+    {
+      "claim_number": "CFW7961795",
+      "invoice_id": "14391",
+      "submission_date": "2026-01-06",
+      "beneficiary": "August Winston Chester AVERBACH",
+      "service_date": "08/12/2025",
+      "provider": "Dr A. Bérard & Dr T-M. Nguyen & Dr S. Torres",
+      "description": "Dental Check-up (Dental care)",
+      "amount": 530.9,
+      "currency": "CHF",
+      "emergency": false,
+      "paid": true,
+      "attachments": [
+        "~/Downloads/bills/submitted/CFW7961795.pdf"
+      ],
+      "status": "submitted",
+      "reimbursement": {
+        "status": "paid",
+        "amount_reimbursed": 504.36,
+        "reimbursement_date": "2026-01-12",
+        "reimbursement_number": "CH260000883",
+        "notes": ""
+      }
+    },
+    {
+      "claim_number": "CFW7961805",
+      "invoice_id": "14055",
+      "submission_date": "2026-01-06",
+      "beneficiary": "Simon Alexander AVERBACH",
+      "service_date": "31/10/2025",
+      "provider": "Dr A. Bérard & Dr T-M. Nguyen & Dr S. Torres",
+      "description": "Dental Check-up (Dental care)",
+      "amount": 110.4,
+      "currency": "CHF",
+      "emergency": false,
+      "paid": true,
+      "attachments": [
+        "~/Downloads/bills/submitted/CFW7961805.pdf"
+      ],
+      "status": "submitted",
+      "reimbursement": {
+        "status": "paid",
+        "amount_reimbursed": 104.88,
+        "reimbursement_date": "2026-01-08",
+        "notes": ""
+      }
+    },
+    {
+      "claim_number": "CFW7961812",
+      "invoice_id": "14132",
+      "submission_date": "2026-01-06",
+      "beneficiary": "Sylvia Hannah AVERBACH",
+      "service_date": "31/10/2025",
+      "provider": "Dr A. Bérard & Dr T-M. Nguyen & Dr S. Torres",
+      "description": "Dental Check-up (Dental care)",
+      "amount": 110.4,
+      "currency": "CHF",
+      "emergency": false,
+      "paid": true,
+      "attachments": [
+        "~/Downloads/bills/submitted/CFW7961812.pdf"
+      ],
+      "status": "submitted",
+      "reimbursement": {
+        "status": "paid",
+        "amount_reimbursed": 104.88,
+        "reimbursement_date": "2026-01-06",
+        "notes": ""
+      }
+    },
+    {
+      "claim_number": "CFW7961821",
+      "invoice_id": "32723",
+      "submission_date": "2026-01-06",
+      "beneficiary": "Abigail AVERBACH",
+      "service_date": "25/08/2025",
+      "provider": "Medbase Pont-Rouge",
+      "description": "G.P office visit (Outpatient consultations)",
+      "amount": 91.25,
+      "currency": "CHF",
+      "emergency": false,
+      "paid": true,
+      "attachments": [
+        "~/Downloads/bills/submitted/CFW7961821.pdf"
+      ],
+      "status": "submitted",
+      "reimbursement": {
+        "status": "paid",
+        "amount_reimbursed": 86.69,
+        "reimbursement_date": "2026-01-08",
+        "notes": ""
+      }
+    },
+    {
+      "claim_number": "CFW7961835",
+      "invoice_id": "PP-6386-13259-225052084",
+      "submission_date": "2026-01-06",
+      "beneficiary": "Sylvia Hannah AVERBACH",
+      "service_date": "11/12/2025",
+      "provider": "Centre Dentaire Chêne-Bourg",
+      "description": "Dental Check-up (Dental care)",
+      "amount": 223.1,
+      "currency": "CHF",
+      "emergency": false,
+      "paid": true,
+      "attachments": [
+        "~/Downloads/bills/submitted/CFW7961835.jpeg"
+      ],
+      "status": "submitted",
+      "reimbursement": {
+        "status": "paid",
+        "amount_reimbursed": 211.95,
+        "reimbursement_date": "2026-01-10",
+        "notes": ""
+      }
+    },
+    {
+      "claim_number": "CFW7961849",
+      "invoice_id": "4 39 667 791",
+      "submission_date": "2026-01-06",
+      "beneficiary": "Simon Alexander AVERBACH",
+      "service_date": "13/11/2025",
+      "provider": "Caisse des Médecins - Docteur Samuel Hardy (Ophthalmologist)",
+      "description": "Eye specialist (Outpatient consultations)",
+      "amount": 282.0,
+      "currency": "CHF",
+      "emergency": false,
+      "paid": true,
+      "attachments": [
+        "~/Downloads/bills/submitted/CFW7961849.pdf"
+      ],
+      "status": "submitted",
+      "reimbursement": {
+        "status": "paid",
+        "amount_reimbursed": 267.9,
+        "reimbursement_date": "2026-01-10",
+        "notes": ""
+      }
+    },
+    {
+      "claim_number": "CFW7961866",
+      "invoice_id": "PP-6386-13260-225052762",
+      "submission_date": "2026-01-06",
+      "beneficiary": "Simon Alexander AVERBACH",
+      "service_date": "23/12/2025",
+      "provider": "Centre Dentaire Chêne-Bourg",
+      "description": "Orthodontic treatment (Dental care)",
+      "amount": 327.7,
+      "currency": "CHF",
+      "emergency": false,
+      "paid": true,
+      "attachments": [
+        "~/Downloads/bills/submitted/CFW7961866.jpeg"
+      ],
+      "status": "submitted",
+      "reimbursement": {
+        "status": "paid",
+        "amount_reimbursed": 311.32,
+        "reimbursement_date": "2026-01-10",
+        "notes": ""
+      }
+    },
+    {
+      "claim_number": "CFW7962102",
+      "invoice_id": "4_39_667_789",
+      "submission_date": "2026-01-06",
+      "beneficiary": "Abigail AVERBACH",
+      "service_date": "30/10/2025",
+      "provider": "CAISSE DES MEDECINES GENEVE",
+      "description": "G.P office visit (Outpatient consultations)",
+      "amount": 326.75,
+      "currency": "CHF",
+      "emergency": false,
+      "paid": true,
+      "attachments": [
+        "~/Downloads/bills/submitted/CFW7962102.pdf"
+      ],
+      "status": "submitted",
+      "reimbursement": {
+        "status": "paid",
+        "amount_reimbursed": 310.42,
+        "reimbursement_date": "2026-01-10",
+        "notes": ""
+      }
+    },
+    {
+      "claim_number": "CFW8030257",
+      "invoice_id": "descombes_dec2025",
+      "submission_date": "2026-01-25",
+      "beneficiary": "Zev AVERBACH",
+      "service_date": "11/12/2025",
+      "provider": "Dr. Marc Descombes (Psychotherapy)",
+      "description": "Psychotherapist (Therapists)",
+      "amount": 600.0,
+      "currency": "CHF",
+      "emergency": false,
+      "paid": true,
+      "attachments": [
+        "~/Downloads/bills/submitted/CFW8030257.pdf"
+      ],
+      "status": "submitted",
+      "reimbursement": {
+        "status": "pending",
+        "amount_reimbursed": null,
+        "reimbursement_date": null,
+        "notes": ""
+      }
+    },
+    {
+      "claim_number": "CFW8030265",
+      "invoice_id": "maneff_simon",
+      "submission_date": "2026-01-25",
+      "beneficiary": "Simon Alexander AVERBACH",
+      "service_date": "02/12/2025",
+      "provider": "Dre Christina Maneff - Spécialiste FMH en pédiatrie",
+      "description": "Paediatrician (Outpatient consultations)",
+      "amount": 17.85,
+      "currency": "CHF",
+      "emergency": false,
+      "paid": true,
+      "attachments": [
+        "~/Downloads/bills/submitted/CFW8030265.pdf"
+      ],
+      "status": "submitted",
+      "reimbursement": {
+        "status": "pending",
+        "amount_reimbursed": null,
+        "reimbursement_date": null,
+        "notes": ""
+      }
+    },
+    {
+      "claim_number": "CFW8030284",
+      "invoice_id": "maneff_august",
+      "submission_date": "2026-01-25",
+      "beneficiary": "August Winston Chester AVERBACH",
+      "service_date": "11/12/2025",
+      "provider": "Dre Christina Maneff - Spécialiste FMH en pédiatrie",
+      "description": "Paediatrician (Outpatient consultations)",
+      "amount": 110.90,
+      "currency": "CHF",
+      "emergency": false,
+      "paid": true,
+      "attachments": [
+        "~/Downloads/bills/submitted/CFW8030284.pdf"
+      ],
+      "status": "submitted",
+      "reimbursement": {
+        "status": "pending",
+        "amount_reimbursed": null,
+        "reimbursement_date": null,
+        "notes": ""
+      }
+    },
+    {
+      "claim_number": "CFW8030294",
+      "invoice_id": "centre_dentaire_sylvia",
+      "submission_date": "2026-01-25",
+      "beneficiary": "Sylvia Hannah AVERBACH",
+      "service_date": "30/12/2025",
+      "provider": "Centre Dentaire Chêne-Bourg - Guillaume GOMEZ",
+      "description": "Dental Check-up (Dental care)",
+      "amount": 1846.20,
+      "currency": "CHF",
+      "emergency": false,
+      "paid": true,
+      "attachments": [
+        "~/Downloads/bills/submitted/CFW8030294.pdf"
+      ],
+      "status": "submitted",
+      "reimbursement": {
+        "status": "pending",
+        "amount_reimbursed": null,
+        "reimbursement_date": null,
+        "notes": ""
+      }
+    },
+    {
+      "claim_number": "CFW8030347",
+      "invoice_id": "descombes_oct2025",
+      "submission_date": "2026-01-25",
+      "beneficiary": "Zev AVERBACH",
+      "service_date": "28/10/2025",
+      "provider": "Dr. Marc Descombes (Psychotherapy)",
+      "description": "Psychotherapist (Therapists)",
+      "amount": 600.0,
+      "currency": "CHF",
+      "emergency": false,
+      "paid": true,
+      "attachments": [
+        "~/Downloads/bills/submitted/CFW8030347.pdf"
+      ],
+      "status": "submitted",
+      "reimbursement": {
+        "status": "pending",
+        "amount_reimbursed": null,
+        "reimbursement_date": null,
+        "notes": ""
+      }
+    },
+    {
+      "claim_number": "CFW8030371",
+      "invoice_id": "365188-100800-resubmit",
+      "submission_date": "2026-01-25",
+      "beneficiary": "August Winston Chester AVERBACH",
+      "service_date": "28/12/2025",
+      "provider": "Dr. FAUNDEZ Tamara (Clinique et Permanence d'Onex)",
+      "description": "G.P office visit (Outpatient consultations)",
+      "amount": 30.89,
+      "currency": "CHF",
+      "emergency": false,
+      "paid": true,
+      "attachments": [
+        "~/Downloads/IMG_1059_compressed.jpeg"
+      ],
+      "status": "submitted",
+      "reimbursement": {
+        "status": "pending",
+        "amount_reimbursed": null,
+        "reimbursement_date": null,
+        "notes": "Resubmission of CFW7961722 with itemized invoice"
+      },
+      "previous_claim": "CFW7961722"
+    },
+    {
+      "claim_number": "CFW8030381",
+      "invoice_id": "4.39.759.912-resubmit",
+      "submission_date": "2026-01-25",
+      "beneficiary": "Abigail AVERBACH",
+      "service_date": "03/11/2025",
+      "provider": "Centre Médical Bachet de Pesay (Psychologue)",
+      "description": "Psychologist (Therapists)",
+      "amount": 193.5,
+      "currency": "CHF",
+      "emergency": false,
+      "paid": true,
+      "attachments": [
+        "~/Downloads/IMG_1058_compressed.jpeg"
+      ],
+      "status": "submitted",
+      "reimbursement": {
+        "status": "pending",
+        "amount_reimbursed": null,
+        "reimbursement_date": null,
+        "notes": "Resubmission of CFW7961735 with proper invoice attachment"
+      },
+      "previous_claim": "CFW7961735"
+    },
+    {
+      "claim_number": "CFW8030537",
+      "invoice_id": "F_3182100400-resubmit",
+      "submission_date": "2026-01-25",
+      "beneficiary": "Sylvia Hannah AVERBACH",
+      "service_date": "11/11/2025",
+      "provider": "Dre Christina Maneff - Spécialiste FMH en pédiatrie",
+      "description": "Paediatrician (Outpatient consultations)",
+      "amount": 321.70,
+      "currency": "CHF",
+      "emergency": false,
+      "paid": true,
+      "attachments": [
+        "~/Downloads/bills/submitted/CFW8030537.pdf"
+      ],
+      "status": "submitted",
+      "reimbursement": {
+        "status": "pending",
+        "amount_reimbursed": null,
+        "reimbursement_date": null,
+        "notes": "Resubmission of CFW7955164 - original claim was incorrectly processed by MSH (only reimbursed 132.91 CHF for August's services instead of full 321.70 CHF for Sylvia)"
+      },
+      "previous_claim": "CFW7955164"
+    }
+  ],
+  "metadata": {
+    "last_updated": "2026-01-25T15:30:00.000000Z",
+    "total_claims": 27,
+    "total_submitted_amount": 8064.69,
+    "pending_claims": 8,
+    "reimbursed_claims": 16,
+    "rejected_claims": 2,
+    "outstanding_amount": 3721.04
+  }
+}
