@@ -1,0 +1,391 @@
+[
+  {
+    "name": "Read",
+    "input": {
+      "file_path": "/Users/zev/.claude/CLAUDE.md"
+    },
+    "timestamp": "2026-03-17T10:53:52.500Z"
+  },
+  {
+    "name": "Read",
+    "input": {
+      "file_path": "/Users/zev/repos/noko/src/bot/client.py"
+    },
+    "timestamp": "2026-03-17T10:53:53.257Z"
+  },
+  {
+    "name": "Read",
+    "input": {
+      "file_path": "/Users/zev/.claude/PAI/USER/AISTEERINGRULES.md"
+    },
+    "timestamp": "2026-03-17T10:53:53.337Z"
+  },
+  {
+    "name": "Read",
+    "input": {
+      "file_path": "/Users/zev/.claude/PAI/Algorithm/v3.7.0.md"
+    },
+    "timestamp": "2026-03-17T10:53:57.115Z"
+  },
+  {
+    "name": "Bash",
+    "input": {
+      "command": "curl -s -X POST http://localhost:8888/notify -H \"Content-Type: application/json\" -d '{\"message\": \"Entering the Algorithm\", \"voice_id\": \"fTtv3eikoepIosk8dTZ5\", \"voice_enabled\": true}'",
+      "description": "Voice announcement for Algorithm entry"
+    },
+    "timestamp": "2026-03-17T10:54:06.737Z"
+  },
+  {
+    "name": "Bash",
+    "input": {
+      "command": "mkdir -p /Users/zev/repos/noko/MEMORY/WORK/20260317-100500_live-telegram-client",
+      "description": "Create PRD directory"
+    },
+    "timestamp": "2026-03-17T10:54:08.016Z"
+  },
+  {
+    "name": "Write",
+    "input": {
+      "file_path": "/Users/zev/repos/noko/MEMORY/WORK/20260317-100500_live-telegram-client/PRD.md",
+      "content": "---\ntask: Implement LiveTelegramClient wrapping python-telegram-bot library\nslug: 20260317-100500_live-telegram-client\neffort: standard\nphase: observe\nprogress: 0/0\nmode: interactive\nstarted: 2026-03-17T10:05:00-07:00\nupdated: 2026-03-17T10:05:00-07:00\n---\n"
+    },
+    "timestamp": "2026-03-17T10:54:11.171Z"
+  },
+  {
+    "name": "Grep",
+    "input": {
+      "pattern": "telegram|bot_token|TELEGRAM",
+      "-i": true,
+      "path": "/Users/zev/repos/noko/src"
+    },
+    "timestamp": "2026-03-17T10:54:14.521Z"
+  },
+  {
+    "name": "Grep",
+    "input": {
+      "pattern": "telegram|client",
+      "-i": true,
+      "path": "/Users/zev/repos/noko/tests"
+    },
+    "timestamp": "2026-03-17T10:54:14.990Z"
+  },
+  {
+    "name": "Grep",
+    "input": {
+      "pattern": "LiveTelegramClient|live.*telegram",
+      "-i": true,
+      "path": "/Users/zev/repos/noko/plans"
+    },
+    "timestamp": "2026-03-17T10:54:15.916Z"
+  },
+  {
+    "name": "Read",
+    "input": {
+      "file_path": "/Users/zev/repos/noko/src/config.py"
+    },
+    "timestamp": "2026-03-17T10:54:16.206Z"
+  },
+  {
+    "name": "Read",
+    "input": {
+      "file_path": "/Users/zev/repos/noko/src/bot/outbound.py"
+    },
+    "timestamp": "2026-03-17T10:54:19.584Z"
+  },
+  {
+    "name": "Grep",
+    "input": {
+      "pattern": "LiveTelegramClient|live.telegram|telegram.*client",
+      "-i": true,
+      "path": "/Users/zev/repos/noko/plans/TODO.md",
+      "output_mode": "content",
+      "-C": 2
+    },
+    "timestamp": "2026-03-17T10:54:20.957Z"
+  },
+  {
+    "name": "Grep",
+    "input": {
+      "pattern": "LiveTelegramClient|live.telegram|telegram.*client",
+      "-i": true,
+      "path": "/Users/zev/repos/noko/plans/PROJECT_MANAGER.md",
+      "output_mode": "content",
+      "-C": 2
+    },
+    "timestamp": "2026-03-17T10:54:21.843Z"
+  },
+  {
+    "name": "Bash",
+    "input": {
+      "command": "grep -n \"python-telegram-bot\\|telegram\" pyproject.toml 2>/dev/null || echo \"No pyproject.toml match\"",
+      "description": "Check if python-telegram-bot is in dependencies"
+    },
+    "timestamp": "2026-03-17T10:54:23.370Z"
+  },
+  {
+    "name": "Grep",
+    "input": {
+      "pattern": "MockTelegramClient|get_telegram_client|telegram_client",
+      "path": "/Users/zev/repos/noko/tests",
+      "output_mode": "content",
+      "-C": 2
+    },
+    "timestamp": "2026-03-17T10:54:26.825Z"
+  },
+  {
+    "name": "Bash",
+    "input": {
+      "command": "curl -s -X POST http://localhost:8888/notify -H \"Content-Type: application/json\" -d '{\"message\": \"Entering the Observe phase.\", \"voice_id\": \"fTtv3eikoepIosk8dTZ5\", \"voice_enabled\": true}'",
+      "description": "Voice announcement for Observe phase"
+    },
+    "timestamp": "2026-03-17T10:54:31.447Z"
+  },
+  {
+    "name": "Read",
+    "input": {
+      "file_path": "/Users/zev/repos/noko/MEMORY/WORK/20260317-100500_live-telegram-client/PRD.md"
+    },
+    "timestamp": "2026-03-17T10:54:46.306Z"
+  },
+  {
+    "name": "Write",
+    "input": {
+      "file_path": "/Users/zev/repos/noko/MEMORY/WORK/20260317-100500_live-telegram-client/PRD.md",
+      "content": "---\ntask: Implement LiveTelegramClient wrapping python-telegram-bot library\nslug: 20260317-100500_live-telegram-client\neffort: standard\nphase: observe\nprogress: 0/8\nmode: interactive\nstarted: 2026-03-17T10:05:00-07:00\nupdated: 2026-03-17T10:05:30-07:00\n---\n\n## Context\n\nNoko's bot module uses a Protocol-based `TelegramClient` abstraction with a `MockTelegramClient` for tests. The production `LiveTelegramClient` wrapping `python-telegram-bot` v21+ has not been implemented yet. The factory function `get_telegram_client()` currently always returns a mock. This task adds the live implementation and updates the factory to return it when `telegram_bot_token` is configured.\n\n### Risks\n- Importing `telegram` at module level could slow test startup or fail if not installed\n- Changing `get_telegram_client` signature could break DI overrides in tests\n\n## Criteria\n\n- [ ] ISC-1: LiveTelegramClient class exists in src/bot/client.py\n- [ ] ISC-2: LiveTelegramClient.__init__ accepts bot token string parameter\n- [ ] ISC-3: LiveTelegramClient.send_message calls telegram.Bot.send_message\n- [ ] ISC-4: LiveTelegramClient.send_inline_keyboard builds InlineKeyboardMarkup and sends\n- [ ] ISC-5: get_telegram_client returns LiveTelegramClient when bot token non-empty\n- [ ] ISC-6: get_telegram_client returns MockTelegramClient when bot token empty\n- [ ] ISC-7: Existing test_bot_routing mock tests pass unchanged\n- [ ] ISC-8: Existing test_outbound mock tests pass unchanged\n\n## Decisions\n\n## Verification\n"
+    },
+    "timestamp": "2026-03-17T10:54:57.775Z"
+  },
+  {
+    "name": "Bash",
+    "input": {
+      "command": "curl -s -X POST http://localhost:8888/notify -H \"Content-Type: application/json\" -d '{\"message\": \"Entering the Think phase.\", \"voice_id\": \"fTtv3eikoepIosk8dTZ5\", \"voice_enabled\": true}'",
+      "description": "Voice announcement for Think phase"
+    },
+    "timestamp": "2026-03-17T10:55:03.904Z"
+  },
+  {
+    "name": "Edit",
+    "input": {
+      "replace_all": false,
+      "file_path": "/Users/zev/repos/noko/MEMORY/WORK/20260317-100500_live-telegram-client/PRD.md",
+      "old_string": "phase: observe",
+      "new_string": "phase: think"
+    },
+    "timestamp": "2026-03-17T10:55:07.209Z"
+  },
+  {
+    "name": "Bash",
+    "input": {
+      "command": "uv run python -c \"import telegram; print(telegram.__version__); b = telegram.Bot('test'); print(type(b))\"",
+      "description": "Check telegram library version and Bot API"
+    },
+    "timestamp": "2026-03-17T10:55:14.718Z"
+  },
+  {
+    "name": "Bash",
+    "input": {
+      "command": "uv run python -c \"from telegram import InlineKeyboardButton, InlineKeyboardMarkup; print('InlineKeyboardButton OK'); print('InlineKeyboardMarkup OK')\"",
+      "description": "Verify InlineKeyboard imports exist"
+    },
+    "timestamp": "2026-03-17T10:55:19.173Z"
+  },
+  {
+    "name": "Bash",
+    "input": {
+      "command": "curl -s -X POST http://localhost:8888/notify -H \"Content-Type: application/json\" -d '{\"message\": \"Entering the Plan phase.\", \"voice_id\": \"fTtv3eikoepIosk8dTZ5\", \"voice_enabled\": true}'",
+      "description": "Voice announcement for Plan phase"
+    },
+    "timestamp": "2026-03-17T10:55:23.745Z"
+  },
+  {
+    "name": "Edit",
+    "input": {
+      "replace_all": false,
+      "file_path": "/Users/zev/repos/noko/MEMORY/WORK/20260317-100500_live-telegram-client/PRD.md",
+      "old_string": "phase: think",
+      "new_string": "phase: plan"
+    },
+    "timestamp": "2026-03-17T10:55:27.543Z"
+  },
+  {
+    "name": "Edit",
+    "input": {
+      "replace_all": false,
+      "file_path": "/Users/zev/repos/noko/MEMORY/WORK/20260317-100500_live-telegram-client/PRD.md",
+      "old_string": "phase: plan",
+      "new_string": "phase: build"
+    },
+    "timestamp": "2026-03-17T10:55:32.943Z"
+  },
+  {
+    "name": "Edit",
+    "input": {
+      "replace_all": false,
+      "file_path": "/Users/zev/repos/noko/MEMORY/WORK/20260317-100500_live-telegram-client/PRD.md",
+      "old_string": "phase: build",
+      "new_string": "phase: execute"
+    },
+    "timestamp": "2026-03-17T10:55:35.982Z"
+  },
+  {
+    "name": "Read",
+    "input": {
+      "file_path": "/Users/zev/repos/noko/src/bot/client.py"
+    },
+    "timestamp": "2026-03-17T10:55:38.301Z"
+  },
+  {
+    "name": "Grep",
+    "input": {
+      "pattern": "telegram_client",
+      "path": "/Users/zev/repos/noko/src/main.py",
+      "output_mode": "content",
+      "-C": 3
+    },
+    "timestamp": "2026-03-17T10:55:43.694Z"
+  },
+  {
+    "name": "Edit",
+    "input": {
+      "replace_all": false,
+      "file_path": "/Users/zev/repos/noko/src/bot/client.py",
+      "old_string": "\"\"\"Telegram client abstraction.\"\"\"\n\nfrom typing import Protocol\n\nfrom fastapi import Request\n\n\nclass TelegramClient(Protocol):\n    async def send_message(self, chat_id: str, text: str) -> None: ...\n    async def send_inline_keyboard(self, chat_id: str, text: str, buttons: list[list[dict]]) -> None: ...\n\n\nclass MockTelegramClient:\n    \"\"\"Records sent messages for test inspection.\"\"\"\n\n    def __init__(self):\n        self.messages: list[dict] = []\n        self.keyboards: list[dict] = []\n\n    async def send_message(self, chat_id: str, text: str) -> None:\n        self.messages.append({\"chat_id\": chat_id, \"text\": text})\n\n    async def send_inline_keyboard(self, chat_id: str, text: str, buttons: list[list[dict]]) -> None:\n        self.keyboards.append({\"chat_id\": chat_id, \"text\": text, \"buttons\": buttons})\n\n\ndef get_telegram_client(request: Request) -> TelegramClient:\n    return request.app.state.telegram_client",
+      "new_string": "\"\"\"Telegram client abstraction.\"\"\"\n\nfrom typing import Protocol\n\nfrom fastapi import Request\nfrom telegram import Bot, InlineKeyboardButton, InlineKeyboardMarkup\n\n\nclass TelegramClient(Protocol):\n    async def send_message(self, chat_id: str, text: str) -> None: ...\n    async def send_inline_keyboard(self, chat_id: str, text: str, buttons: list[list[dict]]) -> None: ...\n\n\nclass MockTelegramClient:\n    \"\"\"Records sent messages for test inspection.\"\"\"\n\n    def __init__(self):\n        self.messages: list[dict] = []\n        self.keyboards: list[dict] = []\n\n    async def send_message(self, chat_id: str, text: str) -> None:\n        self.messages.append({\"chat_id\": chat_id, \"text\": text})\n\n    async def send_inline_keyboard(self, chat_id: str, text: str, buttons: list[list[dict]]) -> None:\n        self.keyboards.append({\"chat_id\": chat_id, \"text\": text, \"buttons\": buttons})\n\n\nclass LiveTelegramClient:\n    \"\"\"Production client wrapping python-telegram-bot.\"\"\"\n\n    def __init__(self, token: str):\n        self._bot = Bot(token=token)\n\n    async def send_message(self, chat_id: str, text: str) -> None:\n        await self._bot.send_message(chat_id=chat_id, text=text)\n\n    async def send_inline_keyboard(\n        self, chat_id: str, text: str, buttons: list[list[dict]]\n    ) -> None:\n        keyboard = [\n            [\n                InlineKeyboardButton(\n                    text=btn[\"text\"], callback_data=btn[\"callback_data\"]\n                )\n                for btn in row\n            ]\n            for row in buttons\n        ]\n        markup = InlineKeyboardMarkup(keyboard)\n        await self._bot.send_message(\n            chat_id=chat_id, text=text, reply_markup=markup\n        )\n\n\ndef get_telegram_client(request: Request) -> TelegramClient:\n    return request.app.state.telegram_client"
+    },
+    "timestamp": "2026-03-17T10:55:54.403Z"
+  },
+  {
+    "name": "Read",
+    "input": {
+      "file_path": "/Users/zev/repos/noko/src/main.py"
+    },
+    "timestamp": "2026-03-17T10:55:59.581Z"
+  },
+  {
+    "name": "Edit",
+    "input": {
+      "replace_all": false,
+      "file_path": "/Users/zev/repos/noko/src/main.py",
+      "old_string": "    from src.bot.client import MockTelegramClient\n\n    app.state.telegram_client = MockTelegramClient()",
+      "new_string": "    from src.bot.client import LiveTelegramClient, MockTelegramClient\n\n    if settings.telegram_bot_token:\n        app.state.telegram_client = LiveTelegramClient(settings.telegram_bot_token)\n    else:\n        app.state.telegram_client = MockTelegramClient()"
+    },
+    "timestamp": "2026-03-17T10:56:04.134Z"
+  },
+  {
+    "name": "Bash",
+    "input": {
+      "command": "uv run pytest tests/test_bot_routing.py tests/test_outbound.py -x -q 2>&1 | tail -20",
+      "description": "Run bot routing and outbound tests"
+    },
+    "timestamp": "2026-03-17T10:56:06.881Z"
+  },
+  {
+    "name": "Read",
+    "input": {
+      "file_path": "/Users/zev/repos/noko/MEMORY/WORK/20260317-100500_live-telegram-client/PRD.md"
+    },
+    "timestamp": "2026-03-17T10:56:19.530Z"
+  },
+  {
+    "name": "Write",
+    "input": {
+      "file_path": "/Users/zev/repos/noko/MEMORY/WORK/20260317-100500_live-telegram-client/PRD.md",
+      "content": "---\ntask: Implement LiveTelegramClient wrapping python-telegram-bot library\nslug: 20260317-100500_live-telegram-client\neffort: standard\nphase: execute\nprogress: 8/8\nmode: interactive\nstarted: 2026-03-17T10:05:00-07:00\nupdated: 2026-03-17T10:06:00-07:00\n---\n\n## Context\n\nNoko's bot module uses a Protocol-based `TelegramClient` abstraction with a `MockTelegramClient` for tests. The production `LiveTelegramClient` wrapping `python-telegram-bot` v21+ has not been implemented yet. The factory function `get_telegram_client()` currently always returns a mock. This task adds the live implementation and updates the factory to return it when `telegram_bot_token` is configured.\n\n### Risks\n- Importing `telegram` at module level could slow test startup or fail if not installed\n- Changing `get_telegram_client` signature could break DI overrides in tests\n\n## Criteria\n\n- [x] ISC-1: LiveTelegramClient class exists in src/bot/client.py\n- [x] ISC-2: LiveTelegramClient.__init__ accepts bot token string parameter\n- [x] ISC-3: LiveTelegramClient.send_message calls telegram.Bot.send_message\n- [x] ISC-4: LiveTelegramClient.send_inline_keyboard builds InlineKeyboardMarkup and sends\n- [x] ISC-5: get_telegram_client returns LiveTelegramClient when bot token non-empty\n- [x] ISC-6: get_telegram_client returns MockTelegramClient when bot token empty\n- [x] ISC-7: Existing test_bot_routing mock tests pass unchanged\n- [x] ISC-8: Existing test_outbound mock tests pass unchanged\n\n## Decisions\n\n- Imported telegram at module level (not lazy) — it's a declared dependency, no reason to defer\n- Conditional in create_app() rather than in get_telegram_client() — keeps the factory pure\n\n## Verification\n\n- ISC-1–4: Verified via reading src/bot/client.py after edit\n- ISC-5–6: Verified via reading src/main.py create_app() conditional\n- ISC-7–8: 61/61 tests pass (test_bot_routing + test_outbound)\n"
+    },
+    "timestamp": "2026-03-17T10:56:29.524Z"
+  },
+  {
+    "name": "Edit",
+    "input": {
+      "replace_all": false,
+      "file_path": "/Users/zev/repos/noko/MEMORY/WORK/20260317-100500_live-telegram-client/PRD.md",
+      "old_string": "phase: execute",
+      "new_string": "phase: verify"
+    },
+    "timestamp": "2026-03-17T10:56:35.117Z"
+  },
+  {
+    "name": "Read",
+    "input": {
+      "file_path": "/Users/zev/repos/noko/src/bot/client.py"
+    },
+    "timestamp": "2026-03-17T10:56:37.198Z"
+  },
+  {
+    "name": "Skill",
+    "input": {
+      "skill": "ship"
+    },
+    "timestamp": "2026-03-17T10:56:45.086Z"
+  },
+  {
+    "name": "Bash",
+    "input": {
+      "command": "git diff HEAD",
+      "description": "Show all uncommitted changes"
+    },
+    "timestamp": "2026-03-17T10:56:47.614Z"
+  },
+  {
+    "name": "Bash",
+    "input": {
+      "command": "git diff HEAD -- src/bot/client.py src/main.py",
+      "description": "Show changes to the two files we modified"
+    },
+    "timestamp": "2026-03-17T10:56:50.968Z"
+  },
+  {
+    "name": "Bash",
+    "input": {
+      "command": "git status -s -- src/ tests/",
+      "description": "Show uncommitted changes in src and tests"
+    },
+    "timestamp": "2026-03-17T10:57:06.547Z"
+  },
+  {
+    "name": "Bash",
+    "input": {
+      "command": "git diff HEAD -- tests/test_bot_routing.py | head -30",
+      "description": "Check if test_bot_routing has pre-existing changes"
+    },
+    "timestamp": "2026-03-17T10:57:10.054Z"
+  },
+  {
+    "name": "Read",
+    "input": {
+      "file_path": "/Users/zev/repos/noko/src/bot/client.py"
+    },
+    "timestamp": "2026-03-17T10:57:17.964Z"
+  },
+  {
+    "name": "Skill",
+    "input": {
+      "skill": "commit"
+    },
+    "timestamp": "2026-03-17T10:57:28.319Z"
+  },
+  {
+    "name": "Bash",
+    "input": {
+      "command": "git diff HEAD --stat",
+      "description": "Show summary of all uncommitted changes"
+    },
+    "timestamp": "2026-03-17T10:57:30.953Z"
+  },
+  {
+    "name": "Bash",
+    "input": {
+      "command": "git add src/bot/client.py src/main.py tests/test_bot_routing.py",
+      "description": "Stage only the files related to LiveTelegramClient"
+    },
+    "timestamp": "2026-03-17T10:57:44.190Z"
+  },
+  {
+    "name": "Bash",
+    "input": {
+      "command": "git commit -m \"$(cat <<'EOF'\nAdd LiveTelegramClient wrapping python-telegram-bot\n\nCo-Authored-By: Claude Opus 4.6 (1M context) <noreply@anthropic.com>\nEOF\n)\"",
+      "description": "Commit the LiveTelegramClient changes"
+    },
+    "timestamp": "2026-03-17T10:57:48.007Z"
+  }
+]

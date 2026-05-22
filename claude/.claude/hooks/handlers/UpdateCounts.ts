@@ -171,6 +171,17 @@ function getCounts(paiDir: string): Counts {
 async function refreshUsageCache(paiDir: string): Promise<void> {
   const usageCachePath = join(paiDir, 'MEMORY/STATE/usage-cache.json');
 
+  // Skip if cache was updated less than 15 minutes ago
+  try {
+    const cacheAge = Date.now() - statSync(usageCachePath).mtimeMs;
+    if (cacheAge < 15 * 60 * 1000) {
+      console.error(`[UpdateCounts] Usage cache is ${Math.round(cacheAge / 60000)}m old, skipping refresh`);
+      return;
+    }
+  } catch {
+    // Cache doesn't exist — proceed with refresh
+  }
+
   try {
     // Extract OAuth token — macOS Keychain or Linux credentials file
     let credJson: string;
@@ -197,7 +208,10 @@ async function refreshUsageCache(paiDir: string): Promise<void> {
       signal: AbortSignal.timeout(3000),
     });
 
-    if (!resp.ok) return;
+    if (!resp.ok) {
+      console.error(`[UpdateCounts] Usage API returned ${resp.status}`);
+      return;
+    }
     const data = await resp.json() as Record<string, unknown>;
     if (!data?.five_hour) return;
 

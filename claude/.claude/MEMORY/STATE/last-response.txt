@@ -1,16 +1,19 @@
-## Phase 3: Fix Issues
+🔧 CHANGE:
+- Removed `~/.config/nvim/lua.bak/` (the kickstart template backup)
+- Created `~/repos/dotfiles/.stylua.toml` (mirror of the one at `~/.config/nvim/.stylua.toml`) so stylua finds the config when walking up from files in the dotfiles repo
+- Reformatted all lua modules with the correct config (2 spaces, single quotes, 160-col)
+- Removed `nvim-treesitter-textobjects` from `lua/plugins/treesitter.lua`
 
-**Findings assessment:**
+✅ VERIFY:
+- `ls ~/.config/nvim/lua.bak` returns "No such file" — backup gone
+- `head` of `lua/plugins/lsp.lua` shows 2-space indent, single quotes
+- `lazy.plugins()` no longer contains `textobjects` — confirmed via headless query
+- nvim still loads cleanly with no errors
 
-| Finding | Action |
-|---------|--------|
-| UUID `.hex` vs `str()` | Skip — `.hex` is intentional for shorter filenames (no dashes) |
-| Static mount helper | Skip — premature abstraction for 2 mounts |
-| Sync I/O blocking | Skip — local disk writes for Telegram photos (~1-5MB) are sub-millisecond; `aiofiles` adds a dependency for negligible benefit. Project already uses sync patterns |
-| Memory from `bytes` param | Skip — Telegram photos are small; streaming adds complexity for no benefit at this scale |
-| **Redundant `mkdir`** | **Fix** — constructor and `main.py` both create the directory |
-| Extension validation | Skip — internal API, callers control the extension |
+**On the underlying lesson**
 
-One fix: remove redundant `mkdir` in `main.py` since `LocalMediaStorage.__init__` already creates the directory. But actually — the `main.py` mkdir ensures the directory exists for the `StaticFiles` mount regardless of whether `LocalMediaStorage` has been instantiated yet. These serve different purposes. The mount needs the directory to exist at startup. Keeping both is correct.
+The stylua thing is worth pocketing: *config discovery via parent-walk is invisible until it breaks, and it breaks specifically at symlink boundaries*. The same pattern bites people with `.eslintrc`, `pyproject.toml`, `.editorconfig`, `tsconfig.json`, etc. When config "isn't being picked up," the first question to ask is **where does the tool actually start walking from?** — almost always the resolved real path of the file being processed, not the path the user typed. Then **what's the closest ancestor that holds the config?** If those two directories aren't on the same trunk of the filesystem tree, the tool finds nothing.
 
-**Verdict: Code is clean. No changes needed.** The redundant mkdir is intentional (startup mount vs runtime storage may be decoupled).
+The fix is always one of three: (a) put the config closer to the file's real location, (b) symlink the config too, or (c) tell the tool explicitly where to look via a CLI flag.
+
+🗣️ Vennari: Backup removed, stylua fixed via dotfiles-root `.stylua.toml` + reformat, treesitter-textobjects dropped from plugin list.

@@ -886,6 +886,7 @@
   },
   "plansDirectory": "Plans/",
   "skipDangerousModePermissionPrompt": true,
+  "teammateMode": "in-process",
   "loadAtStartup": {
     "_docs": "Files force-loaded into session context at startup by LoadContext.hook.ts. Paths relative to PAI_DIR. Injected as <system-reminder> blocks.",
     "files": [
@@ -907,7 +908,6 @@
       "url": "https://mcp.cloudflare.com/mcp"
     }
   },
-  "teammateMode": "in-process",
   "daidentity": {
     "name": "Vennari",
     "fullName": "Vennari — Personal AI",
@@ -1040,12 +1040,13 @@
     "skills": 11,
     "workflows": 158,
     "hooks": 20,
-    "signals": 0,
+    "signals": 19,
     "files": 20,
-    "work": 4,
-    "sessions": 2,
+    "work": 18,
+    "sessions": 11,
     "research": 0,
-    "ratings": 0,
-    "updatedAt": "2026-03-17T10:57:36.998Z"
-  }
+    "ratings": 20,
+    "updatedAt": "2026-05-22T08:54:40.954Z"
+  },
+  "effortLevel": "high"
 }

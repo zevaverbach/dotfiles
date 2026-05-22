@@ -1,0 +1,8 @@
+{
+  "rating": 3,
+  "summary": "Correction — Vennari misunderstood password situation",
+  "detailed_context": "Zev was trying to clarify what actually happened with the qBittorrent password. Vennari had been investigating why the API login was failing and theorized that the temp password must have rotated on its own during the service restart. However, Zev is correcting this: Zev actually reset the password manually, as Vennari had encouraged them to do earlier. The frustration stems from Vennari losing track of the conversation context—it had suggested the password reset, but when the login subsequently failed, Vennari blamed an automatic rotation instead of reconsidering whether the newly reset password itself was the issue or whether the reset had been applied correctly. Vennari should have recalled that it had prompted this action and investigated whether the reset itself was the problem, not assumed the old password had rotated. This indicates a gap in contextual continuity during troubleshooting.",
+  "session_id": "8171f0c5-9446-449e-87da-3e6883b4a5d0",
+  "captured_at": "2026-03-21T09:39:15.639Z",
+  "transcript_source": "8171f0c5-9446-449e-87da-3e6883b4a5d0.jsonl"
+}

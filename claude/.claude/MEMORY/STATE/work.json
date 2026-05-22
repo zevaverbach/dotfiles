@@ -1,750 +1,467 @@
 {
   "sessions": {
-    "20260317-094500_onboard-user-telos-interview": {
-      "prd": "MEMORY/WORK/20260317-094500_onboard-user-telos-interview/PRD.md",
-      "task": "Onboard user via interview into TELOS files",
-      "sessionName": "Guide Personal Context Onboarding",
-      "sessionUUID": "c57f8ddb-5a87-451c-a5a8-de6dbc0056c1",
+    "20260504-130000_obsidian-to-db-and-claude-on-beelink": {
+      "prd": "/Users/zev/repos/dotfiles/claude/.claude/MEMORY/WORK/20260504-130000_obsidian-to-db-and-claude-on-beelink/PRD.md",
+      "task": "Replace Obsidian data with DB; Claude Code on Beelink",
+      "sessionName": "Beelink Setup Scans Torrent",
+      "sessionUUID": "b5be7122-b9bb-4e6d-a82b-d27fcb950b1f",
       "phase": "complete",
-      "progress": "18/18",
-      "effort": "extended",
+      "progress": "35/35",
+      "effort": "advanced",
       "mode": "interactive",
-      "started": "2026-03-17T09:45:00-04:00",
-      "updatedAt": "2026-03-17T10:12:10.605Z",
+      "started": "2026-05-04T09:19:17+02:00",
+      "updatedAt": "2026-05-04T07:56:52.923Z",
       "criteria": [
         {
           "id": "ISC-1",
-          "description": "Goals interview covers short-term goals (next 3 months)",
+          "description": "SQLite DB file exists at `/srv/media-ext/db/beelink.db` owned by averbachs",
           "type": "criterion",
           "status": "completed"
         },
         {
           "id": "ISC-2",
-          "description": "Goals interview covers medium-term goals (1-2 years)",
+          "description": "Schema file `/srv/media-ext/db/schema.sql` (placed at /srv/media-ext/schema.sql alongside db.py — repo not in sync with runtime, runtime is SoT)",
           "type": "criterion",
           "status": "completed"
         },
         {
           "id": "ISC-3",
-          "description": "Goals interview covers long-term life goals (5+ years)",
+          "description": "`torrent_requests` table has columns id, raw_text, media_type, status, created_at, processed_at, retry_count, error_msg, source",
           "type": "criterion",
           "status": "completed"
         },
         {
           "id": "ISC-4",
-          "description": "Values and beliefs interview captures core worldview",
+          "description": "DB file mode 0640, parent dir 0750",
           "type": "criterion",
           "status": "completed"
         },
         {
           "id": "ISC-5",
-          "description": "Current challenges and obstacles are identified",
+          "description": "Idempotent init via `db.py:_ensure_initialized()`",
           "type": "criterion",
           "status": "completed"
         },
         {
           "id": "ISC-6",
-          "description": "Current work and projects are captured",
+          "description": "`db.py` provides connect, add_torrent_lines, claim_pending, mark_done, mark_failed, mark_retry, list_recent, list_pending",
           "type": "criterion",
           "status": "completed"
         },
         {
           "id": "ISC-7",
-          "description": "Influential books and authors are gathered",
+          "description": "`/torrents` GET returns HTML form with textarea",
           "type": "criterion",
           "status": "completed"
         },
         {
           "id": "ISC-8",
-          "description": "Mental models and frameworks are identified",
+          "description": "`/add-torrent` POST handler exists",
           "type": "criterion",
           "status": "completed"
         },
         {
           "id": "ISC-9",
-          "description": "Key wisdom or life lessons are captured",
+          "description": "`/torrents` + `/add-torrent` behind Cloudflare Access (verified: external curl 302 → cloudflareaccess.com login)",
           "type": "criterion",
           "status": "completed"
         },
         {
           "id": "ISC-10",
-          "description": "GOALS.md created with structured short/medium/long sections",
+          "description": "POST inserts each non-empty line into `torrent_requests` with status='pending'",
           "type": "criterion",
           "status": "completed"
         },
         {
           "id": "ISC-11",
-          "description": "BELIEFS.md created with core beliefs and worldview",
+          "description": "`/torrents` lists last 20 with status badges",
           "type": "criterion",
           "status": "completed"
         },
         {
           "id": "ISC-12",
-          "description": "CHALLENGES.md created with current obstacles",
+          "description": "`fetch-torrents.py` reads from DB (verified by manual run on test row)",
           "type": "criterion",
           "status": "completed"
         },
         {
           "id": "ISC-13",
-          "description": "BOOKS.md created with influential books",
+          "description": "`fetch-torrents.py` updates row status processing/done/failed",
           "type": "criterion",
           "status": "completed"
         },
         {
           "id": "ISC-14",
-          "description": "AUTHORS.md created with influential thinkers",
+          "description": "retry tracking now in DB column (queue.txt.retries no longer touched by code)",
           "type": "criterion",
           "status": "completed"
         },
         {
           "id": "ISC-15",
-          "description": "FRAMES.md created with mental models",
+          "description": "`obsidian-torrent.py` cron line removed",
           "type": "criterion",
           "status": "completed"
         },
         {
           "id": "ISC-16",
-          "description": "WISDOM.md created with collected insights",
+          "description": "archived to `~/.archive/obsidian-torrent.py.20260504`",
           "type": "criterion",
           "status": "completed"
         },
         {
           "id": "ISC-17",
-          "description": "All files use",
+          "description": "`CRON_DESCRIPTIONS[\"obsidian-torrent.py\"]` removed",
           "type": "criterion",
+          "status": "completed"
+        },
+        {
+          "id": "ISC-18",
+          "description": "`supplement-reminder.py` Obsidian mention removed",
+          "type": "criterion",
+          "status": "completed"
+        },
+        {
+          "id": "ISC-19",
+          "description": "`render_get_started()` had no Obsidian refs (already clean)",
+          "type": "criterion",
+          "status": "completed"
+        },
+        {
+          "id": "ISC-20",
+          "description": "`render_home()` includes \"⬇️ Torrents\" nav card",
+          "type": "criterion",
+          "status": "completed"
+        },
+        {
+          "id": "ISC-21",
+          "description": "`grep [Oo]bsidian /srv/media-ext/*.py` → 0 hits",
+          "type": "criterion",
+          "status": "completed"
+        },
+        {
+          "id": "ISC-22",
+          "description": "TORRENT.md removed from Mac vault",
+          "type": "criterion",
+          "status": "completed"
+        },
+        {
+          "id": "ISC-23",
+          "description": "vault git push succeeded (4b81796..30d6af4)",
+          "type": "criterion",
+          "status": "completed"
+        },
+        {
+          "id": "ISC-24",
+          "description": "Beelink vault clone pulled fast-forward, TORRENT.md gone",
+          "type": "criterion",
+          "status": "completed"
+        },
+        {
+          "id": "ISC-25",
+          "description": "`safety.py` module with `is_adult_result()` (TPB cat 500–599 + keyword fallback) and `is_adult_query()`",
+          "type": "criterion",
+          "status": "completed"
+        },
+        {
+          "id": "ISC-26",
+          "description": "`fetch-torrents.py` `search_torrent` rejects adult-category results before returning them",
+          "type": "criterion",
+          "status": "completed"
+        },
+        {
+          "id": "ISC-27",
+          "description": "`fetch-torrents.py` `generate_alt_queries` Claude prompt explicitly forbids adult content",
+          "type": "criterion",
+          "status": "completed"
+        },
+        {
+          "id": "ISC-28",
+          "description": "`email-torrent.py` `parse_with_claude` prompt explicitly forbids adult content",
+          "type": "criterion",
+          "status": "completed"
+        },
+        {
+          "id": "ISC-29",
+          "description": "`db.add_torrent_lines` rejects lines where `is_adult_query()` matches; dashboard POST surfaces count",
+          "type": "criterion",
+          "status": "completed"
+        },
+        {
+          "id": "ISC-30",
+          "description": "`jellyfin` user added to `averbachs` group",
+          "type": "criterion",
+          "status": "completed"
+        },
+        {
+          "id": "ISC-31",
+          "description": "`/mnt/media/{movies,downloads}` are group-writable + setgid (new subdirs inherit group)",
+          "type": "criterion",
+          "status": "completed"
+        },
+        {
+          "id": "ISC-32",
+          "description": "Default POSIX ACL set so future qBittorrent-written files are group-writable",
+          "type": "criterion",
+          "status": "completed"
+        },
+        {
+          "id": "ISC-33",
+          "description": "`jellyfin` service restarted; `sudo -u jellyfin test -w` returns writable for both dirs",
+          "type": "criterion",
+          "status": "completed"
+        },
+        {
+          "id": "ISC-A-1",
+          "description": "No queued torrent request lost (queue.txt was 0 lines pre-migration)",
+          "type": "anti-criterion",
+          "status": "completed"
+        },
+        {
+          "id": "ISC-A-2",
+          "description": "CF Access enforced — anonymous external curl returns 302",
+          "type": "anti-criterion",
+          "status": "completed"
+        },
+        {
+          "id": "ISC-A-3",
+          "description": "qBittorrent password not in db.py / safety.py / schema.sql",
+          "type": "anti-criterion",
+          "status": "completed"
+        },
+        {
+          "id": "ISC-A-4",
+          "description": "error_msg surfaced in /torrents page rows",
+          "type": "anti-criterion",
+          "status": "completed"
+        },
+        {
+          "id": "ISC-A-5",
+          "description": "email-claude.py untouched; email-torrent.py only had the parse-prompt safety guardrail added (functional flow unchanged)",
+          "type": "anti-criterion",
+          "status": "completed"
+        },
+        {
+          "id": "ISC-A-6",
+          "description": "CryptPad untouched, MediaCat untouched, qBittorrent untouched",
+          "type": "anti-criterion",
           "status": "completed"
         }
       ],
       "phaseHistory": [
         {
           "phase": "OBSERVE",
-          "startedAt": 1773738035116,
-          "criteriaCount": 17,
+          "startedAt": 1777879231821,
+          "criteriaCount": 33,
           "agentCount": 0,
-          "completedAt": 1773738094925
-        },
-        {
-          "phase": "BUILD",
-          "startedAt": 1773738094925,
-          "criteriaCount": 17,
-          "agentCount": 0,
-          "completedAt": 1773742171974
-        },
-        {
-          "phase": "EXECUTE",
-          "startedAt": 1773742171974,
-          "criteriaCount": 17,
-          "agentCount": 0,
-          "completedAt": 1773742258630
-        },
-        {
-          "phase": "VERIFY",
-          "startedAt": 1773742258630,
-          "criteriaCount": 17,
-          "agentCount": 0,
-          "completedAt": 1773742330605
-        },
-        {
-          "phase": "COMPLETE",
-          "startedAt": 1773742330605,
-          "criteriaCount": 17,
-          "agentCount": 0
-        }
-      ]
-    },
-    "20260317-111100_read-plans-todo-md-race-condition-in-flu": {
-      "task": "Read plans/TODO.md — \"Race condition in flush_pending\" and \"flush_pending sends individual messages instead of batching.",
-      "sessionName": "Fix Flush Pending Concurrency",
-      "sessionUUID": "8e243294-1016-4d44-afac-f74609d9b1bb",
-      "phase": "native",
-      "progress": "0/0",
-      "effort": "native",
-      "mode": "native",
-      "started": "2026-03-17T10:11:05.573Z",
-      "updatedAt": "2026-03-17T10:43:29.918Z"
-    },
-    "20260317-111100_read-plans-todo-md-orphaned-action-items": {
-      "task": "Read plans/TODO.md — \"Orphaned action items and pings on thread deletion.\" Read `src/models.py` (Thread, ActionItem, Pin",
-      "sessionName": "Fix Orphaned Items Deletion",
-      "sessionUUID": "7e88d73d-335c-4618-9613-5cc637a82904",
-      "phase": "starting",
-      "progress": "0/0",
-      "effort": "standard",
-      "mode": "starting",
-      "started": "2026-03-17T10:11:09.135Z",
-      "updatedAt": "2026-03-17T10:39:44.839Z"
-    },
-    "20260317-111100_read-plans-todo-md-no-member-profile-edi": {
-      "task": "Read plans/TODO.md — \"No member profile edit endpoint.\" Add `PUT /me` that lets users update name, email, telegram_handl",
-      "sessionName": "Build Member Profile Edit",
-      "sessionUUID": "9f06f5d8-a9ad-4d00-8382-20c37d136855",
-      "phase": "native",
-      "progress": "0/0",
-      "effort": "native",
-      "mode": "native",
-      "started": "2026-03-17T10:11:14.287Z",
-      "updatedAt": "2026-03-17T10:39:27.217Z"
-    },
-    "20260317-113900_here-s-a-question-i-asked-gemini-i-ask-i": {
-      "task": "here's a question i asked Gemini, I ask it to you as well: \"is there anything built into PAI that would help me improve ",
-      "sessionName": "Improve Engineering Skills Via",
-      "sessionUUID": "d838f00b-9da1-43ff-8ef9-84e3107c38d1",
-      "phase": "starting",
-      "progress": "0/0",
-      "effort": "standard",
-      "mode": "starting",
-      "started": "2026-03-17T10:39:18.294Z",
-      "updatedAt": "2026-03-17T10:46:32.956Z"
-    },
-    "20260317-114500_for-the-dispatch-command-let-s-make-sure": {
-      "task": "for the \"/dispatch\" command, let's make sure the bash commands emitted from it are not added to bash history, kti's poll",
-      "sessionName": "Suppress Bash History Dispatch",
-      "sessionUUID": "bda5cd44-adbe-43cc-a8ea-b45d73ef6dd4",
-      "phase": "native",
-      "progress": "0/0",
-      "effort": "native",
-      "mode": "native",
-      "started": "2026-03-17T10:45:06.155Z",
-      "updatedAt": "2026-03-17T10:55:49.919Z"
-    },
-    "20260317-114500_sanity-check-am-i-defnitely-using-claude": {
-      "task": "sanity check: am i defnitely using Claude max here? not the API",
-      "sessionName": "Sanity Defnitely Claude Max",
-      "sessionUUID": "405bf514-11bf-4171-a873-fc899c40573d",
-      "phase": "native",
-      "progress": "0/0",
-      "effort": "native",
-      "mode": "native",
-      "started": "2026-03-17T10:45:29.748Z",
-      "updatedAt": "2026-03-17T10:45:29.748Z"
-    },
-    "20260317-114600_config": {
-      "task": "config",
-      "sessionName": "**configure Noko Project Settings**",
-      "sessionUUID": "3a98879d-2c98-470a-9904-d0ab66cdca4d",
-      "phase": "native",
-      "progress": "0/0",
-      "effort": "native",
-      "mode": "native",
-      "started": "2026-03-17T10:46:51.475Z",
-      "updatedAt": "2026-03-17T10:48:29.292Z"
-    },
-    "20260317-114800_config": {
-      "task": "config",
-      "sessionName": "Config Session Work Task",
-      "sessionUUID": "7490b197-2472-4062-9806-c1624fe115b7",
-      "phase": "native",
-      "progress": "0/0",
-      "effort": "native",
-      "mode": "native",
-      "started": "2026-03-17T10:48:48.040Z",
-      "updatedAt": "2026-03-17T10:48:48.040Z"
-    },
-    "20260317-100000_remove-unnecessary-db-refresh": {
-      "prd": "MEMORY/WORK/20260317-100000_remove-unnecessary-db-refresh/PRD.md",
-      "task": "Audit and remove unnecessary db.refresh() calls",
-      "sessionName": "Remove Database Refresh Calls",
-      "sessionUUID": "0b2180fe-b0f2-4227-b3ca-b1a70169e575",
-      "phase": "verify",
-      "progress": "8/8",
-      "effort": "standard",
-      "mode": "interactive",
-      "started": "2026-03-17T10:00:00-07:00",
-      "updatedAt": "2026-03-17T11:00:10.459Z",
-      "criteria": [
-        {
-          "id": "ISC-1",
-          "description": "topics.py update_topic refresh removed (line 103)",
-          "type": "criterion",
-          "status": "completed"
-        },
-        {
-          "id": "ISC-2",
-          "description": "initiatives.py update_initiative refresh removed (line 102)",
-          "type": "criterion",
-          "status": "completed"
-        },
-        {
-          "id": "ISC-3",
-          "description": "workflows.py update_workflow refresh removed (line 102)",
-          "type": "criterion",
-          "status": "completed"
-        },
-        {
-          "id": "ISC-4",
-          "description": "enrollments.py update_enrollment refresh removed (line 102)",
-          "type": "criterion",
-          "status": "completed"
-        },
-        {
-          "id": "ISC-5",
-          "description": "members.py update_me refresh removed (line 56)",
-          "type": "criterion",
-          "status": "completed"
-        },
-        {
-          "id": "ISC-6",
-          "description": "action_items.py update_action_item refresh removed (line 161)",
-          "type": "criterion",
-          "status": "completed"
-        },
-        {
-          "id": "ISC-7",
-          "description": "All post-create refresh calls preserved (10 instances)",
-          "type": "criterion",
-          "status": "completed"
-        },
-        {
-          "id": "ISC-8",
-          "description": "All tests pass after changes",
-          "type": "criterion",
-          "status": "completed"
-        }
-      ],
-      "phaseHistory": [
-        {
-          "phase": "OBSERVE",
-          "startedAt": 1773744806732,
-          "criteriaCount": 8,
-          "agentCount": 0,
-          "completedAt": 1773745210459
-        },
-        {
-          "phase": "VERIFY",
-          "startedAt": 1773745210459,
-          "criteriaCount": 8,
-          "agentCount": 0
-        }
-      ]
-    },
-    "20260317-115300_what-s-the-state-of-the-unioni-with-my-b": {
-      "task": "what's the state of the unioni with my backup game? i'm most concerned about keeping my claude code and PAI backed up in",
-      "sessionName": "Audit Laptop Backup Completeness",
-      "sessionUUID": "9e91b3f6-2559-47ca-9b4d-29bb76a9a6f2",
-      "phase": "native",
-      "progress": "0/0",
-      "effort": "native",
-      "mode": "native",
-      "started": "2026-03-17T10:53:32.535Z",
-      "updatedAt": "2026-03-17T10:56:48.840Z"
-    },
-    "20260317-100000_sql-urgency-sort": {
-      "prd": "/Users/zev/repos/noko/MEMORY/WORK/20260317-100000_sql-urgency-sort/PRD.md",
-      "task": "Move urgency sorting from Python to SQL",
-      "sessionName": "Fix Urgency Sql Sorting",
-      "sessionUUID": "e559dc68-96c8-466d-8b4b-a1ccc887ebdb",
-      "phase": "complete",
-      "progress": "8/8",
-      "effort": "standard",
-      "mode": "interactive",
-      "started": "2026-03-17T10:00:00-07:00",
-      "updatedAt": "2026-03-17T10:57:56.060Z",
-      "criteria": [
-        {
-          "id": "ISC-1",
-          "description": "list_pending uses SQLAlchemy ORDER BY, not Python sort",
-          "type": "criterion",
-          "status": "completed"
-        },
-        {
-          "id": "ISC-2",
-          "description": "case() expression puts overdue items first (deadline < now, pending status)",
-          "type": "criterion",
-          "status": "completed"
-        },
-        {
-          "id": "ISC-3",
-          "description": "Non-overdue items sorted by deadline ascending",
-          "type": "criterion",
-          "status": "completed"
-        },
-        {
-          "id": "ISC-4",
-          "description": "NULL deadline items sorted last",
-          "type": "criterion",
-          "status": "completed"
-        },
-        {
-          "id": "ISC-5",
-          "description": "Python sort_key function removed from list_pending",
-          "type": "criterion",
-          "status": "completed"
-        },
-        {
-          "id": "ISC-6",
-          "description": "Existing test_list_pending_sorted_by_urgency passes",
-          "type": "criterion",
-          "status": "completed"
-        },
-        {
-          "id": "ISC-7",
-          "description": "New test proves SQL sort correct with LIMIT applied",
-          "type": "criterion",
-          "status": "completed"
-        },
-        {
-          "id": "ISC-8",
-          "description": "Function signature and return type unchanged (added optional limit param)",
-          "type": "criterion",
-          "status": "completed"
-        }
-      ],
-      "phaseHistory": [
-        {
-          "phase": "OBSERVE",
-          "startedAt": 1773744813455,
-          "criteriaCount": 8,
-          "agentCount": 0,
-          "completedAt": 1773744973331
-        },
-        {
-          "phase": "VERIFY",
-          "startedAt": 1773744973331,
-          "criteriaCount": 8,
-          "agentCount": 0,
-          "completedAt": 1773745076060
-        },
-        {
-          "phase": "COMPLETE",
-          "startedAt": 1773745076060,
-          "criteriaCount": 8,
-          "agentCount": 0
-        }
-      ]
-    },
-    "20260317-100000_media-storage-telegram-photos": {
-      "prd": "MEMORY/WORK/20260317-100000_media-storage-telegram-photos/PRD.md",
-      "task": "Implement media storage for Telegram photos",
-      "sessionName": "Implement Telegram Media Storage",
-      "sessionUUID": "cdf314b9-4113-4e42-8cce-856d1f9c0b6f",
-      "phase": "execute",
-      "progress": "8/8",
-      "effort": "standard",
-      "mode": "interactive",
-      "started": "2026-03-17T10:00:00Z",
-      "updatedAt": "2026-03-17T10:56:47.448Z",
-      "criteria": [
-        {
-          "id": "ISC-1",
-          "description": "`MediaStorage` protocol defined in `src/media.py` with save and url methods",
-          "type": "criterion",
-          "status": "completed"
-        },
-        {
-          "id": "ISC-2",
-          "description": "`LocalMediaStorage` class implements `MediaStorage` protocol",
-          "type": "criterion",
-          "status": "completed"
-        },
-        {
-          "id": "ISC-3",
-          "description": "`LocalMediaStorage.save()` writes bytes to `media/` directory with unique filename",
-          "type": "criterion",
-          "status": "completed"
-        },
-        {
-          "id": "ISC-4",
-          "description": "`LocalMediaStorage.url()` returns serving path for a stored file",
-          "type": "criterion",
-          "status": "completed"
-        },
-        {
-          "id": "ISC-5",
-          "description": "Config fields `media_storage_dir` and `media_base_url` added to Settings",
-          "type": "criterion",
-          "status": "completed"
-        },
-        {
-          "id": "ISC-6",
-          "description": "FastAPI mounts `media/` directory as static files",
-          "type": "criterion",
-          "status": "completed"
-        },
-        {
-          "id": "ISC-7",
-          "description": "Test verifies save writes file to disk and url resolves",
-          "type": "criterion",
-          "status": "completed"
-        },
-        {
-          "id": "ISC-8",
-          "description": "Test verifies static file serving returns saved content via HTTP",
-          "type": "criterion",
-          "status": "completed"
-        }
-      ],
-      "phaseHistory": [
-        {
-          "phase": "OBSERVE",
-          "startedAt": 1773744841777,
-          "criteriaCount": 8,
-          "agentCount": 0,
-          "completedAt": 1773744917212
-        },
-        {
-          "phase": "BUILD",
-          "startedAt": 1773744917212,
-          "criteriaCount": 8,
-          "agentCount": 0,
-          "completedAt": 1773744999643
-        },
-        {
-          "phase": "EXECUTE",
-          "startedAt": 1773744999643,
-          "criteriaCount": 8,
-          "agentCount": 0
-        }
-      ]
-    },
-    "20260317-100500_live-telegram-client": {
-      "prd": "/Users/zev/repos/noko/MEMORY/WORK/20260317-100500_live-telegram-client/PRD.md",
-      "task": "Implement LiveTelegramClient wrapping python-telegram-bot library",
-      "sessionName": "Implement Live Telegram Client",
-      "sessionUUID": "3435bf71-abd3-4938-9bf2-8e2d2c8535d7",
-      "phase": "verify",
-      "progress": "8/8",
-      "effort": "standard",
-      "mode": "interactive",
-      "started": "2026-03-17T10:05:00-07:00",
-      "updatedAt": "2026-03-17T10:56:35.287Z",
-      "criteria": [
-        {
-          "id": "ISC-1",
-          "description": "LiveTelegramClient class exists in src/bot/client.py",
-          "type": "criterion",
-          "status": "completed"
-        },
-        {
-          "id": "ISC-2",
-          "description": "LiveTelegramClient.__init__ accepts bot token string parameter",
-          "type": "criterion",
-          "status": "completed"
-        },
-        {
-          "id": "ISC-3",
-          "description": "LiveTelegramClient.send_message calls telegram.Bot.send_message",
-          "type": "criterion",
-          "status": "completed"
-        },
-        {
-          "id": "ISC-4",
-          "description": "LiveTelegramClient.send_inline_keyboard builds InlineKeyboardMarkup and sends",
-          "type": "criterion",
-          "status": "completed"
-        },
-        {
-          "id": "ISC-5",
-          "description": "get_telegram_client returns LiveTelegramClient when bot token non-empty",
-          "type": "criterion",
-          "status": "completed"
-        },
-        {
-          "id": "ISC-6",
-          "description": "get_telegram_client returns MockTelegramClient when bot token empty",
-          "type": "criterion",
-          "status": "completed"
-        },
-        {
-          "id": "ISC-7",
-          "description": "Existing test_bot_routing mock tests pass unchanged",
-          "type": "criterion",
-          "status": "completed"
-        },
-        {
-          "id": "ISC-8",
-          "description": "Existing test_outbound mock tests pass unchanged",
-          "type": "criterion",
-          "status": "completed"
-        }
-      ],
-      "phaseHistory": [
-        {
-          "phase": "OBSERVE",
-          "startedAt": 1773744851282,
-          "criteriaCount": 8,
-          "agentCount": 0,
-          "completedAt": 1773744907343
+          "completedAt": 1777879592250
         },
         {
           "phase": "THINK",
-          "startedAt": 1773744907343,
-          "criteriaCount": 8,
+          "startedAt": 1777879592250,
+          "criteriaCount": 33,
           "agentCount": 0,
-          "completedAt": 1773744927676
+          "completedAt": 1777879866653
         },
         {
           "phase": "PLAN",
-          "startedAt": 1773744927676,
-          "criteriaCount": 8,
+          "startedAt": 1777879866653,
+          "criteriaCount": 30,
           "agentCount": 0,
-          "completedAt": 1773744933074
+          "completedAt": 1777880404750
         },
         {
           "phase": "BUILD",
-          "startedAt": 1773744933074,
-          "criteriaCount": 8,
+          "startedAt": 1777880404750,
+          "criteriaCount": 30,
           "agentCount": 0,
-          "completedAt": 1773744936161
+          "completedAt": 1777880466813
         },
         {
           "phase": "EXECUTE",
-          "startedAt": 1773744936161,
-          "criteriaCount": 8,
+          "startedAt": 1777880466813,
+          "criteriaCount": 39,
           "agentCount": 0,
-          "completedAt": 1773744995287
+          "completedAt": 1777881359489
         },
         {
           "phase": "VERIFY",
-          "startedAt": 1773744995287,
-          "criteriaCount": 8,
-          "agentCount": 0
-        }
-      ]
-    },
-    "20260317-100000_standardize-di-singleton-pattern": {
-      "prd": "MEMORY/WORK/20260317-100000_standardize-di-singleton-pattern/PRD.md",
-      "task": "Standardize DI pattern for singletons across app",
-      "sessionName": "Standardize Dependency Injection Singletons",
-      "sessionUUID": "1961e813-32fa-44a3-bea6-b9013ac7213e",
-      "phase": "complete",
-      "progress": "8/8",
-      "effort": "standard",
-      "mode": "interactive",
-      "started": "2026-03-17T10:00:00-07:00",
-      "updatedAt": "2026-03-17T11:00:12.423Z",
-      "criteria": [
-        {
-          "id": "ISC-1",
-          "description": "Module-level `_client` singleton removed from client.py",
-          "type": "criterion",
-          "status": "completed"
-        },
-        {
-          "id": "ISC-2",
-          "description": "`get_telegram_client` accepts `Request` parameter",
-          "type": "criterion",
-          "status": "completed"
-        },
-        {
-          "id": "ISC-3",
-          "description": "`get_telegram_client` reads from `request.app.state.telegram_client`",
-          "type": "criterion",
-          "status": "completed"
-        },
-        {
-          "id": "ISC-4",
-          "description": "`create_app()` sets `app.state.telegram_client` (Mock or Live based on config)",
-          "type": "criterion",
-          "status": "completed"
-        },
-        {
-          "id": "ISC-5",
-          "description": "Router `Depends(get_telegram_client)` still injects correctly",
-          "type": "criterion",
-          "status": "completed"
-        },
-        {
-          "id": "ISC-6",
-          "description": "Test fixture `bot_client` updated — sets `app.state.telegram_client` directly",
-          "type": "criterion",
-          "status": "completed"
-        },
-        {
-          "id": "ISC-7",
-          "description": "All 33 bot routing tests pass, all other tests pass in isolation",
-          "type": "criterion",
-          "status": "completed"
-        },
-        {
-          "id": "ISC-8",
-          "description": "Both DI functions share identical `(request: Request) -> request.app.state.X` pattern",
-          "type": "criterion",
-          "status": "completed"
-        }
-      ],
-      "phaseHistory": [
-        {
-          "phase": "OBSERVE",
-          "startedAt": 1773744864813,
-          "criteriaCount": 8,
+          "startedAt": 1777881359489,
+          "criteriaCount": 39,
           "agentCount": 0,
-          "completedAt": 1773744888840
-        },
-        {
-          "phase": "THINK",
-          "startedAt": 1773744888840,
-          "criteriaCount": 8,
-          "agentCount": 0,
-          "completedAt": 1773744904584
-        },
-        {
-          "phase": "PLAN",
-          "startedAt": 1773744904584,
-          "criteriaCount": 8,
-          "agentCount": 0,
-          "completedAt": 1773744915401
-        },
-        {
-          "phase": "BUILD",
-          "startedAt": 1773744915401,
-          "criteriaCount": 8,
-          "agentCount": 0,
-          "completedAt": 1773744926160
-        },
-        {
-          "phase": "EXECUTE",
-          "startedAt": 1773744926160,
-          "criteriaCount": 8,
-          "agentCount": 0,
-          "completedAt": 1773745187712
-        },
-        {
-          "phase": "VERIFY",
-          "startedAt": 1773745187712,
-          "criteriaCount": 8,
-          "agentCount": 0,
-          "completedAt": 1773745212423
+          "completedAt": 1777881412924
         },
         {
           "phase": "COMPLETE",
-          "startedAt": 1773745212423,
-          "criteriaCount": 8,
+          "startedAt": 1777881412924,
+          "criteriaCount": 39,
           "agentCount": 0
         }
       ]
     },
-    "20260317-115800_i-tend-to-spawn-multiple-tmux-sessions-w": {
-      "task": "i tend to spawn multiple tmux sessions working on the same branch, and it mostly works because I'm being somewhat strate",
-      "sessionName": "Tend Spawn Tmux Sessions",
-      "sessionUUID": "63478825-6c2d-43b4-83bd-1171c9c41917",
+    "20260504-095700_beelink-setup-scans-torrent": {
+      "task": "Beelink Setup Scans Torrent",
+      "sessionName": "Beelink Setup Scans Torrent",
+      "sessionUUID": "b5be7122-b9bb-4e6d-a82b-d27fcb950b1f",
       "phase": "native",
       "progress": "0/0",
       "effort": "native",
       "mode": "native",
-      "started": "2026-03-17T10:58:52.357Z",
-      "updatedAt": "2026-03-17T10:58:52.357Z"
+      "started": "2026-05-04T07:57:48.428Z",
+      "updatedAt": "2026-05-04T15:02:53.983Z"
     },
-    "20260317-120000_implement-live-telegram-client": {
-      "task": "Implement Live Telegram Client",
-      "sessionName": "Implement Live Telegram Client",
-      "sessionUUID": "3435bf71-abd3-4938-9bf2-8e2d2c8535d7",
+    "20260506-194200_how-can-i-examine-the-file-table-of-a-pr": {
+      "task": "how can i examine the file table of a process from within a C program? (or any other way)",
+      "sessionName": "Examine Table Process Within",
+      "sessionUUID": "b7eb28a3-2446-4166-8524-6178d6a957dd",
       "phase": "native",
       "progress": "0/0",
       "effort": "native",
       "mode": "native",
-      "started": "2026-03-17T11:00:05.118Z",
-      "updatedAt": "2026-03-17T11:00:27.522Z"
+      "started": "2026-05-06T17:42:21.372Z",
+      "updatedAt": "2026-05-06T17:49:41.292Z"
     },
-    "20260317-120000_implement-telegram-media-storage": {
-      "task": "Implement Telegram Media Storage",
-      "sessionName": "Implement Telegram Media Storage",
-      "sessionUUID": "cdf314b9-4113-4e42-8cce-856d1f9c0b6f",
+    "20260506-195400_what-options-do-i-have-for-strace-on-mac": {
+      "task": "what options do i have for strace on macos?",
+      "sessionName": "Options Strace Macos Task",
+      "sessionUUID": "7a87a490-7dc3-48e7-9ef9-f9845a17329c",
       "phase": "native",
       "progress": "0/0",
       "effort": "native",
       "mode": "native",
-      "started": "2026-03-17T11:00:34.804Z",
-      "updatedAt": "2026-03-17T11:00:34.804Z"
+      "started": "2026-05-06T17:54:31.225Z",
+      "updatedAt": "2026-05-06T18:00:20.608Z"
+    },
+    "20260506-195700_where-do-i-include-open-in-c": {
+      "task": "where do i 'include' 'open' in C?",
+      "sessionName": "Include Session Work Task",
+      "sessionUUID": "291e0704-2b00-4b79-98ba-67c69e302a94",
+      "phase": "native",
+      "progress": "0/0",
+      "effort": "native",
+      "mode": "native",
+      "started": "2026-05-06T17:57:41.774Z",
+      "updatedAt": "2026-05-06T17:57:41.774Z"
+    },
+    "20260506-200400_how-well-would-asahi-linux-run-on-this-p": {
+      "task": "how well would asahi linux run on this particular machine? any hesitations?",
+      "sessionName": "Asahi Linux Particular Machine",
+      "sessionUUID": "57c65bcc-4c58-4395-a874-96c0f4f990e6",
+      "phase": "native",
+      "progress": "0/0",
+      "effort": "native",
+      "mode": "native",
+      "started": "2026-05-06T18:04:27.199Z",
+      "updatedAt": "2026-05-06T19:06:49.134Z"
+    },
+    "20260506-202200_what-s-the-difference-on-a-basic-level-b": {
+      "task": "what's the difference on a basic level between FIFOs and sockets?",
+      "sessionName": "Difference Basic Level Between",
+      "sessionUUID": "276d8763-fd00-4019-a3e9-e7c79fccf5b1",
+      "phase": "native",
+      "progress": "0/0",
+      "effort": "native",
+      "mode": "native",
+      "started": "2026-05-06T18:22:33.516Z",
+      "updatedAt": "2026-05-06T18:28:45.767Z"
+    },
+    "20260506-205700_what-is-this-void-thing-ssize-t-read-int": {
+      "task": "what is this \"void *...\" thing? ssize_t read(int, void *_LIBC_SIZE(__nbyte), size_t __nbyte) __DARWIN_ALIAS_C(read);",
+      "sessionName": "Void Ssize Int Libc",
+      "sessionUUID": "7be4566a-0825-4908-ba2d-f6adba23866a",
+      "phase": "native",
+      "progress": "0/0",
+      "effort": "native",
+      "mode": "native",
+      "started": "2026-05-06T18:57:15.541Z",
+      "updatedAt": "2026-05-06T18:58:35.665Z"
+    },
+    "20260521-112400_put-ghostty-in-light-theme-mode-please": {
+      "task": "put ghostty in light theme mode please",
+      "sessionName": "Ghostty Light Theme Mode",
+      "sessionUUID": "afb6f180-9899-4354-858c-abc338eca084",
+      "phase": "native",
+      "progress": "0/0",
+      "effort": "native",
+      "mode": "native",
+      "started": "2026-05-21T09:24:17.658Z",
+      "updatedAt": "2026-05-21T09:24:17.658Z"
+    },
+    "20260521-113100_what-s-the-alternate-way-of-writing-prin": {
+      "task": "what's the alternate way of writing printNums here?",
+      "sessionName": "Alternate Writing Printnums Task",
+      "sessionUUID": "669d1c52-65b3-4c9d-a340-764f0a06ae87",
+      "phase": "native",
+      "progress": "0/0",
+      "effort": "native",
+      "mode": "native",
+      "started": "2026-05-21T09:31:31.060Z",
+      "updatedAt": "2026-05-21T09:33:56.227Z"
+    },
+    "20260521-181700_how-can-i-define-an-array-of-arrays-of-i": {
+      "task": "how can i define an array of arrays of integers via \"#define\" in C?",
+      "sessionName": "Define Array Arrays Integers",
+      "sessionUUID": "097c25b3-aa3c-4873-8e83-adf836ae37ee",
+      "phase": "native",
+      "progress": "0/0",
+      "effort": "native",
+      "mode": "native",
+      "started": "2026-05-21T16:17:37.626Z",
+      "updatedAt": "2026-05-22T05:37:00.234Z"
+    },
+    "20260522-082000_go-to-definition-and-go-to-references-is": {
+      "task": "\"go to definition\" and \" go to references\" isn't working in my neovim for C. i don't want you to fix it, but rather plea",
+      "sessionName": "Definition References Isn Neovim",
+      "sessionUUID": "c7af6373-bb27-4c81-95d5-b6aaaa09521f",
+      "phase": "native",
+      "progress": "0/0",
+      "effort": "native",
+      "mode": "native",
+      "started": "2026-05-22T06:20:08.511Z",
+      "updatedAt": "2026-05-22T06:43:57.911Z"
+    },
+    "20260522-084700_when-i-run-lspinfo-in-neovim-it-lists-a-": {
+      "task": "when i run :LspInfo in neovim it lists a bunch of attached language servers and the buffers they're attached to. the pro",
+      "sessionName": "Lspinfo Neovim Lists Attached",
+      "sessionUUID": "ee58e6db-f469-4185-b6d9-814c7f27568b",
+      "phase": "native",
+      "progress": "0/0",
+      "effort": "native",
+      "mode": "native",
+      "started": "2026-05-22T06:47:44.907Z",
+      "updatedAt": "2026-05-22T06:47:44.907Z"
+    },
+    "20260522-085200_i-want-to-bind-t-to-toggle-light-dark-mo": {
+      "task": "i want to bind -t to \"toggle light/dark mode\" in neovim, but i want to set this up myself. can you lead me to the soluti",
+      "sessionName": "Bind Toggle Light Dark",
+      "sessionUUID": "59115fc6-3176-4b31-8de2-8c5cbf99b702",
+      "phase": "native",
+      "progress": "0/0",
+      "effort": "native",
+      "mode": "native",
+      "started": "2026-05-22T06:52:39.230Z",
+      "updatedAt": "2026-05-22T08:23:27.739Z"
+    },
+    "20260522-103500_i-m-trying-to-determine-why-it-takes-abo": {
+      "task": "i'm trying to determine why it takes about 1000ms for `toggleTheme` to take effect in my ~ what should be my first step ",
+      "sessionName": "Debug Slow Theme Toggle",
+      "sessionUUID": "7ca315e6-68f6-48fd-af92-263d4d9fd2cf",
+      "phase": "native",
+      "progress": "0/0",
+      "effort": "native",
+      "mode": "native",
+      "started": "2026-05-22T08:35:24.730Z",
+      "updatedAt": "2026-05-22T08:51:24.358Z"
+    },
+    "20260522-105900_please-look-at-my-and-the-unstaged-chang": {
+      "task": "please look at my ~ and the unstaged changes to help me determine why n has stopped working? i have made some changes, a",
+      "sessionName": "Unstaged Changes Determine Stopped",
+      "sessionUUID": "2f12b993-fc9c-438d-a0d4-6ef7134f7548",
+      "phase": "native",
+      "progress": "0/0",
+      "effort": "native",
+      "mode": "native",
+      "started": "2026-05-22T08:59:57.339Z",
+      "updatedAt": "2026-05-22T10:13:50.326Z"
     }
   }
 }

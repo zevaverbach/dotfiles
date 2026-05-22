@@ -1,0 +1,999 @@
+[
+  {
+    "name": "Glob",
+    "input": {
+      "pattern": "plans/PROJECT_MANAGER.md"
+    },
+    "timestamp": "2026-03-18T20:27:25.677Z"
+  },
+  {
+    "name": "Glob",
+    "input": {
+      "pattern": "PROJECT_MANAGER.md"
+    },
+    "timestamp": "2026-03-18T20:27:26.079Z"
+  },
+  {
+    "name": "Glob",
+    "input": {
+      "pattern": "plans/PLAN.md"
+    },
+    "timestamp": "2026-03-18T20:27:26.082Z"
+  },
+  {
+    "name": "Glob",
+    "input": {
+      "pattern": "plans/**/*.md"
+    },
+    "timestamp": "2026-03-18T20:27:26.395Z"
+  },
+  {
+    "name": "Read",
+    "input": {
+      "file_path": "/Users/zev/.claude/plans/cozy-enchanting-owl.md"
+    },
+    "timestamp": "2026-03-18T20:27:30.374Z"
+  },
+  {
+    "name": "Glob",
+    "input": {
+      "pattern": "**/PROJECT_MANAGER.md"
+    },
+    "timestamp": "2026-03-18T20:27:37.708Z"
+  },
+  {
+    "name": "Glob",
+    "input": {
+      "pattern": "**/PLAN.md"
+    },
+    "timestamp": "2026-03-18T20:27:37.712Z"
+  },
+  {
+    "name": "Glob",
+    "input": {
+      "pattern": "**/ROADMAP.md"
+    },
+    "timestamp": "2026-03-18T20:27:38.295Z"
+  },
+  {
+    "name": "Glob",
+    "input": {
+      "pattern": "**/TODO.md"
+    },
+    "timestamp": "2026-03-18T20:27:38.298Z"
+  },
+  {
+    "name": "ToolSearch",
+    "input": {
+      "query": "select:AskUserQuestion",
+      "max_results": 1
+    },
+    "timestamp": "2026-03-18T20:27:41.822Z"
+  },
+  {
+    "name": "AskUserQuestion",
+    "input": {
+      "questions": [
+        {
+          "question": "Which project do you want to manage? Provide the path to the project management file, or tell me which project directory to look in.",
+          "header": "Project",
+          "options": [
+            {
+              "label": "Provide a path",
+              "description": "You'll type the path to the plan/roadmap file"
+            },
+            {
+              "label": "Search a project dir",
+              "description": "Tell me which repo/directory to search for plan files"
+            },
+            {
+              "label": "Create a new plan",
+              "description": "Start a new project management file from scratch"
+            }
+          ],
+          "multiSelect": false
+        }
+      ]
+    },
+    "timestamp": "2026-03-18T20:27:54.087Z"
+  },
+  {
+    "name": "Read",
+    "input": {
+      "file_path": "/Users/zev/.claude/plans/PROJECT_MANAGER.md"
+    },
+    "timestamp": "2026-03-18T20:31:07.811Z"
+  },
+  {
+    "name": "Glob",
+    "input": {
+      "pattern": "**/PROJECT_MANAGER*"
+    },
+    "timestamp": "2026-03-18T20:31:12.704Z"
+  },
+  {
+    "name": "Bash",
+    "input": {
+      "command": "find /Users/zev/repos -name \"PROJECT_MANAGER.md\" -maxdepth 4 2>/dev/null; find /Users/zev -path \"*/plans/PROJECT_MANAGER.md\" -maxdepth 5 2>/dev/null",
+      "description": "Search for PROJECT_MANAGER.md across repos and home"
+    },
+    "timestamp": "2026-03-18T20:31:13.849Z"
+  },
+  {
+    "name": "Read",
+    "input": {
+      "file_path": "/Users/zev/repos/noko/plans/PROJECT_MANAGER.md"
+    },
+    "timestamp": "2026-03-18T20:31:30.316Z"
+  },
+  {
+    "name": "Agent",
+    "input": {
+      "description": "Read task 42 source files",
+      "subagent_type": "Explore",
+      "prompt": "Read these files from /Users/zev/repos/noko and report back their key contents relevant to conversation state tracking:\n\n1. `src/bot/handlers.py` — focus on `_find_awaiting_thread`, `text_handler`, `photo_handler`\n2. `src/engine/state_machine.py` — focus on `ThreadStatus` and transitions\n3. Look for a file called `DESIGN_CONSIDERATIONS.md` and read §18 about Thread↔Member indirection\n\nReport: what does _find_awaiting_thread currently do? How does it match inbound messages to threads? What's the ThreadStatus enum? What does §18 say about the indirection layer?"
+    },
+    "timestamp": "2026-03-18T20:51:56.871Z"
+  },
+  {
+    "name": "Read",
+    "input": {
+      "file_path": "/Users/zev/repos/noko/plans/PROJECT_MANAGER.md",
+      "offset": 339,
+      "limit": 27
+    },
+    "timestamp": "2026-03-18T20:56:43.036Z"
+  },
+  {
+    "name": "Edit",
+    "input": {
+      "replace_all": false,
+      "file_path": "/Users/zev/repos/noko/plans/PROJECT_MANAGER.md",
+      "old_string": "```prompt\nRead `src/bot/handlers.py` (_find_awaiting_thread, text_handler,\nphoto_handler). Read `src/engine/state_machine.py` (ThreadStatus). Read\nDESIGN_CONSIDERATIONS.md §18 (Thread↔Member indirection).\n\nCurrently, inbound handlers find the member's most recent awaiting\nthread via a Ping join. This works for single-thread scenarios but breaks\nwhen a member has multiple awaiting threads (e.g., homework check AND\nchore verification both pending).\n\nAdd conversation state tracking:\n1. When a thread enters awaiting_response, record what type of response\n   is expected (text, photo, callback) in thread.context[\"expected_response\"]\n2. In _find_awaiting_thread, match inbound message type against\n   expected_response to route to the correct thread\n3. Handle out-of-order: if no thread expects this message type, check\n   for any awaiting thread as fallback\n4. Handle delayed: if a response arrives for a completed/timed_out thread,\n   log it but don't crash — optionally notify parent\n\nTests: (1) photo routes to photo-expecting thread, not text-expecting,\n(2) text routes correctly when multiple threads await, (3) delayed reply\nto completed thread is handled gracefully, (4) single awaiting thread\nstill works as before. Commit when green.\nThen ask the user: \"Ready to mark 3.4 as done?\"\nIf yes, check off in plans/TODO.md and remove from plans/PROJECT_MANAGER.md.\n```",
+      "new_string": "```prompt\nRead `src/bot/handlers.py` (_find_awaiting_thread, text_handler,\nphoto_handler). Read `src/engine/state_machine.py` (ThreadStatus,\ntransition). Read DESIGN_CONSIDERATIONS.md §18 (Thread↔Member\nindirection). Note: thread.context is JSONB, already used for\ntarget_member_id — your additions are additive.\n\nCurrently, inbound handlers find the member's most recent awaiting\nthread via a Ping join. This works for single-thread scenarios but breaks\nwhen a member has multiple awaiting threads (e.g., homework check AND\nchore verification both pending).\n\nAdd conversation state tracking:\n\n1. **Setting expected_response:** The *caller* of transition() sets\n   thread.context[\"expected_response\"] to \"text\", \"photo\", or \"callback\"\n   before or after calling transition(to=awaiting_response). Do NOT\n   modify transition() itself — the context field is the caller's\n   responsibility. Update existing callers that transition to\n   awaiting_response to set this field (grep for them). If a caller\n   doesn't have enough info to know the type, default to \"text\".\n\n2. **Routing by type:** Change _find_awaiting_thread signature to\n   `_find_awaiting_thread(db, member, message_type: str = \"text\")`.\n   Add a WHERE filter: thread.context[\"expected_response\"] matches\n   message_type. Update text_handler to pass message_type=\"text\" and\n   photo_handler to pass message_type=\"photo\".\n\n3. **Fallback (out-of-order):** If the type-filtered query returns None,\n   run the original query without the type filter (any awaiting thread).\n   This preserves backward compatibility for threads that don't set\n   expected_response.\n\n4. **Delayed replies:** If a response arrives and no awaiting thread is\n   found at all, log a warning with member_id and message type, then\n   return None. Do NOT notify parent — just log. The handlers already\n   handle None (unrouted note path).\n\nTests: (1) photo routes to photo-expecting thread, not text-expecting,\n(2) text routes correctly when multiple threads await, (3) delayed reply\nto completed thread logs warning and returns None, (4) single awaiting\nthread without expected_response still works (fallback), (5) thread with\nno expected_response set defaults to matching any type. Commit when green.\nThen ask the user: \"Ready to mark 3.4 as done?\"\nIf yes, check off in plans/TODO.md and remove from plans/PROJECT_MANAGER.md.\n```"
+    },
+    "timestamp": "2026-03-18T20:57:14.019Z"
+  },
+  {
+    "name": "Agent",
+    "input": {
+      "description": "Read task 43 source files",
+      "subagent_type": "Explore",
+      "prompt": "Read these files from /Users/zev/repos/noko and report back their key contents relevant to digest generation:\n\n1. `src/models.py` — check if a Digest model exists. Report the existing model patterns (Base class, field conventions, etc.)\n2. `src/ai/client.py` — report the AIClient protocol/interface\n3. `src/ai/summarizer.py` — report the pattern used (how it calls AIClient, input/output types)\n4. Check if OUTLINE.md exists and read §4.4 if it does\n\nBe thorough — report function signatures, class definitions, and import patterns."
+    },
+    "timestamp": "2026-03-18T20:57:21.982Z"
+  },
+  {
+    "name": "Read",
+    "input": {
+      "file_path": "/Users/zev/repos/noko/plans/PROJECT_MANAGER.md",
+      "offset": 381,
+      "limit": 25
+    },
+    "timestamp": "2026-03-18T21:00:05.091Z"
+  },
+  {
+    "name": "Edit",
+    "input": {
+      "replace_all": false,
+      "file_path": "/Users/zev/repos/noko/plans/PROJECT_MANAGER.md",
+      "old_string": "```prompt\nRead `src/models.py` (Digest — check if it exists, if not create it).\nRead `src/ai/client.py` (AIClient protocol). Read `src/ai/summarizer.py`\n(existing summarizer pattern). Read OUTLINE.md §4.4.\n\nCreate `src/ai/digest_generator.py`:\n- `async def generate_digest(db, ai_client, family_id, audience, time_window) -> Digest`\n- audience is \"parent_daily\" or \"grandparent_weekly\"\n- Query the event log (GET /activity or direct DB query) for the time window\n- Query pending action items, new notes, spending summary (if receipts exist)\n- Compose a prompt for the AI client with all the data, audience-specific\n  instructions (parent: operational detail; grandparent: curated highlights)\n- Store the generated digest in the Digest model (create if needed:\n  family_id, audience, content, generated_at, time_window_start, time_window_end)\n- Return the Digest\n\nMockAIClient should return a canned digest based on audience keyword.\n\nTests: (1) parent daily digest includes pending items and spending,\n(2) grandparent weekly digest is curated and shorter,\n(3) empty time window produces \"nothing to report\" digest,\n(4) digest is persisted in DB. Commit when green.\nThen ask the user: \"Ready to mark 4.4 as done?\"\nIf yes, check off in plans/TODO.md and remove from plans/PROJECT_MANAGER.md.\n```",
+      "new_string": "```prompt\nRead `src/models.py` (Digest model — it already exists with fields:\nfamily_id, audience, content, period_start, period_end, sent_at,\ncreated_at). Read `src/ai/client.py` (AIClient protocol — has\ncomplete(system, user) -> str). Read `src/ai/summarizer.py` (follow\nthis pattern: call client.complete with system+user prompts, parse\nresponse). Read OUTLINE.md §4.4.\n\nCreate `src/ai/digest_generator.py`:\n- `async def generate_digest(db: AsyncSession, ai_client: AIClient, family_id: str, audience: str, period_start: datetime, period_end: datetime) -> Digest`\n- audience is \"parent_daily\" or \"grandparent_weekly\"\n- Query the DB directly (not HTTP) for the time window:\n  - EventLog entries for the family in [period_start, period_end]\n  - Pending action items (status=pending) for the family\n  - Notes created in the time window\n  - (No spending/receipts — that's a future feature, skip it)\n- Compose a prompt for ai_client.complete() with all the data:\n  - Parent daily: operational detail — what happened, what's pending,\n    what needs attention\n  - Grandparent weekly: curated highlights, positive framing, shorter\n- Store the result in the existing Digest model using the correct\n  field names: period_start, period_end (NOT time_window_start/end),\n  created_at is auto-set (NOT generated_at)\n- If the time window has no activity, set content to a short\n  \"nothing to report\" message without calling the AI\n- Return the persisted Digest\n\nFollow the existing test patterns. Check tests/ for an existing\nMockAIClient or AI test fixture — reuse it if found, don't create\na duplicate.\n\nTests: (1) parent daily digest includes pending items and recent notes,\n(2) grandparent weekly digest is curated and shorter,\n(3) empty time window produces \"nothing to report\" without AI call,\n(4) digest is persisted in DB with correct field values. Commit when green.\nThen ask the user: \"Ready to mark 4.4 as done?\"\nIf yes, check off in plans/TODO.md and remove from plans/PROJECT_MANAGER.md.\n```"
+    },
+    "timestamp": "2026-03-18T21:00:24.459Z"
+  },
+  {
+    "name": "Agent",
+    "input": {
+      "description": "Read task 44 source files",
+      "subagent_type": "Explore",
+      "prompt": "Read these files from /Users/zev/repos/noko and report back key contents:\n\n1. `src/bot/outbound.py` — focus on `flush_pending` and how it currently joins/batches ping texts\n2. `src/ai/client.py` — already know this is AIClient with complete(system, user) -> str\n3. Check OUTLINE.md §4.5 if it exists\n\nReport: How does flush_pending currently batch messages? What's the joining logic? Any existing notion of urgency or initiative grouping?"
+    },
+    "timestamp": "2026-03-18T21:00:31.854Z"
+  },
+  {
+    "name": "Read",
+    "input": {
+      "file_path": "/Users/zev/repos/noko/plans/PROJECT_MANAGER.md",
+      "offset": 419,
+      "limit": 19
+    },
+    "timestamp": "2026-03-18T21:00:55.014Z"
+  },
+  {
+    "name": "Read",
+    "input": {
+      "file_path": "/Users/zev/repos/noko/plans/PROJECT_MANAGER.md",
+      "offset": 440,
+      "limit": 38
+    },
+    "timestamp": "2026-03-18T21:00:59.721Z"
+  },
+  {
+    "name": "Edit",
+    "input": {
+      "replace_all": false,
+      "file_path": "/Users/zev/repos/noko/plans/PROJECT_MANAGER.md",
+      "old_string": "```prompt\nRead `src/bot/outbound.py` (flush_pending — currently joins ping texts\nwith newlines). Read `src/ai/client.py` (AIClient). Read OUTLINE.md §4.5.\n\nCreate `src/ai/message_composer.py`:\n- Define `PingItem` dataclass: initiative_name, message_text, urgency (normal/high)\n- `async def compose_message(ai_client, items: list[PingItem]) -> str`\n- System prompt: \"You are Noko, a family coordination assistant. Compose\n  a single coherent message from these pending items. Tone: formal,\n  concise, no emoji. Group by initiative. High-urgency items first.\"\n- If only one item, return it directly without AI call (optimization)\n- MockAIClient returns items joined with headers\n\nTests: (1) single item returns as-is, (2) multiple items from different\ninitiatives are grouped, (3) high urgency items appear first,\n(4) mock client produces readable output. Commit when green.\nThen ask the user: \"Ready to mark 4.5 as done?\"\nIf yes, check off in plans/TODO.md and remove from plans/PROJECT_MANAGER.md.\n```",
+      "new_string": "```prompt\nRead `src/bot/outbound.py` (flush_pending — currently joins ping texts\nwith newlines). Read `src/ai/client.py` (AIClient protocol:\ncomplete(system: str, user: str) -> str). Read OUTLINE.md §4.5.\n\nCreate `src/ai/message_composer.py`:\n- Define `PingItem` as a frozen dataclass: initiative_name (str),\n  message_text (str), urgency (str, \"normal\" or \"high\")\n- `async def compose_message(ai_client: AIClient, items: list[PingItem]) -> str`\n- System prompt: \"You are Noko, a family coordination assistant. Compose\n  a single coherent message from these pending items. Tone: formal,\n  concise, no emoji. Group by initiative. High-urgency items first.\"\n- User prompt: serialize items as structured text for the AI\n- If only one item, return item.message_text directly without AI call\n- Do NOT modify flush_pending or outbound.py — that integration\n  happens in task 46 (ping assembler)\n\nFollow existing test patterns. Check tests/ for an existing\nMockAIClient or AI test fixture — reuse it if found.\n\nTests: (1) single item returns as-is without AI call, (2) multiple\nitems from different initiatives are grouped, (3) high urgency items\nappear first, (4) mock client produces readable output. Commit when green.\nThen ask the user: \"Ready to mark 4.5 as done?\"\nIf yes, check off in plans/TODO.md and remove from plans/PROJECT_MANAGER.md.\n```"
+    },
+    "timestamp": "2026-03-18T21:01:12.096Z"
+  },
+  {
+    "name": "Read",
+    "input": {
+      "file_path": "/Users/zev/repos/noko/plans/PROJECT_MANAGER.md",
+      "offset": 477,
+      "limit": 40
+    },
+    "timestamp": "2026-03-18T21:01:16.822Z"
+  },
+  {
+    "name": "Edit",
+    "input": {
+      "replace_all": false,
+      "file_path": "/Users/zev/repos/noko/plans/PROJECT_MANAGER.md",
+      "old_string": "```prompt\nRead `src/ai/client.py` (AIClient). Read `src/ai/summarizer.py` (for\npattern reference). Read OUTLINE.md §4.6.\n\nCreate `src/ai/deduplication.py`:\n- `DedupResult` dataclass: is_duplicate (bool), confidence (float 0-1),\n  matched_item_id (str | None), reasoning (str)\n- `async def check_duplicate(ai_client, new_text: str, existing_items: list[dict]) -> DedupResult`\n  - existing_items: list of {id, text, source} dicts\n  - AI prompt: compare new_text against each existing item, return the\n    closest match with confidence score\n  - Threshold: confidence >= 0.8 → is_duplicate=True\n- `async def merge_items(db, new_item_id, existing_item_id) -> None`\n  - Add source reference from new to existing, mark new as duplicate\n  - This is a stub for now — actual merge logic depends on item type\n\nTests: (1) identical text → duplicate with high confidence,\n(2) completely different → not duplicate, (3) semantically similar\n(\"math test Thursday\" vs \"Thursday math exam\") → duplicate,\n(4) empty existing list → not duplicate. Commit when green.\nThen ask the user: \"Ready to mark 4.6 as done?\"\nIf yes, check off in plans/TODO.md and remove from plans/PROJECT_MANAGER.md.\n```",
+      "new_string": "```prompt\nRead `src/ai/client.py` (AIClient protocol: complete(system, user) -> str).\nRead `src/ai/summarizer.py` (follow this pattern: system+user prompts,\njson.loads response parsing with fallback). Read OUTLINE.md §4.6.\n\nCreate `src/ai/deduplication.py`:\n- `DedupResult` as a frozen dataclass: is_duplicate (bool),\n  confidence (float 0-1), matched_item_id (str | None), reasoning (str)\n- `async def check_duplicate(ai_client: AIClient, new_text: str, existing_items: list[dict]) -> DedupResult`\n  - existing_items: list of {id, text, source} dicts\n  - If existing_items is empty, return DedupResult(False, 0.0, None, \"no items to compare\")\n    without calling AI\n  - Limit: only pass the most recent 20 existing_items to the AI call\n    (caller may pass more, but truncate to avoid token bloat)\n  - AI system prompt: instruct to compare new_text against each item\n    and return JSON: {\"matched_id\": str|null, \"confidence\": float, \"reasoning\": str}\n  - Parse response with json.loads, fallback to not-duplicate on parse error\n  - Threshold: confidence >= 0.8 → is_duplicate=True\n- `async def merge_items(db: AsyncSession, new_item_id: str, existing_item_id: str) -> None`\n  - Stub for now: log the merge intent, don't modify DB\n  - Add a TODO comment: \"actual merge logic depends on item type\"\n\nFollow existing test patterns. Reuse MockAIClient from tests/ if one exists.\n\nTests: (1) identical text → duplicate with high confidence,\n(2) completely different → not duplicate, (3) semantically similar\n(\"math test Thursday\" vs \"Thursday math exam\") → duplicate,\n(4) empty existing list → not duplicate without AI call,\n(5) malformed AI response → graceful fallback to not-duplicate.\nCommit when green.\nThen ask the user: \"Ready to mark 4.6 as done?\"\nIf yes, check off in plans/TODO.md and remove from plans/PROJECT_MANAGER.md.\n```"
+    },
+    "timestamp": "2026-03-18T21:01:37.592Z"
+  },
+  {
+    "name": "Skill",
+    "input": {
+      "skill": "dispatch",
+      "args": "/Users/zev/repos/noko/plans/PROJECT_MANAGER.md 42"
+    },
+    "timestamp": "2026-03-18T21:02:26.051Z"
+  },
+  {
+    "name": "Read",
+    "input": {
+      "file_path": "/Users/zev/repos/noko/plans/PROJECT_MANAGER.md",
+      "offset": 327,
+      "limit": 58
+    },
+    "timestamp": "2026-03-18T21:02:30.692Z"
+  },
+  {
+    "name": "Bash",
+    "input": {
+      "command": "PROMPT='Read `src/bot/handlers.py` (_find_awaiting_thread, text_handler,\nphoto_handler). Read `src/engine/state_machine.py` (ThreadStatus,\ntransition). Read DESIGN_CONSIDERATIONS.md §18 (Thread↔Member\nindirection). Note: thread.context is JSONB, already used for\ntarget_member_id — your additions are additive.\n\nCurrently, inbound handlers find the member'\"'\"'s most recent awaiting\nthread via a Ping join. This works for single-thread scenarios but breaks\nwhen a member has multiple awaiting threads (e.g., homework check AND\nchore verification both pending).\n\nAdd conversation state tracking:\n\n1. **Setting expected_response:** The *caller* of transition() sets\n   thread.context[\"expected_response\"] to \"text\", \"photo\", or \"callback\"\n   before or after calling transition(to=awaiting_response). Do NOT\n   modify transition() itself — the context field is the caller'\"'\"'s\n   responsibility. Update existing callers that transition to\n   awaiting_response to set this field (grep for them). If a caller\n   doesn'\"'\"'t have enough info to know the type, default to \"text\".\n\n2. **Routing by type:** Change _find_awaiting_thread signature to\n   `_find_awaiting_thread(db, member, message_type: str = \"text\")`.\n   Add a WHERE filter: thread.context[\"expected_response\"] matches\n   message_type. Update text_handler to pass message_type=\"text\" and\n   photo_handler to pass message_type=\"photo\".\n\n3. **Fallback (out-of-order):** If the type-filtered query returns None,\n   run the original query without the type filter (any awaiting thread).\n   This preserves backward compatibility for threads that don'\"'\"'t set\n   expected_response.\n\n4. **Delayed replies:** If a response arrives and no awaiting thread is\n   found at all, log a warning with member_id and message type, then\n   return None. Do NOT notify parent — just log. The handlers already\n   handle None (unrouted note path).\n\nTests: (1) photo routes to photo-expecting thread, not text-expecting,\n(2) text routes correctly when multiple threads await, (3) delayed reply\nto completed thread logs warning and returns None, (4) single awaiting\nthread without expected_response still works (fallback), (5) thread with\nno expected_response set defaults to matching any type. Commit when green.\nThen ask the user: \"Ready to mark 3.4 as done?\"\nIf yes, check off in plans/TODO.md and remove from plans/PROJECT_MANAGER.md.'\n\nTEMPFILE=$(mktemp /tmp/dispatch-prompt-XXXX)\n\ncat > \"$TEMPFILE\" << 'PREAMBLE_END'\nYou are PAI. Read ~/.claude/CLAUDE.md for your operating instructions, then read ~/.claude/PAI/USER/AISTEERINGRULES.md for personal behavioral rules. Operate in the appropriate PAI mode for the task below.\n\nPARALLEL SESSION RULE: Multiple Claude Code sessions may be running on the same branch. During development, only run tests scoped to your task (specific test files or describe/it blocks). Run the full test suite only as a final validation when your task is complete. Never run DB migrations, seeds, or full builds without checking for lock contention.\n\nNow execute:\n\n---\n\nPREAMBLE_END\n\necho \"$PROMPT\" >> \"$TEMPFILE\"\n\necho \"$TEMPFILE\"",
+      "description": "Write task 42 prompt to temp file with PAI preamble"
+    },
+    "timestamp": "2026-03-18T21:02:43.250Z"
+  },
+  {
+    "name": "Bash",
+    "input": {
+      "command": "tmux new-window -d -c /Users/zev/repos/noko -n '42-conversation-state-track'",
+      "description": "Create tmux window for task 42"
+    },
+    "timestamp": "2026-03-18T21:02:49.766Z"
+  },
+  {
+    "name": "Bash",
+    "input": {
+      "command": "tmux send-keys -t '42-conversation-state-track' -l \" claude --dangerously-skip-permissions \\\"\\$(cat /tmp/dispatch-prompt-KArB)\\\"; printf '\\\\a'\"\ntmux send-keys -t '42-conversation-state-track' Enter",
+      "description": "Launch claude in task 42 tmux window"
+    },
+    "timestamp": "2026-03-18T21:02:54.981Z"
+  },
+  {
+    "name": "Skill",
+    "input": {
+      "skill": "dispatch",
+      "args": "/Users/zev/repos/noko/plans/PROJECT_MANAGER.md 43"
+    },
+    "timestamp": "2026-03-18T21:03:01.220Z"
+  },
+  {
+    "name": "Read",
+    "input": {
+      "file_path": "/Users/zev/repos/noko/plans/PROJECT_MANAGER.md",
+      "offset": 388,
+      "limit": 50
+    },
+    "timestamp": "2026-03-18T21:03:05.019Z"
+  },
+  {
+    "name": "Bash",
+    "input": {
+      "command": "TEMPFILE=$(mktemp /tmp/dispatch-prompt-XXXX)\n\ncat > \"$TEMPFILE\" << 'PREAMBLE_END'\nYou are PAI. Read ~/.claude/CLAUDE.md for your operating instructions, then read ~/.claude/PAI/USER/AISTEERINGRULES.md for personal behavioral rules. Operate in the appropriate PAI mode for the task below.\n\nPARALLEL SESSION RULE: Multiple Claude Code sessions may be running on the same branch. During development, only run tests scoped to your task (specific test files or describe/it blocks). Run the full test suite only as a final validation when your task is complete. Never run DB migrations, seeds, or full builds without checking for lock contention.\n\nNow execute:\n\n---\n\nPREAMBLE_END\n\ncat >> \"$TEMPFILE\" << 'PROMPT_END'\nRead `src/models.py` (Digest model — it already exists with fields:\nfamily_id, audience, content, period_start, period_end, sent_at,\ncreated_at). Read `src/ai/client.py` (AIClient protocol — has\ncomplete(system, user) -> str). Read `src/ai/summarizer.py` (follow\nthis pattern: call client.complete with system+user prompts, parse\nresponse). Read OUTLINE.md §4.4.\n\nCreate `src/ai/digest_generator.py`:\n- `async def generate_digest(db: AsyncSession, ai_client: AIClient, family_id: str, audience: str, period_start: datetime, period_end: datetime) -> Digest`\n- audience is \"parent_daily\" or \"grandparent_weekly\"\n- Query the DB directly (not HTTP) for the time window:\n  - EventLog entries for the family in [period_start, period_end]\n  - Pending action items (status=pending) for the family\n  - Notes created in the time window\n  - (No spending/receipts — that's a future feature, skip it)\n- Compose a prompt for ai_client.complete() with all the data:\n  - Parent daily: operational detail — what happened, what's pending,\n    what needs attention\n  - Grandparent weekly: curated highlights, positive framing, shorter\n- Store the result in the existing Digest model using the correct\n  field names: period_start, period_end (NOT time_window_start/end),\n  created_at is auto-set (NOT generated_at)\n- If the time window has no activity, set content to a short\n  \"nothing to report\" message without calling the AI\n- Return the persisted Digest\n\nFollow the existing test patterns. Check tests/ for an existing\nMockAIClient or AI test fixture — reuse it if found, don't create\na duplicate.\n\nTests: (1) parent daily digest includes pending items and recent notes,\n(2) grandparent weekly digest is curated and shorter,\n(3) empty time window produces \"nothing to report\" without AI call,\n(4) digest is persisted in DB with correct field values. Commit when green.\nThen ask the user: \"Ready to mark 4.4 as done?\"\nIf yes, check off in plans/TODO.md and remove from plans/PROJECT_MANAGER.md.\nPROMPT_END\n\necho \"$TEMPFILE\"",
+      "description": "Write task 43 prompt to temp file with PAI preamble"
+    },
+    "timestamp": "2026-03-18T21:03:15.936Z"
+  },
+  {
+    "name": "Bash",
+    "input": {
+      "command": "tmux new-window -d -c /Users/zev/repos/noko -n '43-digest-generator'",
+      "description": "Create tmux window for task 43"
+    },
+    "timestamp": "2026-03-18T21:03:21.009Z"
+  },
+  {
+    "name": "Bash",
+    "input": {
+      "command": "tmux send-keys -t '43-digest-generator' -l \" claude --dangerously-skip-permissions \\\"\\$(cat /tmp/dispatch-prompt-nyPr)\\\"; printf '\\\\a'\"\ntmux send-keys -t '43-digest-generator' Enter",
+      "description": "Launch claude in task 43 tmux window"
+    },
+    "timestamp": "2026-03-18T21:03:25.693Z"
+  },
+  {
+    "name": "Skill",
+    "input": {
+      "skill": "dispatch",
+      "args": "/Users/zev/repos/noko/plans/PROJECT_MANAGER.md 44"
+    },
+    "timestamp": "2026-03-18T21:03:31.179Z"
+  },
+  {
+    "name": "Read",
+    "input": {
+      "file_path": "/Users/zev/repos/noko/plans/PROJECT_MANAGER.md",
+      "offset": 441,
+      "limit": 35
+    },
+    "timestamp": "2026-03-18T21:03:35.329Z"
+  },
+  {
+    "name": "Bash",
+    "input": {
+      "command": "TEMPFILE=$(mktemp /tmp/dispatch-prompt-XXXX)\n\ncat > \"$TEMPFILE\" << 'PREAMBLE_END'\nYou are PAI. Read ~/.claude/CLAUDE.md for your operating instructions, then read ~/.claude/PAI/USER/AISTEERINGRULES.md for personal behavioral rules. Operate in the appropriate PAI mode for the task below.\n\nPARALLEL SESSION RULE: Multiple Claude Code sessions may be running on the same branch. During development, only run tests scoped to your task (specific test files or describe/it blocks). Run the full test suite only as a final validation when your task is complete. Never run DB migrations, seeds, or full builds without checking for lock contention.\n\nNow execute:\n\n---\n\nPREAMBLE_END\n\ncat >> \"$TEMPFILE\" << 'PROMPT_END'\nRead `src/bot/outbound.py` (flush_pending — currently joins ping texts\nwith newlines). Read `src/ai/client.py` (AIClient protocol:\ncomplete(system: str, user: str) -> str). Read OUTLINE.md §4.5.\n\nCreate `src/ai/message_composer.py`:\n- Define `PingItem` as a frozen dataclass: initiative_name (str),\n  message_text (str), urgency (str, \"normal\" or \"high\")\n- `async def compose_message(ai_client: AIClient, items: list[PingItem]) -> str`\n- System prompt: \"You are Noko, a family coordination assistant. Compose\n  a single coherent message from these pending items. Tone: formal,\n  concise, no emoji. Group by initiative. High-urgency items first.\"\n- User prompt: serialize items as structured text for the AI\n- If only one item, return item.message_text directly without AI call\n- Do NOT modify flush_pending or outbound.py — that integration\n  happens in task 46 (ping assembler)\n\nFollow existing test patterns. Check tests/ for an existing\nMockAIClient or AI test fixture — reuse it if found.\n\nTests: (1) single item returns as-is without AI call, (2) multiple\nitems from different initiatives are grouped, (3) high urgency items\nappear first, (4) mock client produces readable output. Commit when green.\nThen ask the user: \"Ready to mark 4.5 as done?\"\nIf yes, check off in plans/TODO.md and remove from plans/PROJECT_MANAGER.md.\nPROMPT_END\n\necho \"$TEMPFILE\"",
+      "description": "Write task 44 prompt to temp file with PAI preamble"
+    },
+    "timestamp": "2026-03-18T21:03:44.717Z"
+  },
+  {
+    "name": "Bash",
+    "input": {
+      "command": "tmux new-window -d -c /Users/zev/repos/noko -n '44-message-composer'",
+      "description": "Create tmux window for task 44"
+    },
+    "timestamp": "2026-03-18T21:03:50.488Z"
+  },
+  {
+    "name": "Bash",
+    "input": {
+      "command": "tmux send-keys -t '44-message-composer' -l \" claude --dangerously-skip-permissions \\\"\\$(cat /tmp/dispatch-prompt-W6fO)\\\"; printf '\\\\a'\"\ntmux send-keys -t '44-message-composer' Enter",
+      "description": "Launch claude in task 44 tmux window"
+    },
+    "timestamp": "2026-03-18T21:03:55.665Z"
+  },
+  {
+    "name": "Skill",
+    "input": {
+      "skill": "dispatch",
+      "args": "/Users/zev/repos/noko/plans/PROJECT_MANAGER.md 45"
+    },
+    "timestamp": "2026-03-18T21:04:00.593Z"
+  },
+  {
+    "name": "Read",
+    "input": {
+      "file_path": "/Users/zev/repos/noko/plans/PROJECT_MANAGER.md",
+      "offset": 480,
+      "limit": 45
+    },
+    "timestamp": "2026-03-18T21:04:05.594Z"
+  },
+  {
+    "name": "Bash",
+    "input": {
+      "command": "TEMPFILE=$(mktemp /tmp/dispatch-prompt-XXXX)\n\ncat > \"$TEMPFILE\" << 'PREAMBLE_END'\nYou are PAI. Read ~/.claude/CLAUDE.md for your operating instructions, then read ~/.claude/PAI/USER/AISTEERINGRULES.md for personal behavioral rules. Operate in the appropriate PAI mode for the task below.\n\nPARALLEL SESSION RULE: Multiple Claude Code sessions may be running on the same branch. During development, only run tests scoped to your task (specific test files or describe/it blocks). Run the full test suite only as a final validation when your task is complete. Never run DB migrations, seeds, or full builds without checking for lock contention.\n\nNow execute:\n\n---\n\nPREAMBLE_END\n\ncat >> \"$TEMPFILE\" << 'PROMPT_END'\nRead `src/ai/client.py` (AIClient protocol: complete(system, user) -> str).\nRead `src/ai/summarizer.py` (follow this pattern: system+user prompts,\njson.loads response parsing with fallback). Read OUTLINE.md §4.6.\n\nCreate `src/ai/deduplication.py`:\n- `DedupResult` as a frozen dataclass: is_duplicate (bool),\n  confidence (float 0-1), matched_item_id (str | None), reasoning (str)\n- `async def check_duplicate(ai_client: AIClient, new_text: str, existing_items: list[dict]) -> DedupResult`\n  - existing_items: list of {id, text, source} dicts\n  - If existing_items is empty, return DedupResult(False, 0.0, None, \"no items to compare\")\n    without calling AI\n  - Limit: only pass the most recent 20 existing_items to the AI call\n    (caller may pass more, but truncate to avoid token bloat)\n  - AI system prompt: instruct to compare new_text against each item\n    and return JSON: {\"matched_id\": str|null, \"confidence\": float, \"reasoning\": str}\n  - Parse response with json.loads, fallback to not-duplicate on parse error\n  - Threshold: confidence >= 0.8 → is_duplicate=True\n- `async def merge_items(db: AsyncSession, new_item_id: str, existing_item_id: str) -> None`\n  - Stub for now: log the merge intent, don't modify DB\n  - Add a TODO comment: \"actual merge logic depends on item type\"\n\nFollow existing test patterns. Reuse MockAIClient from tests/ if one exists.\n\nTests: (1) identical text → duplicate with high confidence,\n(2) completely different → not duplicate, (3) semantically similar\n(\"math test Thursday\" vs \"Thursday math exam\") → duplicate,\n(4) empty existing list → not duplicate without AI call,\n(5) malformed AI response → graceful fallback to not-duplicate.\nCommit when green.\nThen ask the user: \"Ready to mark 4.6 as done?\"\nIf yes, check off in plans/TODO.md and remove from plans/PROJECT_MANAGER.md.\nPROMPT_END\n\necho \"$TEMPFILE\"",
+      "description": "Write task 45 prompt to temp file with PAI preamble"
+    },
+    "timestamp": "2026-03-18T21:04:16.231Z"
+  },
+  {
+    "name": "Bash",
+    "input": {
+      "command": "tmux new-window -d -c /Users/zev/repos/noko -n '45-cross-source-dedup'",
+      "description": "Create tmux window for task 45"
+    },
+    "timestamp": "2026-03-18T21:04:22.216Z"
+  },
+  {
+    "name": "Bash",
+    "input": {
+      "command": "tmux send-keys -t '45-cross-source-dedup' -l \" claude --dangerously-skip-permissions \\\"\\$(cat /tmp/dispatch-prompt-BZSu)\\\"; printf '\\\\a'\"\ntmux send-keys -t '45-cross-source-dedup' Enter",
+      "description": "Launch claude in task 45 tmux window"
+    },
+    "timestamp": "2026-03-18T21:04:26.851Z"
+  },
+  {
+    "name": "Bash",
+    "input": {
+      "command": "cd /Users/zev/repos/noko && git log --oneline -15",
+      "description": "Check recent commits"
+    },
+    "timestamp": "2026-03-19T05:11:54.527Z"
+  },
+  {
+    "name": "Bash",
+    "input": {
+      "command": "tmux list-windows -F '#{window_name} #{window_active}'",
+      "description": "Check tmux window status"
+    },
+    "timestamp": "2026-03-19T05:11:55.488Z"
+  },
+  {
+    "name": "Bash",
+    "input": {
+      "command": "cd /Users/zev/repos/noko && git diff ddec583..7890aab -- src/ tests/ 2>/dev/null | head -500",
+      "description": "Diff for task 42 (conversation state tracking)"
+    },
+    "timestamp": "2026-03-19T05:12:03.993Z"
+  },
+  {
+    "name": "Bash",
+    "input": {
+      "command": "cd /Users/zev/repos/noko && git diff ddec583..12011ef -- src/ tests/ 2>/dev/null | head -500",
+      "description": "Diff for task 43 (digest generator)"
+    },
+    "timestamp": "2026-03-19T05:12:04.454Z"
+  },
+  {
+    "name": "Bash",
+    "input": {
+      "command": "cd /Users/zev/repos/noko && git diff ddec583..91120aa -- src/ tests/ 2>/dev/null | head -500",
+      "description": "Diff for task 44 (message composer)"
+    },
+    "timestamp": "2026-03-19T05:12:05.376Z"
+  },
+  {
+    "name": "Bash",
+    "input": {
+      "command": "cd /Users/zev/repos/noko && git diff ddec583..c7cf57d -- src/ tests/ 2>/dev/null | head -500",
+      "description": "Diff for task 45 (deduplication)"
+    },
+    "timestamp": "2026-03-19T05:12:05.903Z"
+  },
+  {
+    "name": "Bash",
+    "input": {
+      "command": "cd /Users/zev/repos/noko && git diff --stat",
+      "description": "Check for uncommitted changes"
+    },
+    "timestamp": "2026-03-19T05:12:12.220Z"
+  },
+  {
+    "name": "Bash",
+    "input": {
+      "command": "cd /Users/zev/repos/noko && git log --oneline ddec583..HEAD",
+      "description": "All commits from this batch"
+    },
+    "timestamp": "2026-03-19T05:12:12.937Z"
+  },
+  {
+    "name": "Bash",
+    "input": {
+      "command": "cd /Users/zev/repos/noko && git diff -- src/bot/handlers.py | head -80",
+      "description": "Check uncommitted handler changes"
+    },
+    "timestamp": "2026-03-19T05:12:20.602Z"
+  },
+  {
+    "name": "Bash",
+    "input": {
+      "command": "cd /Users/zev/repos/noko && git diff -- tests/test_bot_handlers.py | head -120",
+      "description": "Check uncommitted test changes"
+    },
+    "timestamp": "2026-03-19T05:12:30.950Z"
+  },
+  {
+    "name": "Bash",
+    "input": {
+      "command": "cd /Users/zev/repos/noko && git log --oneline -8",
+      "description": "Check latest commits"
+    },
+    "timestamp": "2026-03-19T05:14:35.968Z"
+  },
+  {
+    "name": "Bash",
+    "input": {
+      "command": "cd /Users/zev/repos/noko && git diff --stat",
+      "description": "Check uncommitted changes"
+    },
+    "timestamp": "2026-03-19T05:14:36.293Z"
+  },
+  {
+    "name": "Bash",
+    "input": {
+      "command": "cd /Users/zev/repos/noko && git diff 7890aab..b462387 --stat",
+      "description": "What changed in the follow-up commit"
+    },
+    "timestamp": "2026-03-19T05:14:43.137Z"
+  },
+  {
+    "name": "Agent",
+    "input": {
+      "description": "Read task 46 source files",
+      "subagent_type": "Explore",
+      "prompt": "Read these files from /Users/zev/repos/noko and report back key contents:\n\n1. `src/bot/outbound.py` — full file, focus on `flush_pending` and all its logic (notification windows, ping marking, error handling)\n2. `src/ai/message_composer.py` — the compose_message function and PingItem dataclass (just committed)\n3. `src/models.py` — Ping model fields, Member model (notification window fields if any), Enrollment model\n4. Check if there's any existing notification window logic anywhere\n\nReport: How does flush_pending currently work end-to-end? What's the Ping model structure? Is there existing notification window logic? What does the Enrollment model look like?"
+    },
+    "timestamp": "2026-03-19T05:22:17.760Z"
+  },
+  {
+    "name": "Read",
+    "input": {
+      "file_path": "/Users/zev/repos/noko/plans/PROJECT_MANAGER.md",
+      "offset": 491,
+      "limit": 30
+    },
+    "timestamp": "2026-03-19T05:22:58.432Z"
+  },
+  {
+    "name": "Grep",
+    "input": {
+      "pattern": "## 46\\.",
+      "path": "/Users/zev/repos/noko/plans/PROJECT_MANAGER.md",
+      "output_mode": "content",
+      "-n": true
+    },
+    "timestamp": "2026-03-19T05:23:01.374Z"
+  },
+  {
+    "name": "Read",
+    "input": {
+      "file_path": "/Users/zev/repos/noko/plans/PROJECT_MANAGER.md",
+      "offset": 348,
+      "limit": 55
+    },
+    "timestamp": "2026-03-19T05:23:05.064Z"
+  },
+  {
+    "name": "Agent",
+    "input": {
+      "description": "Trace Ping→Thread→Initiative chain",
+      "subagent_type": "Explore",
+      "prompt": "In /Users/zev/repos/noko, I need to understand the full model relationship chain from Ping to Initiative. Read:\n\n1. `src/models.py` — Find and report the FULL definitions (all fields, relationships, FKs) for:\n   - Ping (has thread_id FK)\n   - Thread (what FKs does it have? workflow_id? initiative_id?)\n   - Workflow (what FKs does it have? initiative_id?)\n   - Initiative (name field?)\n   \n2. For each model, report ALL foreign keys and relationships so I can trace the join path from Ping → Thread → ??? → Initiative.\n\n3. Also check: are there any pings created WITHOUT a thread_id? Search for `Ping(` constructor calls across the codebase to find where pings are created and whether thread_id is ever None.\n\nBe thorough — I need exact field names and FK targets."
+    },
+    "timestamp": "2026-03-19T05:30:41.999Z"
+  },
+  {
+    "name": "Grep",
+    "input": {
+      "pattern": "config",
+      "path": "/Users/zev/repos/noko/src/models.py",
+      "output_mode": "content",
+      "-C": 3
+    },
+    "timestamp": "2026-03-19T05:40:10.861Z"
+  },
+  {
+    "name": "Grep",
+    "input": {
+      "pattern": "escalation|urgency|priority\"",
+      "path": "/Users/zev/repos/noko/src/engine",
+      "output_mode": "content",
+      "-C": 2
+    },
+    "timestamp": "2026-03-19T05:40:18.631Z"
+  },
+  {
+    "name": "Read",
+    "input": {
+      "file_path": "/Users/zev/repos/noko/plans/PROJECT_MANAGER.md",
+      "offset": 361,
+      "limit": 29
+    },
+    "timestamp": "2026-03-19T05:52:26.973Z"
+  },
+  {
+    "name": "Edit",
+    "input": {
+      "replace_all": false,
+      "file_path": "/Users/zev/repos/noko/plans/PROJECT_MANAGER.md",
+      "old_string": "```prompt\nRead `src/bot/outbound.py` (flush_pending — current naive batching).\nRead `src/ai/message_composer.py` (compose_message — from task 44).\nRead `src/models.py` (Ping, Member, Enrollment). Read OUTLINE.md §6.3.\n\nRefactor ping delivery to use the assembler pattern:\n1. `async def assemble_pings(db, member_id, time_window_minutes=30) -> list[PingItem]`\n   - Query all unsent pings for this member within the time window\n   - Join with Thread → Workflow → Initiative to get initiative names\n   - Return as PingItem list (from message_composer)\n2. `async def deliver_assembled(db, client, ai_client, member_id) -> int`\n   - Call assemble_pings\n   - If empty, return 0\n   - Check member's notification window (existing logic in outbound.py)\n   - Call compose_message with the items\n   - Send via client.send_message\n   - Mark all pings as sent (with error handling from C25)\n   - Return count of pings sent\n\nUpdate flush_pending to use deliver_assembled instead of its current\ninline batching. Keep flush_pending as the entry point called by the\nscheduler.\n\nTests: (1) multiple pings assembled into single message,\n(2) pings from different initiatives are grouped, (3) notification\nwindow respected, (4) empty queue returns 0, (5) existing flush_pending\ntests still pass. Commit when green.\nThen ask the user: \"Ready to mark 6.3 as done?\"\nIf yes, check off in plans/TODO.md and remove from plans/PROJECT_MANAGER.md.\n```",
+      "new_string": "```prompt\nRead `src/bot/outbound.py` (flush_pending, is_within_window — current\nnaive batching with notification window checks). Read\n`src/ai/message_composer.py` (compose_message, PingItem — from task 44).\nRead `src/models.py` (Ping, Thread, Workflow, Initiative, Member).\n\nRefactor ping delivery in `src/bot/outbound.py` to use an assembler\npattern. Two paths based on whether a ping has a thread_id:\n\n**Path A — Pings WITH thread_id (workflow pings):**\n1. `async def assemble_pings(db: AsyncSession, member_id: str) -> list[PingItem]`\n   - Query ALL unsent pings (sent_at IS NULL, failed_at IS NULL) for\n     this member WHERE thread_id IS NOT NULL\n   - Join: Ping → Thread → Workflow → Initiative to get initiative.name\n   - Map to PingItem(initiative_name=initiative.name,\n     message_text=ping.content, urgency=\"normal\")\n   - Urgency is always \"normal\" for now — no source sets it yet\n   - Return the list (may be empty)\n\n**Path B — Pings WITHOUT thread_id (standalone/direct pings):**\n   - These bypass the composer entirely\n   - Send each one's content as-is via client.send_message\n   - Mark sent_at on success, failed_at + failure_reason on error\n\n2. `async def deliver_assembled(db: AsyncSession, client, ai_client: AIClient, member_id: str) -> int`\n   - Load member + family from DB. Early exit if no telegram_chat_id.\n   - Check notification window using existing is_within_window(member,\n     family=family). If outside window, return 0.\n   - Query and send Path B pings (standalone, as-is)\n   - Call assemble_pings for Path A pings\n   - If Path A list is non-empty: call compose_message(ai_client, items)\n     to get a single composed message, send via client.send_message\n   - Mark all Path A pings as sent (sent_at=now) on success, or\n     failed_at + failure_reason on error\n   - Return total count of pings sent (Path A + Path B)\n\n3. Update flush_pending to call deliver_assembled instead of its\n   current inline batching. flush_pending remains the entry point\n   called by the scheduler. Its signature will need to add ai_client —\n   update the scheduler call site(s) to pass it through. Check\n   `src/engine/scheduler.py` for how flush_pending is called.\n\nNo row locking needed (single worker in v1) — remove the existing\nwith_for_update(skip_locked=True) from the ping query.\n\nFollow existing test patterns. Reuse MockAIClient from tests/conftest.py.\n\nTests: (1) multiple workflow pings assembled into single composed\nmessage, (2) pings from different initiatives are grouped by\ninitiative_name, (3) standalone pings (no thread_id) sent as-is\nwithout composer, (4) notification window respected — outside window\nreturns 0, (5) empty queue returns 0, (6) send failure marks\nfailed_at + failure_reason, (7) existing flush_pending tests still\npass (update them if signature changed). Commit when green.\nThen ask the user: \"Ready to mark 6.3 as done?\"\nIf yes, check off in plans/TODO.md and remove from plans/PROJECT_MANAGER.md.\n```"
+    },
+    "timestamp": "2026-03-19T05:52:49.625Z"
+  },
+  {
+    "name": "Skill",
+    "input": {
+      "skill": "dispatch",
+      "args": "/Users/zev/repos/noko/plans/PROJECT_MANAGER.md 46"
+    },
+    "timestamp": "2026-03-19T05:53:15.267Z"
+  },
+  {
+    "name": "Read",
+    "input": {
+      "file_path": "/Users/zev/repos/noko/plans/PROJECT_MANAGER.md",
+      "offset": 348,
+      "limit": 50
+    },
+    "timestamp": "2026-03-19T05:53:18.116Z"
+  },
+  {
+    "name": "Bash",
+    "input": {
+      "command": "TEMPFILE=$(mktemp /tmp/dispatch-prompt-XXXX)\n\ncat > \"$TEMPFILE\" << 'PREAMBLE_END'\nYou are PAI. Read ~/.claude/CLAUDE.md for your operating instructions, then read ~/.claude/PAI/USER/AISTEERINGRULES.md for personal behavioral rules. Operate in the appropriate PAI mode for the task below.\n\nPARALLEL SESSION RULE: Multiple Claude Code sessions may be running on the same branch. During development, only run tests scoped to your task (specific test files or describe/it blocks). Run the full test suite only as a final validation when your task is complete. Never run DB migrations, seeds, or full builds without checking for lock contention.\n\nNow execute:\n\n---\n\nPREAMBLE_END\n\ncat >> \"$TEMPFILE\" << 'PROMPT_END'\nRead `src/bot/outbound.py` (flush_pending, is_within_window — current\nnaive batching with notification window checks). Read\n`src/ai/message_composer.py` (compose_message, PingItem — from task 44).\nRead `src/models.py` (Ping, Thread, Workflow, Initiative, Member).\n\nRefactor ping delivery in `src/bot/outbound.py` to use an assembler\npattern. Two paths based on whether a ping has a thread_id:\n\n**Path A — Pings WITH thread_id (workflow pings):**\n1. `async def assemble_pings(db: AsyncSession, member_id: str) -> list[PingItem]`\n   - Query ALL unsent pings (sent_at IS NULL, failed_at IS NULL) for\n     this member WHERE thread_id IS NOT NULL\n   - Join: Ping → Thread → Workflow → Initiative to get initiative.name\n   - Map to PingItem(initiative_name=initiative.name,\n     message_text=ping.content, urgency=\"normal\")\n   - Urgency is always \"normal\" for now — no source sets it yet\n   - Return the list (may be empty)\n\n**Path B — Pings WITHOUT thread_id (standalone/direct pings):**\n   - These bypass the composer entirely\n   - Send each one's content as-is via client.send_message\n   - Mark sent_at on success, failed_at + failure_reason on error\n\n2. `async def deliver_assembled(db: AsyncSession, client, ai_client: AIClient, member_id: str) -> int`\n   - Load member + family from DB. Early exit if no telegram_chat_id.\n   - Check notification window using existing is_within_window(member,\n     family=family). If outside window, return 0.\n   - Query and send Path B pings (standalone, as-is)\n   - Call assemble_pings for Path A pings\n   - If Path A list is non-empty: call compose_message(ai_client, items)\n     to get a single composed message, send via client.send_message\n   - Mark all Path A pings as sent (sent_at=now) on success, or\n     failed_at + failure_reason on error\n   - Return total count of pings sent (Path A + Path B)\n\n3. Update flush_pending to call deliver_assembled instead of its\n   current inline batching. flush_pending remains the entry point\n   called by the scheduler. Its signature will need to add ai_client —\n   update the scheduler call site(s) to pass it through. Check\n   `src/engine/scheduler.py` for how flush_pending is called.\n\nNo row locking needed (single worker in v1) — remove the existing\nwith_for_update(skip_locked=True) from the ping query.\n\nFollow existing test patterns. Reuse MockAIClient from tests/conftest.py.\n\nTests: (1) multiple workflow pings assembled into single composed\nmessage, (2) pings from different initiatives are grouped by\ninitiative_name, (3) standalone pings (no thread_id) sent as-is\nwithout composer, (4) notification window respected — outside window\nreturns 0, (5) empty queue returns 0, (6) send failure marks\nfailed_at + failure_reason, (7) existing flush_pending tests still\npass (update them if signature changed). Commit when green.\nThen ask the user: \"Ready to mark 6.3 as done?\"\nIf yes, check off in plans/TODO.md and remove from plans/PROJECT_MANAGER.md.\nPROMPT_END\n\necho \"$TEMPFILE\"",
+      "description": "Write task 46 prompt to temp file with PAI preamble"
+    },
+    "timestamp": "2026-03-19T05:53:40.031Z"
+  },
+  {
+    "name": "Bash",
+    "input": {
+      "command": "tmux new-window -d -c /Users/zev/repos/noko -n '46-ping-assembler'",
+      "description": "Create tmux window for task 46"
+    },
+    "timestamp": "2026-03-19T05:53:45.053Z"
+  },
+  {
+    "name": "Bash",
+    "input": {
+      "command": "tmux send-keys -t '46-ping-assembler' -l \" claude --dangerously-skip-permissions \\\"\\$(cat /tmp/dispatch-prompt-2X2W)\\\"; printf '\\\\a'\"\ntmux send-keys -t '46-ping-assembler' Enter",
+      "description": "Launch claude in task 46 tmux window"
+    },
+    "timestamp": "2026-03-19T05:53:48.995Z"
+  },
+  {
+    "name": "Read",
+    "input": {
+      "file_path": "/Users/zev/repos/noko/plans/PROJECT_MANAGER.md",
+      "offset": 394,
+      "limit": 60
+    },
+    "timestamp": "2026-03-19T06:10:31.092Z"
+  },
+  {
+    "name": "Read",
+    "input": {
+      "file_path": "/Users/zev/repos/noko/plans/PROJECT_MANAGER.md",
+      "offset": 453,
+      "limit": 20
+    },
+    "timestamp": "2026-03-19T06:10:39.607Z"
+  },
+  {
+    "name": "Read",
+    "input": {
+      "file_path": "/Users/zev/repos/noko/plans/PROJECT_MANAGER.md",
+      "offset": 472,
+      "limit": 20
+    },
+    "timestamp": "2026-03-19T06:10:48.796Z"
+  },
+  {
+    "name": "Edit",
+    "input": {
+      "replace_all": false,
+      "file_path": "/Users/zev/repos/noko/plans/PROJECT_MANAGER.md",
+      "old_string": "⚠️ **HUMAN DECISION REQUIRED** — This is the first real workflow. Before dispatching,\nconfirm: which school email domains to use as defaults, whether ambiguous emails\nshould auto-create threads or just flag for parent review, and the desired scan\nfrequency.\n\n- [ ] Workflow block: poll Gmail, classify, summarize, extract, dedup, file\n- [ ] Register as a workflow type in the system\n- [ ] Configurable sender filter and scan frequency\n- [ ] Tests: end-to-end with mock Gmail + mock AI\n\n```prompt\nRead `src/engine/scheduler.py` (how workflows are triggered). Read\n`src/integrations/gmail.py` (GmailClient, poll_inbox, process_emails).\nRead `src/ai/classifier.py`, `src/ai/summarizer.py`,\n`src/ai/deduplication.py`. Read `src/engine/action_items.py` and\n`src/engine/notes.py`. Read OUTLINE.md §8.1.\n\nCreate `src/workflows/school_email_scan.py`:\n- `async def run(db, ai_client, gmail_client, family_id, initiative_id, config) -> dict`\n- Config: sender_domains (list[str]), scan_frequency_minutes (int)\n- Flow:\n  1. Poll Gmail (poll_inbox with sender filter from config)\n  2. For each new email: classify (4.1)\n  3. If action_required: summarize + extract (4.2), check dedup (4.6),\n     create ActionItem + Note if not duplicate\n  4. If routine: log as Note with source=email, no action item\n  5. If ambiguous: create a pending-review item (thread in\n     awaiting_response state, ping parent for confirmation)\n  6. Mark processed emails as read\n  7. Return summary: {processed: N, action_items: N, notes: N, skipped: N}\n\nRegister \"school_email_scan\" as a known workflow type that the scheduler\ncan trigger. Add workflow type dispatch in scheduler's run_due_jobs.\n\nTests with mock Gmail + mock AI:\n1. Action-required email → ActionItem + Note created\n2. Routine email → Note only, no ActionItem\n3. Ambiguous email → thread created in awaiting_response\n4. Duplicate email → skipped (dedup match)\n5. Sender not in filter → skipped\n6. Full cycle: schedule triggers, emails processed, items created\n\nCommit when green.\nThen ask the user: \"Ready to mark 8.1 as done?\"\nIf yes, check off in plans/TODO.md and remove from plans/PROJECT_MANAGER.md.\n```",
+      "new_string": "**Human decisions resolved:**\n- **Sender domains**: exact-match only (no wildcard/suffix). Per-family config,\n  stored in `Workflow.config[\"sender_domains\"]`. Seed Zev's family with:\n  `[\"iil.ch\", \"mailing.iil.ch\", \"florimont.ch\", \"ecolint.ch\"]`\n- **Ambiguous emails**: auto-create thread in `awaiting_response` + ping parent\n  for review (\"I got this email but I'm not sure if you need to act on it\")\n- **Scan frequency**: every 15 minutes, 7am–9pm (stored in workflow config)\n\n- [ ] Workflow block: poll Gmail, classify, summarize, extract, dedup, file\n- [ ] Register as a workflow type in the system\n- [ ] Configurable sender filter and scan frequency\n- [ ] Tests: end-to-end with mock Gmail + mock AI\n\n```prompt\nRead `src/engine/scheduler.py` (how workflows are triggered). Read\n`src/integrations/gmail.py` (GmailClient, poll_inbox, process_emails).\nRead `src/ai/classifier.py`, `src/ai/summarizer.py`,\n`src/ai/deduplication.py`. Read `src/engine/action_items.py` and\n`src/engine/notes.py`. Read OUTLINE.md §8.1.\n\nCreate `src/workflows/school_email_scan.py`:\n- `async def run(db, ai_client, gmail_client, family_id, initiative_id, config) -> dict`\n- Config shape (from Workflow.config):\n  - sender_domains: list[str] — exact domain match only, no wildcards\n    (e.g., [\"iil.ch\", \"mailing.iil.ch\"] matches @iil.ch and\n    @mailing.iil.ch but NOT @subdomain.iil.ch)\n  - scan_frequency_minutes: int (default 15)\n  - active_hours: {start: 7, end: 21} — only run during these hours\n    (check in the workflow runner, not the scheduler)\n- Flow:\n  1. Check active_hours — if current hour is outside [start, end),\n     return early with {skipped_reason: \"outside_active_hours\"}\n  2. Poll Gmail (poll_inbox with sender filter from config).\n     Match sender email domain against config.sender_domains using\n     exact match: extract domain from sender address, check if it's\n     in the list.\n  3. For each new email: classify (4.1)\n  4. If action_required: summarize + extract (4.2), check dedup (4.6),\n     create ActionItem + Note if not duplicate\n  5. If routine: log as Note with source=email, no action item\n  6. If ambiguous: create a Thread in awaiting_response state with\n     context[\"expected_response\"] = \"text\". Create a Ping to the\n     parent member with content like: \"I received an email from\n     {sender} about '{subject}' but I'm not sure if you need to\n     act on it. Should I create a task for this?\" The parent can\n     reply to confirm or dismiss.\n  7. Mark processed emails as read\n  8. Return summary: {processed: N, action_items: N, notes: N,\n     ambiguous: N, skipped: N}\n\nRegister \"school_email_scan\" as a known workflow type that the scheduler\ncan trigger. Add workflow type dispatch in scheduler's run_due_jobs.\n\nTests with mock Gmail + mock AI:\n1. Action-required email → ActionItem + Note created\n2. Routine email → Note only, no ActionItem\n3. Ambiguous email → Thread(awaiting_response) + parent Ping created\n4. Duplicate email → skipped (dedup match)\n5. Sender not in domain list → skipped\n6. Sender on subdomain not in list → skipped (exact match)\n7. Outside active hours → early return, nothing processed\n8. Full cycle: schedule triggers, emails processed, items created\n\nCommit when green.\nThen ask the user: \"Ready to mark 8.1 as done?\"\nIf yes, check off in plans/TODO.md and remove from plans/PROJECT_MANAGER.md.\n```"
+    },
+    "timestamp": "2026-03-19T06:11:14.887Z"
+  },
+  {
+    "name": "Edit",
+    "input": {
+      "replace_all": false,
+      "file_path": "/Users/zev/repos/noko/plans/PROJECT_MANAGER.md",
+      "old_string": "## Later\n\n- Dashboard Phase 3 (after Phase 2 + backend)\n- ⚠️ Infrastructure & deployment — **HUMAN DECISION**: confirm provider (Hetzner), domain (nokofam.com), architecture (Docker Compose + Caddy) before dispatching. Provisions cloud resources and spends money.\n- Interactive bot/OAuth setup (X.0)",
+      "new_string": "## Later\n\n- **School email domain onboarding + config screen** — During family onboarding, prompt parent to enter school email domains (exact match, including subdomains if needed). Store in `Workflow.config[\"sender_domains\"]` for the school_email_scan workflow. Also: add a settings/config screen in the dashboard where parents can add/remove domains when kids change schools. Depends on: dashboard Phase 3, task 47 (school email scan).\n- **Scan frequency / active hours config screen** — Expose `scan_frequency_minutes` and `active_hours` from workflow config in the dashboard settings. Parents should be able to adjust polling frequency and quiet hours per workflow. Depends on: dashboard Phase 3.\n- Dashboard Phase 3 (after Phase 2 + backend)\n- ⚠️ Infrastructure & deployment — **HUMAN DECISION**: confirm provider (Hetzner), domain (nokofam.com), architecture (Docker Compose + Caddy) before dispatching. Provisions cloud resources and spends money.\n- Interactive bot/OAuth setup (X.0)"
+    },
+    "timestamp": "2026-03-19T06:11:28.299Z"
+  },
+  {
+    "name": "Bash",
+    "input": {
+      "command": "cd /Users/zev/repos/noko && git log --oneline -5",
+      "description": "Check recent commits"
+    },
+    "timestamp": "2026-03-19T06:44:27.151Z"
+  },
+  {
+    "name": "Bash",
+    "input": {
+      "command": "cd /Users/zev/repos/noko && git diff --stat",
+      "description": "Check uncommitted changes"
+    },
+    "timestamp": "2026-03-19T06:44:27.558Z"
+  },
+  {
+    "name": "Bash",
+    "input": {
+      "command": "cd /Users/zev/repos/noko && git diff b462387..e108242 -- src/ tests/ | head -600",
+      "description": "Review task 46 diff"
+    },
+    "timestamp": "2026-03-19T06:44:31.430Z"
+  },
+  {
+    "name": "Bash",
+    "input": {
+      "command": "cd /Users/zev/repos/noko && git diff b462387..e108242 -- src/ tests/ | tail -400",
+      "description": "Rest of task 46 diff"
+    },
+    "timestamp": "2026-03-19T06:44:35.557Z"
+  },
+  {
+    "name": "Grep",
+    "input": {
+      "pattern": "flush_pending\"",
+      "path": "/Users/zev/repos/noko/src",
+      "output_mode": "content",
+      "-C": 2
+    },
+    "timestamp": "2026-03-19T06:44:39.951Z"
+  },
+  {
+    "name": "Grep",
+    "input": {
+      "pattern": "flush_pending",
+      "path": "/Users/zev/repos/noko/src",
+      "output_mode": "content",
+      "-C": 2
+    },
+    "timestamp": "2026-03-19T06:44:42.310Z"
+  },
+  {
+    "name": "Grep",
+    "input": {
+      "pattern": "flush_pending",
+      "path": "/Users/zev/repos/noko/src/engine",
+      "output_mode": "content",
+      "-C": 3
+    },
+    "timestamp": "2026-03-19T06:44:44.584Z"
+  },
+  {
+    "name": "Grep",
+    "input": {
+      "pattern": "flush_pending\"",
+      "path": "/Users/zev/repos/noko",
+      "output_mode": "files_with_matches"
+    },
+    "timestamp": "2026-03-19T06:44:46.951Z"
+  },
+  {
+    "name": "Grep",
+    "input": {
+      "pattern": "flush_pending",
+      "path": "/Users/zev/repos/noko",
+      "output_mode": "files_with_matches"
+    },
+    "timestamp": "2026-03-19T06:44:49.381Z"
+  },
+  {
+    "name": "Skill",
+    "input": {
+      "skill": "dispatch",
+      "args": "/Users/zev/repos/noko/plans/PROJECT_MANAGER.md 47"
+    },
+    "timestamp": "2026-03-19T06:45:44.804Z"
+  },
+  {
+    "name": "Read",
+    "input": {
+      "file_path": "/Users/zev/repos/noko/plans/PROJECT_MANAGER.md",
+      "offset": 354,
+      "limit": 70
+    },
+    "timestamp": "2026-03-19T06:45:47.153Z"
+  },
+  {
+    "name": "Bash",
+    "input": {
+      "command": "TEMPFILE=$(mktemp /tmp/dispatch-prompt-XXXX)\n\ncat > \"$TEMPFILE\" << 'PREAMBLE_END'\nYou are PAI. Read ~/.claude/CLAUDE.md for your operating instructions, then read ~/.claude/PAI/USER/AISTEERINGRULES.md for personal behavioral rules. Operate in the appropriate PAI mode for the task below.\n\nPARALLEL SESSION RULE: Multiple Claude Code sessions may be running on the same branch. During development, only run tests scoped to your task (specific test files or describe/it blocks). Run the full test suite only as a final validation when your task is complete. Never run DB migrations, seeds, or full builds without checking for lock contention.\n\nNow execute:\n\n---\n\nPREAMBLE_END\n\ncat >> \"$TEMPFILE\" << 'PROMPT_END'\nRead `src/engine/scheduler.py` (how workflows are triggered). Read\n`src/integrations/gmail.py` (GmailClient, poll_inbox, process_emails).\nRead `src/ai/classifier.py`, `src/ai/summarizer.py`,\n`src/ai/deduplication.py`. Read `src/engine/action_items.py` and\n`src/engine/notes.py`. Read OUTLINE.md §8.1.\n\nCreate `src/workflows/school_email_scan.py`:\n- `async def run(db, ai_client, gmail_client, family_id, initiative_id, config) -> dict`\n- Config shape (from Workflow.config):\n  - sender_domains: list[str] — exact domain match only, no wildcards\n    (e.g., [\"iil.ch\", \"mailing.iil.ch\"] matches @iil.ch and\n    @mailing.iil.ch but NOT @subdomain.iil.ch)\n  - scan_frequency_minutes: int (default 15)\n  - active_hours: {start: 7, end: 21} — only run during these hours\n    (check in the workflow runner, not the scheduler)\n- Flow:\n  1. Check active_hours — if current hour is outside [start, end),\n     return early with {skipped_reason: \"outside_active_hours\"}\n  2. Poll Gmail (poll_inbox with sender filter from config).\n     Match sender email domain against config.sender_domains using\n     exact match: extract domain from sender address, check if it's\n     in the list.\n  3. For each new email: classify (4.1)\n  4. If action_required: summarize + extract (4.2), check dedup (4.6),\n     create ActionItem + Note if not duplicate\n  5. If routine: log as Note with source=email, no action item\n  6. If ambiguous: create a Thread in awaiting_response state with\n     context[\"expected_response\"] = \"text\". Create a Ping to the\n     parent member with content like: \"I received an email from\n     {sender} about '{subject}' but I'm not sure if you need to\n     act on it. Should I create a task for this?\" The parent can\n     reply to confirm or dismiss.\n  7. Mark processed emails as read\n  8. Return summary: {processed: N, action_items: N, notes: N,\n     ambiguous: N, skipped: N}\n\nRegister \"school_email_scan\" as a known workflow type that the scheduler\ncan trigger. Add workflow type dispatch in scheduler's run_due_jobs.\n\nTests with mock Gmail + mock AI:\n1. Action-required email → ActionItem + Note created\n2. Routine email → Note only, no ActionItem\n3. Ambiguous email → Thread(awaiting_response) + parent Ping created\n4. Duplicate email → skipped (dedup match)\n5. Sender not in domain list → skipped\n6. Sender on subdomain not in list → skipped (exact match)\n7. Outside active hours → early return, nothing processed\n8. Full cycle: schedule triggers, emails processed, items created\n\nCommit when green.\nThen ask the user: \"Ready to mark 8.1 as done?\"\nIf yes, check off in plans/TODO.md and remove from plans/PROJECT_MANAGER.md.\nPROMPT_END\n\necho \"$TEMPFILE\"",
+      "description": "Write task 47 prompt to temp file with PAI preamble"
+    },
+    "timestamp": "2026-03-19T06:46:04.848Z"
+  },
+  {
+    "name": "Bash",
+    "input": {
+      "command": "tmux new-window -d -c /Users/zev/repos/noko -n '47-school-email-scan'",
+      "description": "Create tmux window for task 47"
+    },
+    "timestamp": "2026-03-19T06:46:09.163Z"
+  },
+  {
+    "name": "Bash",
+    "input": {
+      "command": "tmux send-keys -t '47-school-email-scan' -l \" claude --dangerously-skip-permissions \\\"\\$(cat /tmp/dispatch-prompt-mbCN)\\\"; printf '\\\\a'\"\ntmux send-keys -t '47-school-email-scan' Enter",
+      "description": "Launch claude in task 47 tmux window"
+    },
+    "timestamp": "2026-03-19T06:46:16.792Z"
+  },
+  {
+    "name": "Read",
+    "input": {
+      "file_path": "/Users/zev/repos/noko/plans/PROJECT_MANAGER.md",
+      "offset": 1,
+      "limit": 60
+    },
+    "timestamp": "2026-03-19T06:49:13.391Z"
+  },
+  {
+    "name": "Grep",
+    "input": {
+      "pattern": "refresh",
+      "path": "/Users/zev/repos/noko/src",
+      "output_mode": "content",
+      "-C": 2,
+      "-i": true,
+      "glob": "*.py"
+    },
+    "timestamp": "2026-03-19T06:49:47.561Z"
+  },
+  {
+    "name": "Read",
+    "input": {
+      "file_path": "/Users/zev/repos/noko/src/routers/auth.py",
+      "offset": 299,
+      "limit": 25
+    },
+    "timestamp": "2026-03-19T06:49:52.529Z"
+  },
+  {
+    "name": "Grep",
+    "input": {
+      "pattern": "/refresh|refresh_access|refreshToken|refresh_token",
+      "path": "/Users/zev/repos/noko/src",
+      "output_mode": "files_with_matches",
+      "glob": "*.{py,ts,js,tsx,jsx,html,svelte}"
+    },
+    "timestamp": "2026-03-19T06:49:57.015Z"
+  },
+  {
+    "name": "Grep",
+    "input": {
+      "pattern": "/refresh|refreshToken|refresh_token",
+      "path": "/Users/zev/repos/noko",
+      "output_mode": "files_with_matches",
+      "glob": "*.{ts,js,tsx,jsx,svelte,html}"
+    },
+    "timestamp": "2026-03-19T06:50:00.443Z"
+  },
+  {
+    "name": "Skill",
+    "input": {
+      "skill": "dispatch",
+      "args": "/Users/zev/repos/noko/plans/PROJECT_MANAGER.md C29"
+    },
+    "timestamp": "2026-03-19T06:54:00.328Z"
+  },
+  {
+    "name": "Read",
+    "input": {
+      "file_path": "/Users/zev/repos/noko/plans/PROJECT_MANAGER.md",
+      "offset": 148,
+      "limit": 30
+    },
+    "timestamp": "2026-03-19T06:54:03.135Z"
+  },
+  {
+    "name": "Grep",
+    "input": {
+      "pattern": "## C29\\.",
+      "path": "/Users/zev/repos/noko/plans/PROJECT_MANAGER.md",
+      "output_mode": "content",
+      "-n": true
+    },
+    "timestamp": "2026-03-19T06:54:07.689Z"
+  },
+  {
+    "name": "Read",
+    "input": {
+      "file_path": "/Users/zev/repos/noko/plans/PROJECT_MANAGER.md",
+      "offset": 211,
+      "limit": 30
+    },
+    "timestamp": "2026-03-19T06:54:10.152Z"
+  },
+  {
+    "name": "Bash",
+    "input": {
+      "command": "TEMPFILE=$(mktemp /tmp/dispatch-prompt-XXXX)\n\ncat > \"$TEMPFILE\" << 'PREAMBLE_END'\nYou are PAI. Read ~/.claude/CLAUDE.md for your operating instructions, then read ~/.claude/PAI/USER/AISTEERINGRULES.md for personal behavioral rules. Operate in the appropriate PAI mode for the task below.\n\nPARALLEL SESSION RULE: Multiple Claude Code sessions may be running on the same branch. During development, only run tests scoped to your task (specific test files or describe/it blocks). Run the full test suite only as a final validation when your task is complete. Never run DB migrations, seeds, or full builds without checking for lock contention.\n\nNow execute:\n\n---\n\nPREAMBLE_END\n\ncat >> \"$TEMPFILE\" << 'PROMPT_END'\nRead plans/TODO.md — \"C29. used_tokens unbounded growth.\" Read\n`src/routers/auth.py` (purge_expired_tokens — defined but never called) and\n`src/models.py` (UsedToken). The bug: every magic link, invite, and family\nselection adds a UsedToken row that is never cleaned up. The purge function\nexists but nothing invokes it. Fix by adding a periodic cleanup. Simplest\napproach for v1: add a FastAPI startup background task that runs\npurge_expired_tokens every hour (asyncio.create_task with a sleep loop).\nAlternative: add a `POST /internal/purge-tokens` endpoint guarded by a\npre-shared secret, called by external cron. Add tests proving expired tokens\nare purged and unexpired ones survive. Commit when green.\nThen ask the user: \"Ready to mark C29 as done?\"\nIf yes, check off in plans/TODO.md and remove from plans/PROJECT_MANAGER.md.\nPROMPT_END\n\necho \"$TEMPFILE\"",
+      "description": "Write C29 prompt to temp file with PAI preamble"
+    },
+    "timestamp": "2026-03-19T06:54:20.749Z"
+  },
+  {
+    "name": "Bash",
+    "input": {
+      "command": "tmux new-window -d -c /Users/zev/repos/noko -n 'C29-used-tokens-cleanup'",
+      "description": "Create tmux window for C29"
+    },
+    "timestamp": "2026-03-19T06:54:24.582Z"
+  },
+  {
+    "name": "Bash",
+    "input": {
+      "command": "tmux send-keys -t 'C29-used-tokens-cleanup' -l \" claude --dangerously-skip-permissions \\\"\\$(cat /tmp/dispatch-prompt-BHIi)\\\"; printf '\\\\a'\"\ntmux send-keys -t 'C29-used-tokens-cleanup' Enter",
+      "description": "Launch claude in C29 tmux window"
+    },
+    "timestamp": "2026-03-19T06:54:29.116Z"
+  },
+  {
+    "name": "Bash",
+    "input": {
+      "command": "cd /Users/zev/repos/noko && git log --oneline -8",
+      "description": "Check recent commits"
+    },
+    "timestamp": "2026-03-19T19:04:06.879Z"
+  },
+  {
+    "name": "Bash",
+    "input": {
+      "command": "cd /Users/zev/repos/noko && git diff --stat",
+      "description": "Check uncommitted changes"
+    },
+    "timestamp": "2026-03-19T19:04:07.390Z"
+  },
+  {
+    "name": "Bash",
+    "input": {
+      "command": "cd /Users/zev/repos/noko && git diff e108242..60a72a6 -- src/ tests/ | head -300",
+      "description": "C29 diff"
+    },
+    "timestamp": "2026-03-19T19:04:13.328Z"
+  },
+  {
+    "name": "Bash",
+    "input": {
+      "command": "cd /Users/zev/repos/noko && git diff -- src/ tests/ | head -400",
+      "description": "Task 47 uncommitted changes"
+    },
+    "timestamp": "2026-03-19T19:04:13.872Z"
+  },
+  {
+    "name": "Bash",
+    "input": {
+      "command": "cd /Users/zev/repos/noko && git diff --stat",
+      "description": "Full uncommitted file list"
+    },
+    "timestamp": "2026-03-19T19:04:20.401Z"
+  },
+  {
+    "name": "Bash",
+    "input": {
+      "command": "cd /Users/zev/repos/noko && git status --short",
+      "description": "Check untracked files too"
+    },
+    "timestamp": "2026-03-19T19:04:21.315Z"
+  },
+  {
+    "name": "Bash",
+    "input": {
+      "command": "tmux list-windows -F '#{window_name} #{window_active}'",
+      "description": "Check if 47 window still exists"
+    },
+    "timestamp": "2026-03-19T19:04:22.460Z"
+  },
+  {
+    "name": "Bash",
+    "input": {
+      "command": "cd /Users/zev/repos/noko && ls src/workflows/",
+      "description": "Check workflow files"
+    },
+    "timestamp": "2026-03-19T19:04:33.237Z"
+  },
+  {
+    "name": "Bash",
+    "input": {
+      "command": "cd /Users/zev/repos/noko && wc -l src/workflows/*.py tests/test_school_email_scan.py",
+      "description": "Size of new files"
+    },
+    "timestamp": "2026-03-19T19:04:33.832Z"
+  },
+  {
+    "name": "Read",
+    "input": {
+      "file_path": "/Users/zev/repos/noko/src/workflows/school_email_scan.py"
+    },
+    "timestamp": "2026-03-19T19:04:38.730Z"
+  },
+  {
+    "name": "Read",
+    "input": {
+      "file_path": "/Users/zev/repos/noko/tests/test_school_email_scan.py"
+    },
+    "timestamp": "2026-03-19T19:04:43.251Z"
+  }
+]

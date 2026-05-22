@@ -1,0 +1,1283 @@
+[
+  {
+    "name": "Bash",
+    "input": {
+      "command": "ls ~/.claude/plans/ 2>/dev/null || echo \"No plans dir at ~/.claude/plans\"; ls ~/.claude/PAI/plans/ 2>/dev/null || echo \"No plans dir at ~/.claude/PAI/plans\"",
+      "description": "Find plans directory"
+    },
+    "timestamp": "2026-03-17T12:29:59.074Z"
+  },
+  {
+    "name": "Glob",
+    "input": {
+      "pattern": "**/*plan*",
+      "path": "/Users/zev/.claude"
+    },
+    "timestamp": "2026-03-17T12:29:59.541Z"
+  },
+  {
+    "name": "Read",
+    "input": {
+      "file_path": "/Users/zev/.claude/plans/cozy-enchanting-owl.md"
+    },
+    "timestamp": "2026-03-17T12:30:01.977Z"
+  },
+  {
+    "name": "Read",
+    "input": {
+      "file_path": "/Users/zev/.claude/PAI/CONTEXT_ROUTING.md"
+    },
+    "timestamp": "2026-03-17T12:31:00.967Z"
+  },
+  {
+    "name": "Read",
+    "input": {
+      "file_path": "/Users/zev/.claude/PAI/USER/PROJECTS/README.md"
+    },
+    "timestamp": "2026-03-17T12:31:03.154Z"
+  },
+  {
+    "name": "Glob",
+    "input": {
+      "pattern": "**/*project*management*",
+      "path": "/Users/zev/.claude"
+    },
+    "timestamp": "2026-03-17T12:31:05.623Z"
+  },
+  {
+    "name": "Glob",
+    "input": {
+      "pattern": "**/*roadmap*",
+      "path": "/Users/zev/.claude"
+    },
+    "timestamp": "2026-03-17T12:31:06.179Z"
+  },
+  {
+    "name": "Glob",
+    "input": {
+      "pattern": "**/*backlog*",
+      "path": "/Users/zev/.claude"
+    },
+    "timestamp": "2026-03-17T12:31:06.534Z"
+  },
+  {
+    "name": "Glob",
+    "input": {
+      "pattern": "**/*tasks*\"",
+      "path": "/Users/zev/.claude"
+    },
+    "timestamp": "2026-03-17T12:31:06.811Z"
+  },
+  {
+    "name": "Glob",
+    "input": {
+      "pattern": "**/PROJECTS/*.md",
+      "path": "/Users/zev/.claude/PAI/USER"
+    },
+    "timestamp": "2026-03-17T12:31:15.442Z"
+  },
+  {
+    "name": "Glob",
+    "input": {
+      "pattern": "**/*.md",
+      "path": "/Users/zev/.claude/PAI/USER/PROJECTS"
+    },
+    "timestamp": "2026-03-17T12:31:15.621Z"
+  },
+  {
+    "name": "Glob",
+    "input": {
+      "pattern": "**/plans/**/*.md",
+      "path": "/Users/zev/.claude"
+    },
+    "timestamp": "2026-03-17T12:33:54.044Z"
+  },
+  {
+    "name": "Bash",
+    "input": {
+      "command": "pwd",
+      "description": "Check current directory"
+    },
+    "timestamp": "2026-03-17T12:33:54.714Z"
+  },
+  {
+    "name": "Glob",
+    "input": {
+      "pattern": "plans/**/*.md",
+      "path": "/Users/zev/repos/noko"
+    },
+    "timestamp": "2026-03-17T12:34:56.840Z"
+  },
+  {
+    "name": "Bash",
+    "input": {
+      "command": "ls /Users/zev/repos/noko/plans/ 2>/dev/null || ls /Users/zev/repos/Noko/plans/ 2>/dev/null || echo \"not found\"",
+      "description": "Find noko plans directory"
+    },
+    "timestamp": "2026-03-17T12:34:59.476Z"
+  },
+  {
+    "name": "Read",
+    "input": {
+      "file_path": "/Users/zev/repos/Noko/plans/PROJECT_MANAGER.md"
+    },
+    "timestamp": "2026-03-17T12:35:02.764Z"
+  },
+  {
+    "name": "Read",
+    "input": {
+      "file_path": "/Users/zev/repos/Noko/plans/TODO.md"
+    },
+    "timestamp": "2026-03-17T12:35:02.791Z"
+  },
+  {
+    "name": "Read",
+    "input": {
+      "file_path": "/Users/zev/repos/Noko/src/routers/auth.py"
+    },
+    "timestamp": "2026-03-17T12:36:59.424Z"
+  },
+  {
+    "name": "Read",
+    "input": {
+      "file_path": "/Users/zev/repos/Noko/src/auth.py"
+    },
+    "timestamp": "2026-03-17T12:36:59.583Z"
+  },
+  {
+    "name": "Read",
+    "input": {
+      "file_path": "/Users/zev/repos/Noko/plans/PROJECT_MANAGER.md",
+      "offset": 93,
+      "limit": 33
+    },
+    "timestamp": "2026-03-17T12:39:09.245Z"
+  },
+  {
+    "name": "Edit",
+    "input": {
+      "replace_all": false,
+      "file_path": "/Users/zev/repos/Noko/plans/PROJECT_MANAGER.md",
+      "old_string": "## C17. Account Takeover via open invite redemption (P0 — security)\n\n**Fix before:** any deployment with invite links\n\nIn `src/routers/auth.py`, `POST /auth/join` validates `intended_email` only when it's\nset. For \"open\" invite links (where `intended_email` is `None`), an attacker can pass\n`email=\"parent@target-family.com\"` and hit the idempotent join logic, which returns\na fully authenticated session JWT for the existing parent account. This is a complete\naccount takeover.\n\n**Root cause:** Email ownership is assumed, never verified. The intended_email check\nadded in the C6 fix only covers targeted invites, not open ones.\n\n- [ ] Require magic-link email verification before invite redemption completes\n- [ ] Open invites must capture email, send verification, then create session on confirm\n- [ ] Targeted invites: existing intended_email check is sufficient\n- [ ] Test: open invite + someone else's email → no session returned\n- [ ] Test: open invite + verified email → session returned\n\n```prompt\nRead plans/TODO.md — \"C17. Account takeover via open invite.\" Read\n`src/routers/auth.py` (join_via_invite). The bug: open invite links (where\nintended_email is None) allow an attacker to pass any email and get an\nauthenticated session for an existing member. The intended_email check only\ncovers targeted invites. Fix: require magic-link email verification before\ncompleting invite redemption. For open invites, the flow should be: (1)\naccept invite token + email, (2) send magic link to that email, (3) on\nmagic link confirmation, complete the join and return session. Add tests\nproving that an unverified email on an open invite does not yield a session.\nCommit when green.\nThen ask the user: \"Ready to mark C17 as done?\"\nIf yes, check off in plans/TODO.md and remove from plans/PROJECT_MANAGER.md.\n```",
+      "new_string": "## C17. Account Takeover via open invite redemption (P0 — security)\n\n**Fix before:** any deployment with invite links\n\nIn `src/routers/auth.py`, `POST /auth/join` validates `intended_email` only when it's\nset. For \"open\" invite links (where `intended_email` is `None`), an attacker can pass\n`email=\"parent@target-family.com\"` and hit the idempotent join logic, which returns\na fully authenticated session JWT for the existing parent account. This is a complete\naccount takeover.\n\n**Root cause:** The idempotent return path (lines 233-242) hands back a session JWT\nfor any existing member whose email matches, without verifying email ownership.\nOpen invites should only create *new* members, never match existing ones.\n\n- [ ] Open invite + email already in family → 409 \"Already a member, please log in via magic link\"\n- [ ] Open invite + new email → create member (existing behavior)\n- [ ] Targeted invites: existing intended_email check is sufficient (no change)\n- [ ] Test: open invite + existing member's email → 409\n- [ ] Test: open invite + fresh email → success, new member created\n- [ ] Test: targeted invite + correct email + existing member → idempotent success (unchanged)\n\n```prompt\nRead plans/TODO.md — \"C17. Account takeover via open invite.\" Read\n`src/routers/auth.py` (join_via_invite, lines 208-267). The bug: open\ninvite links (where intended_email is None) allow an attacker to pass any\nexisting member's email and receive their session JWT via the idempotent\nreturn path (lines 233-242). Design decision: open invites must only\ncreate NEW members, never match existing ones. Fix: after consuming the\ntoken, if intended_email is None (open invite) AND a member with the\nsubmitted email already exists in the family, return 409 \"Already a\nmember, please log in via magic link.\" Only proceed to create a new\nmember if no match exists. Leave the targeted invite path (where\nintended_email is set) unchanged — its email check is sufficient. Add\ntests: (1) open invite + existing member's email → 409, (2) open invite\n+ fresh email → 201 with new member, (3) targeted invite + correct\nemail + existing member → idempotent success (regression). Commit when\ngreen.\nThen ask the user: \"Ready to mark C17 as done?\"\nIf yes, check off in plans/TODO.md and remove from plans/PROJECT_MANAGER.md.\n```"
+    },
+    "timestamp": "2026-03-17T12:39:26.934Z"
+  },
+  {
+    "name": "Agent",
+    "input": {
+      "description": "Fix C17 account takeover",
+      "prompt": "You are working in the Noko project at /Users/zev/repos/Noko.\n\nRead plans/TODO.md — \"C17. Account takeover via open invite.\" Read\n`src/routers/auth.py` (join_via_invite, lines 208-267). The bug: open\ninvite links (where intended_email is None) allow an attacker to pass any\nexisting member's email and receive their session JWT via the idempotent\nreturn path (lines 233-242). Design decision: open invites must only\ncreate NEW members, never match existing ones. Fix: after consuming the\ntoken, if intended_email is None (open invite) AND a member with the\nsubmitted email already exists in the family, return 409 \"Already a\nmember, please log in via magic link.\" Only proceed to create a new\nmember if no match exists. Leave the targeted invite path (where\nintended_email is set) unchanged — its email check is sufficient. Add\ntests: (1) open invite + existing member's email → 409, (2) open invite\n+ fresh email → 201 with new member, (3) targeted invite + correct\nemail + existing member → idempotent success (regression). Commit when\ngreen.\nThen ask the user: \"Ready to mark C17 as done?\"\nIf yes, check off in plans/TODO.md and remove from plans/PROJECT_MANAGER.md.",
+      "mode": "auto"
+    },
+    "timestamp": "2026-03-17T12:39:33.316Z"
+  },
+  {
+    "name": "Skill",
+    "input": {
+      "skill": "dispatch",
+      "args": "Read plans/TODO.md — \"C17. Account takeover via open invite.\" Read `src/routers/auth.py` (join_via_invite, lines 208-267). The bug: open invite links (where intended_email is None) allow an attacker to pass any existing member's email and receive their session JWT via the idempotent return path (lines 233-242). Design decision: open invites must only create NEW members, never match existing ones. Fix: after consuming the token, if intended_email is None (open invite) AND a member with the submitted email already exists in the family, return 409 \"Already a member, please log in via magic link.\" Only proceed to create a new member if no match exists. Leave the targeted invite path (where intended_email is set) unchanged — its email check is sufficient. Add tests: (1) open invite + existing member's email → 409, (2) open invite + fresh email → 201 with new member, (3) targeted invite + correct email + existing member → idempotent success (regression). Commit when green. Then ask the user: \"Ready to mark C17 as done?\" If yes, check off in plans/TODO.md and remove from plans/PROJECT_MANAGER.md."
+    },
+    "timestamp": "2026-03-17T12:40:24.772Z"
+  },
+  {
+    "name": "Bash",
+    "input": {
+      "command": "cat > /tmp/dispatch-prompt-C17 << 'PROMPT_EOF'\nRead plans/TODO.md — \"C17. Account takeover via open invite.\" Read `src/routers/auth.py` (join_via_invite, lines 208-267). The bug: open invite links (where intended_email is None) allow an attacker to pass any existing member's email and receive their session JWT via the idempotent return path (lines 233-242). Design decision: open invites must only create NEW members, never match existing ones. Fix: after consuming the token, if intended_email is None (open invite) AND a member with the submitted email already exists in the family, return 409 \"Already a member, please log in via magic link.\" Only proceed to create a new member if no match exists. Leave the targeted invite path (where intended_email is set) unchanged — its email check is sufficient. Add tests: (1) open invite + existing member's email → 409, (2) open invite + fresh email → 201 with new member, (3) targeted invite + correct email + existing member → idempotent success (regression). Commit when green. Then ask the user: \"Ready to mark C17 as done?\" If yes, check off in plans/TODO.md and remove from plans/PROJECT_MANAGER.md.\nPROMPT_EOF\necho \"Prompt written to /tmp/dispatch-prompt-C17\"",
+      "description": "Write dispatch prompt to temp file"
+    },
+    "timestamp": "2026-03-17T12:40:53.203Z"
+  },
+  {
+    "name": "Bash",
+    "input": {
+      "command": "tmux new-window -d -c /Users/zev/repos/Noko -n 'C17-account-takeover-fix'",
+      "description": "Create new tmux window"
+    },
+    "timestamp": "2026-03-17T12:40:56.335Z"
+  },
+  {
+    "name": "Bash",
+    "input": {
+      "command": "tmux send-keys -t 'C17-account-takeover-fix' -l \"claude --dangerously-skip-permissions \\\"\\$(cat /tmp/dispatch-prompt-C17)\\\"\" && tmux send-keys -t 'C17-account-takeover-fix' Enter",
+      "description": "Launch impl claude in left pane"
+    },
+    "timestamp": "2026-03-17T12:40:59.666Z"
+  },
+  {
+    "name": "Bash",
+    "input": {
+      "command": "tmux split-window -d -h -c /Users/zev/repos/Noko -t 'C17-account-takeover-fix'",
+      "description": "Split horizontally for review pane"
+    },
+    "timestamp": "2026-03-17T12:41:03.225Z"
+  },
+  {
+    "name": "Bash",
+    "input": {
+      "command": "tmux send-keys -t 'C17-account-takeover-fix.1' -l \"claude --dangerously-skip-permissions\" && tmux send-keys -t 'C17-account-takeover-fix.1' Enter",
+      "description": "Launch review claude in right pane"
+    },
+    "timestamp": "2026-03-17T12:41:06.441Z"
+  },
+  {
+    "name": "Bash",
+    "input": {
+      "command": "sleep 6 && tmux send-keys -t 'C17-account-takeover-fix.1' -l 'review-impl '",
+      "description": "Pre-fill review command after init"
+    },
+    "timestamp": "2026-03-17T12:41:10.451Z"
+  },
+  {
+    "name": "Read",
+    "input": {
+      "file_path": "/Users/zev/repos/Noko/src/engine/notes.py"
+    },
+    "timestamp": "2026-03-17T12:43:30.992Z"
+  },
+  {
+    "name": "Read",
+    "input": {
+      "file_path": "/Users/zev/repos/Noko/src/routers/notes.py"
+    },
+    "timestamp": "2026-03-17T12:43:31.295Z"
+  },
+  {
+    "name": "Read",
+    "input": {
+      "file_path": "/Users/zev/repos/Noko/src/engine/validation.py"
+    },
+    "timestamp": "2026-03-17T12:43:35.514Z"
+  },
+  {
+    "name": "Grep",
+    "input": {
+      "pattern": "class Topic|class Note",
+      "path": "/Users/zev/repos/Noko/src/models.py",
+      "output_mode": "content",
+      "-A": 15
+    },
+    "timestamp": "2026-03-17T12:43:36.743Z"
+  },
+  {
+    "name": "Edit",
+    "input": {
+      "replace_all": false,
+      "file_path": "/Users/zev/repos/Noko/plans/PROJECT_MANAGER.md",
+      "old_string": "## C18. Cross-tenant DoS via note creation — topic_id not family-scoped (P0 — security)\n\n**Fix before:** any deployment with notes feature\n\nIn `src/engine/notes.py`, `create_note` validates `subject_member_id` belongs to the\nfamily but does **not** validate that `topic_id` belongs to the family. A malicious user\nin Family A can create a note pointing to Family B's topic_id. Because Topic→Note has\n`ondelete=\"RESTRICT\"`, Family B can never delete that topic — a permanent denial of\nservice (BOLA hold-hostage attack).\n\n- [ ] Add `validate_topic_in_family(db, topic_id, family_id)` check in `create_note`\n- [ ] Return 422 if topic belongs to a different family\n- [ ] Add the same check to `auto_file` if it accepts topic_id\n- [ ] Test: cross-family topic_id → 422\n- [ ] Test: same-family topic_id → success\n\n```prompt\nRead plans/TODO.md — \"C18. Cross-tenant topic_id validation.\" Read\n`src/engine/notes.py` (create_note) and `src/routers/notes.py`. The bug:\ntopic_id is not validated to belong to the same family. A user in Family A\ncan create a note under Family B's topic, and because of ondelete=RESTRICT,\nFamily B can never delete that topic. Fix: add\n`validate_topic_in_family(db, topic_id, family_id)` in create_note (similar\nto the existing validate_member_in_family). Return 422 on mismatch. Apply\nthe same check to auto_file if it accepts topic_id. Add tests. Commit when\ngreen.\nThen ask the user: \"Ready to mark C18 as done?\"\nIf yes, check off in plans/TODO.md and remove from plans/PROJECT_MANAGER.md.\n```",
+      "new_string": "## C18. Cross-tenant DoS via note creation — topic_id not family-scoped (P0 — security)\n\n**Fix before:** any deployment with notes feature\n\nIn `src/engine/notes.py`, `create_note` validates `subject_member_id` belongs to the\nfamily but does **not** validate that `topic_id` belongs to the family. A malicious user\nin Family A can create a note pointing to Family B's topic_id. Because Topic→Note has\n`ondelete=\"RESTRICT\"`, Family B can never delete that topic — a permanent denial of\nservice (BOLA hold-hostage attack).\n\n- [ ] Add `validate_topic_in_family(db, topic_id, family_id)` in `create_note` (unconditional — protects all callers including `auto_file`)\n- [ ] Add the validator to `src/engine/validation.py` alongside existing `validate_member_in_family`\n- [ ] Return 422 if topic belongs to a different family\n- [ ] Test: cross-family topic_id → 422\n- [ ] Test: same-family topic_id → success\n\n```prompt\nRead plans/TODO.md — \"C18. Cross-tenant topic_id validation.\" Read\n`src/engine/notes.py` (create_note, auto_file) and\n`src/engine/validation.py` (validate_member_in_family). The bug:\ntopic_id is not validated to belong to the same family. A user in\nFamily A can create a note under Family B's topic, and because of\nondelete=RESTRICT, Family B can never delete that topic. Fix: add a\n`validate_topic_in_family` function in `src/engine/validation.py`\nfollowing the same pattern as `validate_member_in_family` (SELECT by\nid + family_id, raise on mismatch). Call it unconditionally inside\n`create_note` — this protects all callers including `auto_file`,\nwhich derives topic_id from an already-validated initiative. Raise a\n`CrossFamilyTopicError` (similar to CrossFamilyMemberError). The\nrouter should catch it and return 422. Add tests: (1) cross-family\ntopic_id → 422, (2) same-family topic_id → success. Commit when green.\nThen ask the user: \"Ready to mark C18 as done?\"\nIf yes, check off in plans/TODO.md and remove from plans/PROJECT_MANAGER.md.\n```"
+    },
+    "timestamp": "2026-03-17T12:45:28.305Z"
+  },
+  {
+    "name": "Skill",
+    "input": {
+      "skill": "dispatch",
+      "args": "plans/PROJECT_MANAGER.md C18"
+    },
+    "timestamp": "2026-03-17T12:45:34.900Z"
+  },
+  {
+    "name": "Bash",
+    "input": {
+      "command": "cat > /tmp/dispatch-prompt-C18 << 'PROMPT_EOF'\nYou are PAI. Read ~/.claude/CLAUDE.md for your operating instructions, then read ~/.claude/PAI/USER/AISTEERINGRULES.md for personal behavioral rules. Operate in the appropriate PAI mode for the task below.\n\nPARALLEL SESSION RULE: Multiple Claude Code sessions may be running on the same branch. During development, only run tests scoped to your task (specific test files or describe/it blocks). Run the full test suite only as a final validation when your task is complete. Never run DB migrations, seeds, or full builds without checking for lock contention.\n\nNow execute:\n\n---\n\nRead plans/TODO.md — \"C18. Cross-tenant topic_id validation.\" Read `src/engine/notes.py` (create_note, auto_file) and `src/engine/validation.py` (validate_member_in_family). The bug: topic_id is not validated to belong to the same family. A user in Family A can create a note under Family B's topic, and because of ondelete=RESTRICT, Family B can never delete that topic. Fix: add a `validate_topic_in_family` function in `src/engine/validation.py` following the same pattern as `validate_member_in_family` (SELECT by id + family_id, raise on mismatch). Call it unconditionally inside `create_note` — this protects all callers including `auto_file`, which derives topic_id from an already-validated initiative. Raise a `CrossFamilyTopicError` (similar to CrossFamilyMemberError). The router should catch it and return 422. Add tests: (1) cross-family topic_id → 422, (2) same-family topic_id → success. Commit when green.\nThen ask the user: \"Ready to mark C18 as done?\"\nIf yes, check off in plans/TODO.md and remove from plans/PROJECT_MANAGER.md.\nPROMPT_EOF\necho \"Prompt written\"",
+      "description": "Write C18 dispatch prompt to temp file"
+    },
+    "timestamp": "2026-03-17T12:45:49.131Z"
+  },
+  {
+    "name": "Bash",
+    "input": {
+      "command": "tmux new-window -d -c /Users/zev/repos/Noko -n 'C18-cross-tenant-topic'",
+      "description": "Create new tmux window for C18"
+    },
+    "timestamp": "2026-03-17T12:45:54.860Z"
+  },
+  {
+    "name": "Bash",
+    "input": {
+      "command": "tmux send-keys -t 'C18-cross-tenant-topic' -l \" claude --dangerously-skip-permissions \\\"\\$(cat /tmp/dispatch-prompt-C18)\\\"\" && tmux send-keys -t 'C18-cross-tenant-topic' Enter",
+      "description": "Launch claude in C18 window"
+    },
+    "timestamp": "2026-03-17T12:46:03.098Z"
+  },
+  {
+    "name": "Read",
+    "input": {
+      "file_path": "/Users/zev/repos/Noko/src/media.py"
+    },
+    "timestamp": "2026-03-17T12:46:45.185Z"
+  },
+  {
+    "name": "Read",
+    "input": {
+      "file_path": "/Users/zev/repos/Noko/plans/PROJECT_MANAGER.md",
+      "offset": 159,
+      "limit": 28
+    },
+    "timestamp": "2026-03-17T12:47:32.740Z"
+  },
+  {
+    "name": "Read",
+    "input": {
+      "file_path": "/Users/zev/repos/Noko/plans/PROJECT_MANAGER.md",
+      "offset": 186,
+      "limit": 18
+    },
+    "timestamp": "2026-03-17T12:47:39.302Z"
+  },
+  {
+    "name": "Edit",
+    "input": {
+      "replace_all": false,
+      "file_path": "/Users/zev/repos/Noko/plans/PROJECT_MANAGER.md",
+      "old_string": "- [ ] Validate extension: must be alphanumeric only (regex `^[a-zA-Z0-9]+$`)\n- [ ] Raise ValueError on invalid extension\n- [ ] Test: extension with `/` → ValueError\n- [ ] Test: extension with `..` → ValueError\n- [ ] Test: normal extension like `png` → success\n\n```prompt\nRead plans/TODO.md — \"C19. Path traversal in media extension.\" Read\n`src/media.py` (LocalMediaStorage.save). The bug: the extension parameter\nis not sanitized for directory separators. `ext=\"png/../../etc/passwd\"` can\nescape the media directory. Fix: after lstrip(\".\"), validate that ext\nmatches `^[a-zA-Z0-9]+$`. Raise ValueError if not. Add tests proving\ntraversal attempts are rejected and normal extensions work. Commit when\ngreen.\nThen ask the user: \"Ready to mark C19 as done?\"\nIf yes, check off in plans/TODO.md and remove from plans/PROJECT_MANAGER.md.\n```",
+      "new_string": "- [ ] Validate extension: must be alphanumeric only (regex `^[a-zA-Z0-9]+$`)\n- [ ] Raise ValueError on invalid extension\n- [ ] Defense-in-depth: verify resolved path is under storage dir before writing\n- [ ] Test: extension with `/` → ValueError\n- [ ] Test: extension with `..` → ValueError\n- [ ] Test: normal extension like `png` → success\n\n```prompt\nRead plans/TODO.md — \"C19. Path traversal in media extension.\" Read\n`src/media.py` (LocalMediaStorage.save). The bug: the extension parameter\nis not sanitized for directory separators. `ext=\"png/../../etc/passwd\"` can\nescape the media directory. Two-layer fix: (1) after lstrip(\".\"), validate\nthat ext matches `^[a-zA-Z0-9]+$` — raise ValueError if not. (2)\nDefense-in-depth: after constructing the full path, verify\n`path.resolve().is_relative_to(self._dir.resolve())` before writing —\nraise ValueError if not. This catches any future regression if the regex\nis loosened. Add tests: (1) extension with `/` → ValueError, (2) extension\nwith `..` → ValueError, (3) normal extension like `png` → success. Commit\nwhen green.\nThen ask the user: \"Ready to mark C19 as done?\"\nIf yes, check off in plans/TODO.md and remove from plans/PROJECT_MANAGER.md.\n```"
+    },
+    "timestamp": "2026-03-17T12:47:51.851Z"
+  },
+  {
+    "name": "Bash",
+    "input": {
+      "command": "cat > /tmp/dispatch-prompt-C19 << 'PROMPT_EOF'\nYou are PAI. Read ~/.claude/CLAUDE.md for your operating instructions, then read ~/.claude/PAI/USER/AISTEERINGRULES.md for personal behavioral rules. Operate in the appropriate PAI mode for the task below.\n\nPARALLEL SESSION RULE: Multiple Claude Code sessions may be running on the same branch. During development, only run tests scoped to your task (specific test files or describe/it blocks). Run the full test suite only as a final validation when your task is complete. Never run DB migrations, seeds, or full builds without checking for lock contention.\n\nNow execute:\n\n---\n\nRead plans/TODO.md — \"C19. Path traversal in media extension.\" Read `src/media.py` (LocalMediaStorage.save). The bug: the extension parameter is not sanitized for directory separators. `ext=\"png/../../etc/passwd\"` can escape the media directory. Two-layer fix: (1) after lstrip(\".\"), validate that ext matches `^[a-zA-Z0-9]+$` — raise ValueError if not. (2) Defense-in-depth: after constructing the full path, verify `path.resolve().is_relative_to(self._dir.resolve())` before writing — raise ValueError if not. This catches any future regression if the regex is loosened. Add tests: (1) extension with `/` → ValueError, (2) extension with `..` → ValueError, (3) normal extension like `png` → success. Commit when green.\nThen ask the user: \"Ready to mark C19 as done?\"\nIf yes, check off in plans/TODO.md and remove from plans/PROJECT_MANAGER.md.\nPROMPT_EOF\necho \"Prompt written\"",
+      "description": "Write C19 dispatch prompt to temp file"
+    },
+    "timestamp": "2026-03-17T12:48:00.815Z"
+  },
+  {
+    "name": "Bash",
+    "input": {
+      "command": "tmux new-window -d -c /Users/zev/repos/Noko -n 'C19-path-traversal-media' && tmux send-keys -t 'C19-path-traversal-media' -l \" claude --dangerously-skip-permissions \\\"\\$(cat /tmp/dispatch-prompt-C19)\\\"\" && tmux send-keys -t 'C19-path-traversal-media' Enter",
+      "description": "Create tmux window and launch claude for C19"
+    },
+    "timestamp": "2026-03-17T12:48:08.257Z"
+  },
+  {
+    "name": "Edit",
+    "input": {
+      "replace_all": false,
+      "file_path": "/Users/zev/repos/Noko/plans/PROJECT_MANAGER.md",
+      "old_string": "- [ ] Move `await db.commit()` before the member-not-found 404 check\n- [ ] Or: restructure to commit the UsedToken in a nested savepoint before proceeding\n- [ ] Test: invalid family_id → 404 AND token is consumed (second attempt → 401)\n- [ ] Test: valid family_id → session returned AND token is consumed\n\n```prompt\nRead plans/TODO.md — \"C20. Token replay in select_family.\" Read\n`src/routers/auth.py` (select_family). The bug: _reject_if_replayed adds a\nUsedToken but db.commit() is only called after the member lookup. If the\n404 is raised, the UsedToken insertion rolls back — the token can be reused\ninfinitely to brute-force family_ids. Fix: commit the UsedToken before the\nmember lookup can fail, using either (a) a nested savepoint for the token\nconsumption, or (b) restructuring the flow to commit early. Add test\nproving that an invalid family_id returns 404 but the token is still\nconsumed. Commit when green.\nThen ask the user: \"Ready to mark C20 as done?\"\nIf yes, check off in plans/TODO.md and remove from plans/PROJECT_MANAGER.md.\n```",
+      "new_string": "- [ ] Move `await db.commit()` immediately after `_reject_if_replayed` to persist the UsedToken\n- [ ] Remove the now-redundant second `db.commit()` before the return\n- [ ] Test: invalid family_id → 404 AND token is consumed (second attempt → 401)\n- [ ] Test: valid family_id → session returned AND token is consumed\n\n```prompt\nRead plans/TODO.md — \"C20. Token replay in select_family.\" Read\n`src/routers/auth.py` (select_family, lines 181-205). The bug:\n_reject_if_replayed adds a UsedToken but db.commit() is only called\nafter the member lookup. If the 404 is raised, the UsedToken insertion\nrolls back — the token can be reused infinitely to brute-force\nfamily_ids. Fix: move `await db.commit()` immediately after\n`_reject_if_replayed` so the token is burned before the fallible member\nlookup. Remove the now-redundant second `db.commit()` before the return\n(nothing left to commit). This mirrors the C6 fix pattern for\njoin_via_invite — ensure token consumption is durable before any\noperation that can fail. Add tests: (1) invalid family_id → 404 AND\ntoken is consumed (second attempt with same token → 401), (2) valid\nfamily_id → session returned AND token is consumed. Commit when green.\nThen ask the user: \"Ready to mark C20 as done?\"\nIf yes, check off in plans/TODO.md and remove from plans/PROJECT_MANAGER.md.\n```"
+    },
+    "timestamp": "2026-03-17T12:50:19.804Z"
+  },
+  {
+    "name": "Skill",
+    "input": {
+      "skill": "dispatch",
+      "args": "plans/PROJECT_MANAGER.md C20"
+    },
+    "timestamp": "2026-03-17T12:50:29.958Z"
+  },
+  {
+    "name": "Bash",
+    "input": {
+      "command": "cat > /tmp/dispatch-prompt-C20 << 'PROMPT_EOF'\nYou are PAI. Read ~/.claude/CLAUDE.md for your operating instructions, then read ~/.claude/PAI/USER/AISTEERINGRULES.md for personal behavioral rules. Operate in the appropriate PAI mode for the task below.\n\nPARALLEL SESSION RULE: Multiple Claude Code sessions may be running on the same branch. During development, only run tests scoped to your task (specific test files or describe/it blocks). Run the full test suite only as a final validation when your task is complete. Never run DB migrations, seeds, or full builds without checking for lock contention.\n\nNow execute:\n\n---\n\nRead plans/TODO.md — \"C20. Token replay in select_family.\" Read `src/routers/auth.py` (select_family, lines 181-205). The bug: _reject_if_replayed adds a UsedToken but db.commit() is only called after the member lookup. If the 404 is raised, the UsedToken insertion rolls back — the token can be reused infinitely to brute-force family_ids. Fix: move `await db.commit()` immediately after `_reject_if_replayed` so the token is burned before the fallible member lookup. Remove the now-redundant second `db.commit()` before the return (nothing left to commit). This mirrors the C6 fix pattern for join_via_invite — ensure token consumption is durable before any operation that can fail. Add tests: (1) invalid family_id → 404 AND token is consumed (second attempt with same token → 401), (2) valid family_id → session returned AND token is consumed. Commit when green.\nThen ask the user: \"Ready to mark C20 as done?\"\nIf yes, check off in plans/TODO.md and remove from plans/PROJECT_MANAGER.md.\nPROMPT_EOF\necho \"Prompt written\"",
+      "description": "Write C20 dispatch prompt to temp file"
+    },
+    "timestamp": "2026-03-17T12:50:42.542Z"
+  },
+  {
+    "name": "Bash",
+    "input": {
+      "command": "tmux new-window -d -c /Users/zev/repos/Noko -n 'C20-token-replay-select' && tmux send-keys -t 'C20-token-replay-select' -l \" claude --dangerously-skip-permissions \\\"\\$(cat /tmp/dispatch-prompt-C20)\\\"\" && tmux send-keys -t 'C20-token-replay-select' Enter",
+      "description": "Create tmux window and launch claude for C20"
+    },
+    "timestamp": "2026-03-17T12:50:51.723Z"
+  },
+  {
+    "name": "Bash",
+    "input": {
+      "command": "cd /Users/zev/repos/Noko && git log --oneline -10",
+      "description": "Check recent commits"
+    },
+    "timestamp": "2026-03-17T13:03:56.369Z"
+  },
+  {
+    "name": "Bash",
+    "input": {
+      "command": "cd /Users/zev/repos/Noko && git diff --stat",
+      "description": "Check uncommitted changes"
+    },
+    "timestamp": "2026-03-17T13:03:56.536Z"
+  },
+  {
+    "name": "Bash",
+    "input": {
+      "command": "tmux list-windows -F '#{window_name} #{window_active}' 2>/dev/null",
+      "description": "Check tmux window status"
+    },
+    "timestamp": "2026-03-17T13:03:57.339Z"
+  },
+  {
+    "name": "Bash",
+    "input": {
+      "command": "cd /Users/zev/repos/Noko && git log --oneline ec4f41f..HEAD",
+      "description": "Show just the C17-C20 commits"
+    },
+    "timestamp": "2026-03-17T13:04:00.491Z"
+  },
+  {
+    "name": "Bash",
+    "input": {
+      "command": "cd /Users/zev/repos/Noko && git diff ec4f41f..HEAD -- src/",
+      "description": "Review all C17-C20 source changes"
+    },
+    "timestamp": "2026-03-17T13:04:06.137Z"
+  },
+  {
+    "name": "Read",
+    "input": {
+      "file_path": "/Users/zev/repos/Noko/plans/PROJECT_MANAGER.md"
+    },
+    "timestamp": "2026-03-17T13:06:12.030Z"
+  },
+  {
+    "name": "Skill",
+    "input": {
+      "skill": "dispatch",
+      "args": "plans/PROJECT_MANAGER.md C27"
+    },
+    "timestamp": "2026-03-17T13:08:53.289Z"
+  },
+  {
+    "name": "Skill",
+    "input": {
+      "skill": "dispatch",
+      "args": "plans/PROJECT_MANAGER.md C28"
+    },
+    "timestamp": "2026-03-17T13:08:53.702Z"
+  },
+  {
+    "name": "Skill",
+    "input": {
+      "skill": "dispatch",
+      "args": "plans/PROJECT_MANAGER.md 24b"
+    },
+    "timestamp": "2026-03-17T13:08:54.148Z"
+  },
+  {
+    "name": "Skill",
+    "input": {
+      "skill": "dispatch",
+      "args": "plans/PROJECT_MANAGER.md 26b"
+    },
+    "timestamp": "2026-03-17T13:08:54.329Z"
+  },
+  {
+    "name": "Bash",
+    "input": {
+      "command": "cat > /tmp/dispatch-prompt-C27 << 'PROMPT_EOF'\nYou are PAI. Read ~/.claude/CLAUDE.md for your operating instructions, then read ~/.claude/PAI/USER/AISTEERINGRULES.md for personal behavioral rules. Operate in the appropriate PAI mode for the task below.\n\nPARALLEL SESSION RULE: Multiple Claude Code sessions may be running on the same branch. During development, only run tests scoped to your task (specific test files or describe/it blocks). Run the full test suite only as a final validation when your task is complete. Never run DB migrations, seeds, or full builds without checking for lock contention.\n\nNow execute:\n\n---\n\nRead plans/TODO.md — \"C27. Pagination tie-breaker.\" Read all paginated list endpoints in src/routers/ (topics.py, initiatives.py, enrollments.py, action_items.py, workflows.py, notes.py). The bug: all use .order_by(Model.created_at) without a secondary sort. Rows with identical created_at (same transaction) have undefined order, causing page skip/duplication. Fix: append .id as a tie-breaker to all 7 queries. Add test with two same-timestamp records proving deterministic ordering. Commit when green.\nThen ask the user: \"Ready to mark C27 as done?\"\nIf yes, check off in plans/TODO.md and remove from plans/PROJECT_MANAGER.md.\nPROMPT_EOF\n\ncat > /tmp/dispatch-prompt-C28 << 'PROMPT_EOF'\nYou are PAI. Read ~/.claude/CLAUDE.md for your operating instructions, then read ~/.claude/PAI/USER/AISTEERINGRULES.md for personal behavioral rules. Operate in the appropriate PAI mode for the task below.\n\nPARALLEL SESSION RULE: Multiple Claude Code sessions may be running on the same branch. During development, only run tests scoped to your task (specific test files or describe/it blocks). Run the full test suite only as a final validation when your task is complete. Never run DB migrations, seeds, or full builds without checking for lock contention.\n\nNow execute:\n\n---\n\nRead plans/TODO.md — \"C28. O(N) thread deletion.\" Read `src/routers/workflows.py` (the delete endpoint's thread cleanup). The bug: terminal threads are loaded as ORM objects and deleted one-by-one in a loop. Fix: replace with a single bulk SQL delete: `await db.execute(delete(Thread).where(Thread.workflow_id == wf.id, Thread.status.in_([...terminal statuses...])))`. Remove the ORM loop. Add test. Commit when green.\nThen ask the user: \"Ready to mark C28 as done?\"\nIf yes, check off in plans/TODO.md and remove from plans/PROJECT_MANAGER.md.\nPROMPT_EOF\n\ncat > /tmp/dispatch-prompt-24b << 'PROMPT_EOF'\nYou are PAI. Read ~/.claude/CLAUDE.md for your operating instructions, then read ~/.claude/PAI/USER/AISTEERINGRULES.md for personal behavioral rules. Operate in the appropriate PAI mode for the task below.\n\nPARALLEL SESSION RULE: Multiple Claude Code sessions may be running on the same branch. During development, only run tests scoped to your task (specific test files or describe/it blocks). Run the full test suite only as a final validation when your task is complete. Never run DB migrations, seeds, or full builds without checking for lock contention.\n\nNow execute:\n\n---\n\nRead plans/TODO.md — \"Standardize DI pattern for singletons.\" Read `src/bot/client.py` (get_telegram_client — module singleton) and `src/routers/telegram.py` (get_handler_registry — app.state). These use two different DI patterns. Standardize on one. Recommended: move TelegramClient into app.state in create_app(), update get_telegram_client to take Request and read from app.state, matching get_handler_registry. Update test fixtures. Commit when green using /ship.\nThen ask the user: \"Ready to mark DI standardization as done?\"\nIf yes, check off in plans/TODO.md and remove from plans/PROJECT_MANAGER.md.\nPROMPT_EOF\n\ncat > /tmp/dispatch-prompt-26b << 'PROMPT_EOF'\nYou are PAI. Read ~/.claude/CLAUDE.md for your operating instructions, then read ~/.claude/PAI/USER/AISTEERINGRULES.md for personal behavioral rules. Operate in the appropriate PAI mode for the task below.\n\nPARALLEL SESSION RULE: Multiple Claude Code sessions may be running on the same branch. During development, only run tests scoped to your task (specific test files or describe/it blocks). Run the full test suite only as a final validation when your task is complete. Never run DB migrations, seeds, or full builds without checking for lock contention.\n\nNow execute:\n\n---\n\nRead plans/FEATURES.md (F09, F11) and `src/models.py` (Snapshot). The gap: there is no Media entity — photos are referenced by raw URLs that may expire. Create a Media model (family_id, uploader_member_id, content_type, internal_url, source_type enum [telegram/camera/upload], created_at). Define an internal URL scheme: media://{family_id}/{uuid}.{ext}. Add a resolve() utility that converts internal URLs to actual file paths or HTTP URLs. Update Snapshot.image_url to reference Media. Generate Alembic migration. Add tests. Commit when green using /ship.\nThen ask the user: \"Ready to mark 26b as done?\"\nIf yes, check off in plans/TODO.md and remove from plans/PROJECT_MANAGER.md.\nPROMPT_EOF\n\necho \"All 4 prompt files written\"",
+      "description": "Write all 4 dispatch prompt files"
+    },
+    "timestamp": "2026-03-17T13:09:25.498Z"
+  },
+  {
+    "name": "Bash",
+    "input": {
+      "command": "tmux new-window -d -c /Users/zev/repos/Noko -n 'C27-pagination-tiebreak' && tmux send-keys -t 'C27-pagination-tiebreak' -l \" claude --dangerously-skip-permissions \\\"\\$(cat /tmp/dispatch-prompt-C27)\\\"\" && tmux send-keys -t 'C27-pagination-tiebreak' Enter",
+      "description": "Dispatch C27"
+    },
+    "timestamp": "2026-03-17T13:09:30.713Z"
+  },
+  {
+    "name": "Bash",
+    "input": {
+      "command": "tmux new-window -d -c /Users/zev/repos/Noko -n 'C28-bulk-thread-delete' && tmux send-keys -t 'C28-bulk-thread-delete' -l \" claude --dangerously-skip-permissions \\\"\\$(cat /tmp/dispatch-prompt-C28)\\\"\" && tmux send-keys -t 'C28-bulk-thread-delete' Enter",
+      "description": "Dispatch C28"
+    },
+    "timestamp": "2026-03-17T13:09:32.064Z"
+  },
+  {
+    "name": "Bash",
+    "input": {
+      "command": "tmux new-window -d -c /Users/zev/repos/Noko -n '24b-di-standardize' && tmux send-keys -t '24b-di-standardize' -l \" claude --dangerously-skip-permissions \\\"\\$(cat /tmp/dispatch-prompt-24b)\\\"\" && tmux send-keys -t '24b-di-standardize' Enter",
+      "description": "Dispatch 24b"
+    },
+    "timestamp": "2026-03-17T13:09:33.413Z"
+  },
+  {
+    "name": "Bash",
+    "input": {
+      "command": "tmux new-window -d -c /Users/zev/repos/Noko -n '26b-media-entity' && tmux send-keys -t '26b-media-entity' -l \" claude --dangerously-skip-permissions \\\"\\$(cat /tmp/dispatch-prompt-26b)\\\"\" && tmux send-keys -t '26b-media-entity' Enter",
+      "description": "Dispatch 26b"
+    },
+    "timestamp": "2026-03-17T13:09:34.221Z"
+  },
+  {
+    "name": "Glob",
+    "input": {
+      "pattern": "**/*dispatch*",
+      "path": "/Users/zev/.claude"
+    },
+    "timestamp": "2026-03-17T13:16:32.991Z"
+  },
+  {
+    "name": "Grep",
+    "input": {
+      "pattern": "dispatch",
+      "path": "/Users/zev/.claude",
+      "glob": "**/settings*.json",
+      "output_mode": "content"
+    },
+    "timestamp": "2026-03-17T13:16:39.793Z"
+  },
+  {
+    "name": "Grep",
+    "input": {
+      "pattern": "dispatch\"",
+      "path": "/Users/zev/.claude",
+      "glob": "**/*.{json,md,yaml,yml}\"",
+      "output_mode": "files_with_matches"
+    },
+    "timestamp": "2026-03-17T13:16:47.170Z"
+  },
+  {
+    "name": "Glob",
+    "input": {
+      "pattern": "**/skills/*dispatch*/**\"",
+      "path": "/Users/zev/.claude"
+    },
+    "timestamp": "2026-03-17T13:16:56.303Z"
+  },
+  {
+    "name": "Glob",
+    "input": {
+      "pattern": "**/.claude/skills/*dispatch*\"",
+      "path": "/Users/zev/repos/Noko"
+    },
+    "timestamp": "2026-03-17T13:16:56.844Z"
+  },
+  {
+    "name": "Glob",
+    "input": {
+      "pattern": "**/*dispatch*",
+      "path": "/Users/zev/repos/Noko/.claude"
+    },
+    "timestamp": "2026-03-17T13:17:03.005Z"
+  },
+  {
+    "name": "Glob",
+    "input": {
+      "pattern": "**/commands/*dispatch*",
+      "path": "/Users/zev/.claude"
+    },
+    "timestamp": "2026-03-17T13:17:03.320Z"
+  },
+  {
+    "name": "Bash",
+    "input": {
+      "command": "find /Users/zev/.claude -maxdepth 5 -name '*dispatch*' -not -path '*/node_modules/*' 2>/dev/null",
+      "description": "Find dispatch files excluding node_modules"
+    },
+    "timestamp": "2026-03-17T13:17:17.218Z"
+  },
+  {
+    "name": "Bash",
+    "input": {
+      "command": "find /Users/zev/repos/dotfiles -name '*dispatch*' -not -path '*/node_modules/*' 2>/dev/null",
+      "description": "Find dispatch in dotfiles repo"
+    },
+    "timestamp": "2026-03-17T13:19:25.585Z"
+  },
+  {
+    "name": "Read",
+    "input": {
+      "file_path": "/Users/zev/.claude/CLAUDE.md",
+      "limit": 5
+    },
+    "timestamp": "2026-03-17T13:19:33.694Z"
+  },
+  {
+    "name": "Grep",
+    "input": {
+      "pattern": "Context Routing|dispatch|dotfiles|commands\"",
+      "path": "/Users/zev/.claude/CLAUDE.md",
+      "output_mode": "content"
+    },
+    "timestamp": "2026-03-17T13:19:39.346Z"
+  },
+  {
+    "name": "Read",
+    "input": {
+      "file_path": "/Users/zev/.claude/CLAUDE.md",
+      "offset": 67,
+      "limit": 15
+    },
+    "timestamp": "2026-03-17T13:19:46.523Z"
+  },
+  {
+    "name": "Edit",
+    "input": {
+      "replace_all": false,
+      "file_path": "/Users/zev/.claude/CLAUDE.md",
+      "old_string": "### Context Routing\n\nWhen you need context about any of these topics, read `~/.claude/PAI/CONTEXT_ROUTING.md` for the file path:",
+      "new_string": "### Key File Locations\n\n- Slash commands (dispatch, commit, ship, etc): `~/repos/dotfiles/claude/.claude/commands/`\n\n### Context Routing\n\nWhen you need context about any of these topics, read `~/.claude/PAI/CONTEXT_ROUTING.md` for the file path:"
+    },
+    "timestamp": "2026-03-17T13:19:55.583Z"
+  },
+  {
+    "name": "Bash",
+    "input": {
+      "command": "cd /Users/zev/repos/Noko && git log --oneline -20",
+      "description": "Check recent commits"
+    },
+    "timestamp": "2026-03-17T13:24:24.008Z"
+  },
+  {
+    "name": "Bash",
+    "input": {
+      "command": "tmux list-windows -F '#{window_name} #{window_active}' 2>/dev/null",
+      "description": "Check tmux window status"
+    },
+    "timestamp": "2026-03-17T13:24:24.957Z"
+  },
+  {
+    "name": "Bash",
+    "input": {
+      "command": "cd /Users/zev/repos/Noko && git diff c2793f5..5ea57b4 -- src/ alembic/",
+      "description": "Review C27, C28, 26b source changes"
+    },
+    "timestamp": "2026-03-17T13:24:34.549Z"
+  },
+  {
+    "name": "Bash",
+    "input": {
+      "command": "cd /Users/zev/repos/Noko && git show 1d6187d --stat | grep -i alembic",
+      "description": "Check if 26b commit includes migration"
+    },
+    "timestamp": "2026-03-17T13:24:52.273Z"
+  },
+  {
+    "name": "Read",
+    "input": {
+      "file_path": "/Users/zev/repos/Noko/plans/OUTLINE.md"
+    },
+    "timestamp": "2026-03-17T13:28:49.885Z"
+  },
+  {
+    "name": "Glob",
+    "input": {
+      "pattern": "src/engine/scheduler.py",
+      "path": "/Users/zev/repos/Noko"
+    },
+    "timestamp": "2026-03-17T13:28:56.925Z"
+  },
+  {
+    "name": "Glob",
+    "input": {
+      "pattern": "src/engine/*escalat*",
+      "path": "/Users/zev/repos/Noko"
+    },
+    "timestamp": "2026-03-17T13:28:57.884Z"
+  },
+  {
+    "name": "Glob",
+    "input": {
+      "pattern": "src/bot/**/*.py",
+      "path": "/Users/zev/repos/Noko"
+    },
+    "timestamp": "2026-03-17T13:28:58.062Z"
+  },
+  {
+    "name": "Glob",
+    "input": {
+      "pattern": "**/engine/**/*.py",
+      "path": "/Users/zev/repos/Noko"
+    },
+    "timestamp": "2026-03-17T13:29:05.717Z"
+  },
+  {
+    "name": "Glob",
+    "input": {
+      "pattern": "**/bot/**/*.py",
+      "path": "/Users/zev/repos/Noko"
+    },
+    "timestamp": "2026-03-17T13:29:06.246Z"
+  },
+  {
+    "name": "Glob",
+    "input": {
+      "pattern": "**/routers/telegram*.py",
+      "path": "/Users/zev/repos/Noko"
+    },
+    "timestamp": "2026-03-17T13:29:06.560Z"
+  },
+  {
+    "name": "Read",
+    "input": {
+      "file_path": "/Users/zev/repos/Noko/src/engine/state_machine.py"
+    },
+    "timestamp": "2026-03-17T13:29:15.955Z"
+  },
+  {
+    "name": "Read",
+    "input": {
+      "file_path": "/Users/zev/repos/Noko/src/bot/routing.py"
+    },
+    "timestamp": "2026-03-17T13:29:16.440Z"
+  },
+  {
+    "name": "Read",
+    "input": {
+      "file_path": "/Users/zev/repos/Noko/src/bot/outbound.py"
+    },
+    "timestamp": "2026-03-17T13:29:16.869Z"
+  },
+  {
+    "name": "Read",
+    "input": {
+      "file_path": "/Users/zev/repos/Noko/src/routers/telegram.py"
+    },
+    "timestamp": "2026-03-17T13:29:17.182Z"
+  },
+  {
+    "name": "Read",
+    "input": {
+      "file_path": "/Users/zev/repos/Noko/src/engine/scheduler.py"
+    },
+    "timestamp": "2026-03-17T13:29:29.846Z"
+  },
+  {
+    "name": "Read",
+    "input": {
+      "file_path": "/Users/zev/repos/Noko/plans/PROJECT_MANAGER.md",
+      "offset": 627,
+      "limit": 35
+    },
+    "timestamp": "2026-03-17T13:30:48.712Z"
+  },
+  {
+    "name": "Edit",
+    "input": {
+      "replace_all": false,
+      "file_path": "/Users/zev/repos/Noko/plans/PROJECT_MANAGER.md",
+      "old_string": "## 28. 6.4 Escalation logic\n\n**Depends on:** 6.1 (done), 3.2 (done) | **Parallel with:** 6.2, 3.3\n\n- [ ] Write test plan → stop for review\n- [ ] Implement escalation monitoring + actions\n\n```prompt\nRead plans/TODO.md section \"6.4 — Escalation logic\" and plans/OUTLINE.md\nsection 6.4. Follow test-first workflow: write test plan\n(`plans/test_plans/TEST_PLAN_ESCALATION.md`), stop for review. Monitor threads in\nawaiting_response past timeout. Actions: re-ping, notify parent, mark\ntimed_out. No infinite nag loops. Stop after test plan.\nAfter implementation, ask the user: \"Ready to mark 6.4 Escalation as done?\"\nIf yes, check off in plans/TODO.md and remove from plans/PROJECT_MANAGER.md.\n```",
+      "new_string": "## 28. 6.4 Escalation logic\n\n**Depends on:** 6.1 (done), 3.2 (done) | **Parallel with:** 6.2, 3.3\n\n- [ ] Create `src/engine/escalation.py` with `check_escalations(db, now, hooks, tg_client)`\n- [ ] Query threads in `awaiting_response` where `context[\"awaited_at\"]` + timeout has passed\n- [ ] Escalation config per-workflow in `config.escalation` (timeout_minutes, max_retries, notify_parent bool)\n- [ ] Actions: re-ping (up to max_retries), notify parent, then mark timed_out\n- [ ] Track escalation count in `thread.context[\"escalation_count\"]`\n- [ ] No infinite nag loops — hard cap via max_retries, default 3\n- [ ] Tests for each escalation stage + the cap\n- [ ] Wire into scheduler or expose as a standalone periodic function\n\n```prompt\nRead plans/TODO.md section \"6.4 — Escalation logic\" and plans/OUTLINE.md\nsection 6.4. Read `src/engine/state_machine.py` (TRANSITIONS, HookRegistry,\n_on_enter_awaiting_response — note it timestamps awaited_at in thread\ncontext), `src/engine/scheduler.py` (run_due_jobs pattern), and\n`src/bot/outbound.py` (send_ping, queue_or_send).\n\nCreate `src/engine/escalation.py` with a `check_escalations` function that:\n1. Queries all threads in `awaiting_response` status\n2. For each, reads `context[\"awaited_at\"]` and compares against timeout\n3. Timeout config lives per-workflow in `config.escalation`:\n   `{\"timeout_minutes\": 60, \"max_retries\": 3, \"notify_parent\": true}`\n   Default to 60min timeout, 3 retries if not configured.\n4. Tracks `context[\"escalation_count\"]` (int, starts at 0)\n5. If escalation_count < max_retries: re-ping the member, increment count\n6. If escalation_count == max_retries and notify_parent: create a ping to\n   the first parent-role member in the family alerting them\n7. If escalation_count > max_retries: transition to timed_out via state machine\n8. Reset awaited_at after each re-ping so the next timeout window starts fresh\n\nWrite a test plan in `plans/test_plans/TEST_PLAN_ESCALATION.md`, then\nimplement and test. Tests should cover: (1) thread not yet timed out → no\naction, (2) first escalation → re-ping + count incremented, (3) max\nretries reached → parent notified, (4) past max retries → timed_out\ntransition, (5) thread with no escalation config → uses defaults, (6)\ncompleted thread → ignored. Commit when green.\nThen ask the user: \"Ready to mark 6.4 Escalation as done?\"\nIf yes, check off in plans/TODO.md and remove from plans/PROJECT_MANAGER.md.\n```"
+    },
+    "timestamp": "2026-03-17T13:31:11.961Z"
+  },
+  {
+    "name": "Edit",
+    "input": {
+      "replace_all": false,
+      "file_path": "/Users/zev/repos/Noko/plans/PROJECT_MANAGER.md",
+      "old_string": "## 30. 3.3 Inbound processing\n\n**Depends on:** identity handshake (#1), media storage (#26) | **Parallel with:** 6.2, 6.4\n\n- [ ] Write test plan → stop for review\n- [ ] Handle text, photos, callbacks; route to threads; parse intent\n\n```prompt\nRead plans/TODO.md section \"3.3 — Inbound processing\" and plans/OUTLINE.md\nsection 3.3. Follow test-first workflow: write test plan\n(`plans/test_plans/TEST_PLAN_INBOUND.md`), stop for review. Handle text replies, photos,\ncallbacks. Route to correct Thread. Parse intent. Link to pending Pings.\nStop after test plan.\nAfter implementation, ask the user: \"Ready to mark 3.3 Inbound as done?\"\nIf yes, check off in plans/TODO.md and remove from plans/PROJECT_MANAGER.md.\n```",
+      "new_string": "## 30. 3.3 Inbound processing\n\n**Depends on:** identity handshake (#1), media storage (#26) | **Parallel with:** 6.2, 6.4\n\n- [ ] Register text, photo, and callback_query handlers in the HandlerRegistry\n- [ ] Thread routing: match inbound message to member's most recent `awaiting_response` thread\n- [ ] Text handler: keyword intent parsing (\"done\"/\"yes\" → completed, \"no\"/\"skip\" → acknowledged, else → store as note)\n- [ ] Photo handler: download via TelegramClient, save via MediaStorage, create Media record, attach to thread\n- [ ] Callback handler: parse callback_data as `{action}:{thread_id}`, execute action\n- [ ] If no active thread: store message as unrouted note under member's default topic\n- [ ] Tests for each handler + routing logic\n\n```prompt\nRead plans/TODO.md section \"3.3 — Inbound processing\" and plans/OUTLINE.md\nsection 3.3. Read `src/bot/routing.py` (dispatch, HandlerRegistry — note\nhandlers for text, photo, callback_query are dispatched but none are\nregistered), `src/bot/outbound.py` (send_ping for context on what members\nare responding to), `src/bot/client.py` (TelegramClient protocol),\n`src/media.py` (MediaStorage, build_media_url), and\n`src/engine/state_machine.py` (transition, ThreadStatus).\n\nCreate `src/bot/handlers.py` with three handler functions registered in\nthe HandlerRegistry:\n\n1. **text_handler(db, tg_client, member, message):**\n   - Find member's most recent thread in `awaiting_response` status\n   - Simple keyword intent: \"done\"/\"yes\"/\"finished\" → transition thread to\n     completed. \"no\"/\"skip\"/\"later\" → acknowledge but leave thread active.\n     Anything else → create a Note under the thread's workflow initiative topic.\n   - If no awaiting_response thread: create an unrouted Note (source=\"telegram\")\n     under the member's family. Reply with confirmation.\n   - Do NOT use AI for intent parsing — that's 4.x. Keep it keyword-based.\n\n2. **photo_handler(db, tg_client, member, message):**\n   - Get the largest photo from message[\"photo\"] (last element by file_size)\n   - Download via tg_client (add a `download_file(file_id) -> bytes` method\n     to the TelegramClient protocol if it doesn't exist)\n   - Save via MediaStorage, create a Media record (source_type=telegram)\n   - Find member's most recent awaiting_response thread. If found, attach\n     media_id to thread context. If not, create unrouted Note with media ref.\n   - Reply with confirmation.\n\n3. **callback_handler(db, tg_client, member, callback_query):**\n   - Parse callback_data as \"action:thread_id\" (e.g. \"complete:uuid\")\n   - Supported actions: \"complete\" → transition to completed,\n     \"snooze\" → reset awaited_at in context\n   - Answer the callback query to dismiss the loading spinner\n\nRegister all three in `create_app()` or wherever the HandlerRegistry is\ninitialized (check `src/main.py`).\n\nWrite a test plan in `plans/test_plans/TEST_PLAN_INBOUND.md`, then\nimplement and test. Key test cases: (1) text \"done\" with awaiting thread\n→ thread completed, (2) text with no thread → note created, (3) photo\nwith awaiting thread → media saved + attached, (4) photo with no thread\n→ unrouted note with media, (5) callback \"complete:id\" → thread completed,\n(6) callback \"snooze:id\" → awaited_at reset, (7) unknown member → handled\nby existing routing (no crash). Commit when green.\nThen ask the user: \"Ready to mark 3.3 Inbound as done?\"\nIf yes, check off in plans/TODO.md and remove from plans/PROJECT_MANAGER.md.\n```"
+    },
+    "timestamp": "2026-03-17T13:31:41.272Z"
+  },
+  {
+    "name": "Bash",
+    "input": {
+      "command": "cat > /tmp/dispatch-prompt-28 << 'PROMPT_EOF'\nYou are PAI. Read ~/.claude/CLAUDE.md for your operating instructions, then read ~/.claude/PAI/USER/AISTEERINGRULES.md for personal behavioral rules. Operate in the appropriate PAI mode for the task below.\n\nPARALLEL SESSION RULE: Multiple Claude Code sessions may be running on the same branch. During development, only run tests scoped to your task (specific test files or describe/it blocks). Run the full test suite only as a final validation when your task is complete. Never run DB migrations, seeds, or full builds without checking for lock contention.\n\nNow execute:\n\n---\n\nRead plans/TODO.md section \"6.4 — Escalation logic\" and plans/OUTLINE.md section 6.4. Read `src/engine/state_machine.py` (TRANSITIONS, HookRegistry, _on_enter_awaiting_response — note it timestamps awaited_at in thread context), `src/engine/scheduler.py` (run_due_jobs pattern), and `src/bot/outbound.py` (send_ping, queue_or_send).\n\nCreate `src/engine/escalation.py` with a `check_escalations` function that:\n1. Queries all threads in `awaiting_response` status\n2. For each, reads `context[\"awaited_at\"]` and compares against timeout\n3. Timeout config lives per-workflow in `config.escalation`: `{\"timeout_minutes\": 60, \"max_retries\": 3, \"notify_parent\": true}` Default to 60min timeout, 3 retries if not configured.\n4. Tracks `context[\"escalation_count\"]` (int, starts at 0)\n5. If escalation_count < max_retries: re-ping the member, increment count\n6. If escalation_count == max_retries and notify_parent: create a ping to the first parent-role member in the family alerting them\n7. If escalation_count > max_retries: transition to timed_out via state machine\n8. Reset awaited_at after each re-ping so the next timeout window starts fresh\n\nWrite a test plan in `plans/test_plans/TEST_PLAN_ESCALATION.md`, then implement and test. Tests should cover: (1) thread not yet timed out → no action, (2) first escalation → re-ping + count incremented, (3) max retries reached → parent notified, (4) past max retries → timed_out transition, (5) thread with no escalation config → uses defaults, (6) completed thread → ignored. Commit when green.\nThen ask the user: \"Ready to mark 6.4 Escalation as done?\"\nIf yes, check off in plans/TODO.md and remove from plans/PROJECT_MANAGER.md.\nPROMPT_EOF\n\ncat > /tmp/dispatch-prompt-30 << 'PROMPT_EOF'\nYou are PAI. Read ~/.claude/CLAUDE.md for your operating instructions, then read ~/.claude/PAI/USER/AISTEERINGRULES.md for personal behavioral rules. Operate in the appropriate PAI mode for the task below.\n\nPARALLEL SESSION RULE: Multiple Claude Code sessions may be running on the same branch. During development, only run tests scoped to your task (specific test files or describe/it blocks). Run the full test suite only as a final validation when your task is complete. Never run DB migrations, seeds, or full builds without checking for lock contention.\n\nNow execute:\n\n---\n\nRead plans/TODO.md section \"3.3 — Inbound processing\" and plans/OUTLINE.md section 3.3. Read `src/bot/routing.py` (dispatch, HandlerRegistry — note handlers for text, photo, callback_query are dispatched but none are registered), `src/bot/outbound.py` (send_ping for context on what members are responding to), `src/bot/client.py` (TelegramClient protocol), `src/media.py` (MediaStorage, build_media_url), and `src/engine/state_machine.py` (transition, ThreadStatus).\n\nCreate `src/bot/handlers.py` with three handler functions registered in the HandlerRegistry:\n\n1. **text_handler(db, tg_client, member, message):**\n   - Find member's most recent thread in `awaiting_response` status\n   - Simple keyword intent: \"done\"/\"yes\"/\"finished\" → transition thread to completed. \"no\"/\"skip\"/\"later\" → acknowledge but leave thread active. Anything else → create a Note under the thread's workflow initiative topic.\n   - If no awaiting_response thread: create an unrouted Note (source=\"telegram\") under the member's family. Reply with confirmation.\n   - Do NOT use AI for intent parsing — that's 4.x. Keep it keyword-based.\n\n2. **photo_handler(db, tg_client, member, message):**\n   - Get the largest photo from message[\"photo\"] (last element by file_size)\n   - Download via tg_client (add a `download_file(file_id) -> bytes` method to the TelegramClient protocol if it doesn't exist)\n   - Save via MediaStorage, create a Media record (source_type=telegram)\n   - Find member's most recent awaiting_response thread. If found, attach media_id to thread context. If not, create unrouted Note with media ref.\n   - Reply with confirmation.\n\n3. **callback_handler(db, tg_client, member, callback_query):**\n   - Parse callback_data as \"action:thread_id\" (e.g. \"complete:uuid\")\n   - Supported actions: \"complete\" → transition to completed, \"snooze\" → reset awaited_at in context\n   - Answer the callback query to dismiss the loading spinner\n\nRegister all three in `create_app()` or wherever the HandlerRegistry is initialized (check `src/main.py`).\n\nWrite a test plan in `plans/test_plans/TEST_PLAN_INBOUND.md`, then implement and test. Key test cases: (1) text \"done\" with awaiting thread → thread completed, (2) text with no thread → note created, (3) photo with awaiting thread → media saved + attached, (4) photo with no thread → unrouted note with media, (5) callback \"complete:id\" → thread completed, (6) callback \"snooze:id\" → awaited_at reset, (7) unknown member → handled by existing routing (no crash). Commit when green.\nThen ask the user: \"Ready to mark 3.3 Inbound as done?\"\nIf yes, check off in plans/TODO.md and remove from plans/PROJECT_MANAGER.md.\nPROMPT_EOF\n\necho \"Both prompt files written\"",
+      "description": "Write dispatch prompts for tasks 28 and 30"
+    },
+    "timestamp": "2026-03-17T14:21:24.689Z"
+  },
+  {
+    "name": "Bash",
+    "input": {
+      "command": "tmux new-window -d -c /Users/zev/repos/Noko -n '28-escalation-logic' && tmux send-keys -t '28-escalation-logic' -l \" claude --dangerously-skip-permissions \\\"\\$(cat /tmp/dispatch-prompt-28)\\\"\" && tmux send-keys -t '28-escalation-logic' Enter",
+      "description": "Dispatch task 28"
+    },
+    "timestamp": "2026-03-17T14:21:34.579Z"
+  },
+  {
+    "name": "Bash",
+    "input": {
+      "command": "tmux new-window -d -c /Users/zev/repos/Noko -n '30-inbound-processing' && tmux send-keys -t '30-inbound-processing' -l \" claude --dangerously-skip-permissions \\\"\\$(cat /tmp/dispatch-prompt-30)\\\"\" && tmux send-keys -t '30-inbound-processing' Enter",
+      "description": "Dispatch task 30"
+    },
+    "timestamp": "2026-03-17T14:21:35.176Z"
+  },
+  {
+    "name": "Bash",
+    "input": {
+      "command": "cd /Users/zev/repos/Noko && git log --oneline -15",
+      "description": "Check recent commits"
+    },
+    "timestamp": "2026-03-17T16:28:03.903Z"
+  },
+  {
+    "name": "Bash",
+    "input": {
+      "command": "tmux list-windows -F '#{window_name} #{window_active}' 2>/dev/null",
+      "description": "Check tmux window status"
+    },
+    "timestamp": "2026-03-17T16:28:04.574Z"
+  },
+  {
+    "name": "Bash",
+    "input": {
+      "command": "cd /Users/zev/repos/Noko && git diff cedd336..e84c089 -- src/",
+      "description": "Review escalation + inbound source changes"
+    },
+    "timestamp": "2026-03-17T16:28:12.390Z"
+  },
+  {
+    "name": "Bash",
+    "input": {
+      "command": "cat > /tmp/dispatch-prompt-28a << 'PROMPT_EOF'\nYou are PAI. Read ~/.claude/CLAUDE.md for your operating instructions, then read ~/.claude/PAI/USER/AISTEERINGRULES.md for personal behavioral rules. Operate in the appropriate PAI mode for the task below.\n\nPARALLEL SESSION RULE: Multiple Claude Code sessions may be running on the same branch. During development, only run tests scoped to your task (specific test files or describe/it blocks). Run the full test suite only as a final validation when your task is complete. Never run DB migrations, seeds, or full builds without checking for lock contention.\n\nNow execute:\n\n---\n\nIn `src/engine/escalation.py`, modify the `else` branch (re-ping path) to fall back to querying the thread's most recent Ping when `target_member_id` is missing from context. Add a test: thread has no target_member_id in context but has an existing Ping → escalation infers the member and re-pings them. Commit when green.\nThen ask the user: \"Ready to mark 28a as done?\"\nIf yes, check off in plans/TODO.md and remove from plans/PROJECT_MANAGER.md.\nPROMPT_EOF\n\ncat > /tmp/dispatch-prompt-28b << 'PROMPT_EOF'\nYou are PAI. Read ~/.claude/CLAUDE.md for your operating instructions, then read ~/.claude/PAI/USER/AISTEERINGRULES.md for personal behavioral rules. Operate in the appropriate PAI mode for the task below.\n\nPARALLEL SESSION RULE: Multiple Claude Code sessions may be running on the same branch. During development, only run tests scoped to your task (specific test files or describe/it blocks). Run the full test suite only as a final validation when your task is complete. Never run DB migrations, seeds, or full builds without checking for lock contention.\n\nNow execute:\n\n---\n\nAdd an optional `family_id: str | None = None` parameter to `check_escalations` in `src/engine/escalation.py`. When provided, add `.where(Thread.family_id == family_id)` to the query. Add a test: two families with timed-out threads, call with family_id=A, only A's thread is escalated. Commit when green.\nThen ask the user: \"Ready to mark 28b as done?\"\nIf yes, check off in plans/TODO.md and remove from plans/PROJECT_MANAGER.md.\nPROMPT_EOF\n\necho \"Both prompt files written\"",
+      "description": "Write dispatch prompts for 28a and 28b"
+    },
+    "timestamp": "2026-03-17T16:34:46.888Z"
+  },
+  {
+    "name": "Bash",
+    "input": {
+      "command": "tmux new-window -d -c /Users/zev/repos/Noko -n '28a-escalation-infer' && tmux send-keys -t '28a-escalation-infer' -l \" claude --dangerously-skip-permissions \\\"\\$(cat /tmp/dispatch-prompt-28a)\\\"\" && tmux send-keys -t '28a-escalation-infer' Enter",
+      "description": "Dispatch 28a"
+    },
+    "timestamp": "2026-03-17T16:34:54.536Z"
+  },
+  {
+    "name": "Bash",
+    "input": {
+      "command": "tmux new-window -d -c /Users/zev/repos/Noko -n '28b-escalation-scope' && tmux send-keys -t '28b-escalation-scope' -l \" claude --dangerously-skip-permissions \\\"\\$(cat /tmp/dispatch-prompt-28b)\\\"\" && tmux send-keys -t '28b-escalation-scope' Enter",
+      "description": "Dispatch 28b"
+    },
+    "timestamp": "2026-03-17T16:34:55.594Z"
+  },
+  {
+    "name": "Bash",
+    "input": {
+      "command": "cd /Users/zev/repos/Noko && git log --oneline -10",
+      "description": "Check recent commits"
+    },
+    "timestamp": "2026-03-17T16:54:04.754Z"
+  },
+  {
+    "name": "Bash",
+    "input": {
+      "command": "tmux list-windows -F '#{window_name} #{window_active}' 2>/dev/null",
+      "description": "Check tmux window status"
+    },
+    "timestamp": "2026-03-17T16:54:05.623Z"
+  },
+  {
+    "name": "Bash",
+    "input": {
+      "command": "cd /Users/zev/repos/Noko && git diff 2c7a8ca..0d65aa5 -- src/",
+      "description": "Review 28a and 28b source changes"
+    },
+    "timestamp": "2026-03-17T16:54:25.585Z"
+  },
+  {
+    "name": "Glob",
+    "input": {
+      "pattern": "src/ai/**/*.py",
+      "path": "/Users/zev/repos/Noko"
+    },
+    "timestamp": "2026-03-17T16:55:36.956Z"
+  },
+  {
+    "name": "Read",
+    "input": {
+      "file_path": "/Users/zev/repos/Noko/plans/FEATURES.md",
+      "limit": 50
+    },
+    "timestamp": "2026-03-17T16:55:37.575Z"
+  },
+  {
+    "name": "Grep",
+    "input": {
+      "pattern": "F09|F11|4\\.1|4\\.2|4\\.3|email class|summariz|photo analy",
+      "path": "/Users/zev/repos/Noko/plans/FEATURES.md",
+      "output_mode": "content",
+      "-A": 8
+    },
+    "timestamp": "2026-03-17T16:55:46.812Z"
+  },
+  {
+    "name": "Edit",
+    "input": {
+      "replace_all": false,
+      "file_path": "/Users/zev/repos/Noko/plans/PROJECT_MANAGER.md",
+      "old_string": "### 31. 4.1 Email classifier\n\n```prompt\nRead plans/TODO.md section \"4.1 — Email classifier\" and plans/OUTLINE.md\nsection 4.1. Write test plan (`plans/test_plans/TEST_PLAN_EMAIL_CLASSIFIER.md`), stop\nfor review. Create `src/ai/` package, AnthropicClient protocol, mock client,\nclassify_email(). Stop after test plan.\nAfter implementation, ask the user: \"Ready to mark 4.1 as done?\"\nIf yes, check off in plans/TODO.md and remove from plans/PROJECT_MANAGER.md.\n```\n\n### 32. 4.2 Summarizer & extractor\n\n```prompt\nRead plans/TODO.md section \"4.2\" and plans/OUTLINE.md section 4.2. Write test\nplan (`plans/test_plans/TEST_PLAN_SUMMARIZER.md`), stop for review. Functions:\nsummarize(), extract_action_items(), extract_notes(). Mock client. Stop after\ntest plan.\nAfter implementation, ask the user: \"Ready to mark 4.2 as done?\"\nIf yes, check off in plans/TODO.md and remove from plans/PROJECT_MANAGER.md.\n```\n\n### 33. 4.3 Photo analyzer\n\n```prompt\nRead plans/TODO.md section \"4.3\" and plans/OUTLINE.md section 4.3. Write test\nplan (`plans/test_plans/TEST_PLAN_PHOTO_ANALYZER.md`), stop for review. Three modes:\nchore, receipt, inventory. Mock client. Stop after test plan.\nAfter implementation, ask the user: \"Ready to mark 4.3 as done?\"\nIf yes, check off in plans/TODO.md and remove from plans/PROJECT_MANAGER.md.\n```",
+      "new_string": "### 31. 4.1 Email classifier\n\n```prompt\nRead plans/TODO.md section \"4.1 — Email classifier\" and plans/OUTLINE.md\nsection 4.1. Read `src/config.py` (settings pattern) and `src/models.py`\n(DataSource, Initiative).\n\nCreate `src/ai/__init__.py` and `src/ai/client.py` with:\n- `AIClient` Protocol: `async def complete(self, system: str, user: str) -> str`\n- `MockAIClient`: returns canned responses based on keywords in the prompt\n  (for deterministic testing without API calls)\n- `AnthropicAIClient`: wraps `anthropic.AsyncAnthropic`, calls\n  `messages.create` with the system/user prompts\n\nCreate `src/ai/classifier.py` with:\n- `EmailClassification` enum: `routine`, `action_required`, `ambiguous`\n- `ClassificationResult` dataclass: `classification: EmailClassification`,\n  `confidence: float`, `reasoning: str`\n- `async def classify_email(client: AIClient, subject: str, body: str,\n  sender: str) -> ClassificationResult`\n- The system prompt should instruct the model to classify school/family\n  emails and return JSON with the three fields above\n\nTests: (1) routine email → routine classification, (2) email with deadline\n→ action_required, (3) ambiguous email → ambiguous, (4) mock client\nreturns expected JSON format. Write test plan in\n`plans/test_plans/TEST_PLAN_EMAIL_CLASSIFIER.md`, then implement and test.\nCommit when green.\nThen ask the user: \"Ready to mark 4.1 as done?\"\nIf yes, check off in plans/TODO.md and remove from plans/PROJECT_MANAGER.md.\n```\n\n### 32. 4.2 Summarizer & extractor\n\n```prompt\nRead plans/TODO.md section \"4.2\" and plans/OUTLINE.md section 4.2. Read\n`src/ai/client.py` (AIClient protocol — created in 4.1), `src/models.py`\n(ActionItem, Note, Topic), and `src/engine/notes.py` (create_note).\n\nCreate `src/ai/summarizer.py` with:\n- `async def summarize(client: AIClient, text: str) -> str`\n  Returns a one-line summary of the input text.\n- `ActionItemSuggestion` dataclass: `title: str`, `assignee_hint: str | None`,\n  `deadline_hint: str | None`, `verification: str | None`\n- `async def extract_action_items(client: AIClient, text: str) -> list[ActionItemSuggestion]`\n  Extracts zero or more action items from text. Returns structured suggestions\n  (not ORM objects — the caller decides whether to create them).\n- `NoteSuggestion` dataclass: `content: str`, `topic_hint: str | None`\n- `async def extract_notes(client: AIClient, text: str) -> list[NoteSuggestion]`\n  Extracts knowledge entries from text.\n\nAll three functions use JSON-mode system prompts. The mock client should\nreturn valid JSON for each function based on keywords in the input.\n\nTests: (1) summarize returns single line, (2) text with \"bring X by Friday\"\n→ action item with deadline hint, (3) text with no actions → empty list,\n(4) text with factual info → note extracted, (5) mock client JSON is valid.\nWrite test plan in `plans/test_plans/TEST_PLAN_SUMMARIZER.md`, then implement\nand test. Commit when green.\nThen ask the user: \"Ready to mark 4.2 as done?\"\nIf yes, check off in plans/TODO.md and remove from plans/PROJECT_MANAGER.md.\n```\n\n### 33. 4.3 Photo analyzer\n\n```prompt\nRead plans/TODO.md section \"4.3\" and plans/OUTLINE.md section 4.3. Read\n`src/ai/client.py` (AIClient protocol), `src/media.py` (MediaStorage,\nresolve_media_url), and `src/models.py` (Media, Snapshot).\n\nExtend `AIClient` protocol and implementations with a vision method:\n`async def complete_with_image(self, system: str, user: str, image_b64: str, media_type: str) -> str`\nMockAIClient returns canned JSON based on the system prompt keywords.\n\nCreate `src/ai/photo_analyzer.py` with three analysis modes:\n- `ChoreResult` dataclass: `status: \"pass\" | \"fail\" | \"unclear\"`,\n  `reasoning: str`\n- `ReceiptResult` dataclass: `store: str`, `date: str | None`,\n  `items: list[dict]`, `total: float | None`, `currency: str`,\n  `category: str`\n- `InventoryResult` dataclass: `items_visible: list[str]`,\n  `items_low: list[str]`, `items_missing: list[str]`\n- `async def analyze_chore(client: AIClient, image_b64: str) -> ChoreResult`\n- `async def analyze_receipt(client: AIClient, image_b64: str) -> ReceiptResult`\n- `async def analyze_inventory(client: AIClient, image_b64: str, baseline: list[str]) -> InventoryResult`\n\nEach function uses a mode-specific system prompt instructing the model to\nreturn JSON matching the dataclass schema. The baseline parameter for\ninventory is a list of expected items to compare against.\n\nTests: (1) chore pass image → pass result, (2) chore fail → fail result,\n(3) receipt image → structured receipt, (4) inventory with baseline →\nmissing items identified, (5) mock client returns valid JSON for each mode.\nWrite test plan in `plans/test_plans/TEST_PLAN_PHOTO_ANALYZER.md`, then\nimplement and test. Commit when green.\nThen ask the user: \"Ready to mark 4.3 as done?\"\nIf yes, check off in plans/TODO.md and remove from plans/PROJECT_MANAGER.md.\n```"
+    },
+    "timestamp": "2026-03-17T16:56:36.522Z"
+  },
+  {
+    "name": "Read",
+    "input": {
+      "file_path": "/Users/zev/repos/Noko/plans/PROJECT_MANAGER.md",
+      "offset": 555,
+      "limit": 80
+    },
+    "timestamp": "2026-03-17T16:56:45.840Z"
+  },
+  {
+    "name": "Read",
+    "input": {
+      "file_path": "/Users/zev/repos/Noko/plans/PROJECT_MANAGER.md",
+      "offset": 538,
+      "limit": 18
+    },
+    "timestamp": "2026-03-17T16:56:53.960Z"
+  },
+  {
+    "name": "Edit",
+    "input": {
+      "replace_all": false,
+      "file_path": "/Users/zev/repos/Noko/plans/PROJECT_MANAGER.md",
+      "old_string": "### 31. 4.1 Email classifier\n\n```prompt\nRead plans/TODO.md section \"4.1 — Email classifier\" and plans/OUTLINE.md\nsection 4.1. Write test plan (`plans/test_plans/TEST_PLAN_EMAIL_CLASSIFIER.md`), stop\nfor review. Create `src/ai/` package, AnthropicClient protocol, mock client,\nclassify_email(). Stop after test plan.\nAfter implementation, ask the user: \"Ready to mark 4.1 as done?\"\nIf yes, check off in plans/TODO.md and remove from plans/PROJECT_MANAGER.md.\n```\n\n### 32. 4.2 Summarizer & extractor\n\n```prompt\nRead plans/TODO.md section \"4.2\" and plans/OUTLINE.md section 4.2. Write test\nplan (`plans/test_plans/TEST_PLAN_SUMMARIZER.md`), stop for review. Functions:\nsummarize(), extract_action_items(), extract_notes(). Mock client. Stop after\ntest plan.\nAfter implementation, ask the user: \"Ready to mark 4.2 as done?\"\nIf yes, check off in plans/TODO.md and remove from plans/PROJECT_MANAGER.md.\n```\n\n### 33. 4.3 Photo analyzer\n\n```prompt\nRead plans/TODO.md section \"4.3\" and plans/OUTLINE.md section 4.3. Write test\nplan (`plans/test_plans/TEST_PLAN_PHOTO_ANALYZER.md`), stop for review. Three modes:\nchore, receipt, inventory. Mock client. Stop after test plan.\nAfter implementation, ask the user: \"Ready to mark 4.3 as done?\"\nIf yes, check off in plans/TODO.md and remove from plans/PROJECT_MANAGER.md.\n```",
+      "new_string": "### 31. 4.1 Email classifier\n\n```prompt\nRead plans/TODO.md section \"4.1 — Email classifier\" and plans/OUTLINE.md\nsection 4.1. Read `src/config.py` (settings pattern) and `src/models.py`\n(DataSource, Initiative).\n\nCreate `src/ai/__init__.py` and `src/ai/client.py` with:\n- `AIClient` Protocol: `async def complete(self, system: str, user: str) -> str`\n- `MockAIClient`: returns canned responses based on keywords in the prompt\n  (for deterministic testing without API calls)\n- `AnthropicAIClient`: wraps `anthropic.AsyncAnthropic`, calls\n  `messages.create` with the system/user prompts\n\nCreate `src/ai/classifier.py` with:\n- `EmailClassification` enum: `routine`, `action_required`, `ambiguous`\n- `ClassificationResult` dataclass: `classification: EmailClassification`,\n  `confidence: float`, `reasoning: str`\n- `async def classify_email(client: AIClient, subject: str, body: str,\n  sender: str) -> ClassificationResult`\n- The system prompt should instruct the model to classify school/family\n  emails and return JSON with the three fields above\n\nTests: (1) routine email → routine classification, (2) email with deadline\n→ action_required, (3) ambiguous email → ambiguous, (4) mock client\nreturns expected JSON format. Write test plan in\n`plans/test_plans/TEST_PLAN_EMAIL_CLASSIFIER.md`, then implement and test.\nCommit when green.\nThen ask the user: \"Ready to mark 4.1 as done?\"\nIf yes, check off in plans/TODO.md and remove from plans/PROJECT_MANAGER.md.\n```\n\n### 32. 4.2 Summarizer & extractor\n\n```prompt\nRead plans/TODO.md section \"4.2\" and plans/OUTLINE.md section 4.2. Read\n`src/ai/client.py` (AIClient protocol — created in 4.1), `src/models.py`\n(ActionItem, Note, Topic), and `src/engine/notes.py` (create_note).\n\nCreate `src/ai/summarizer.py` with:\n- `async def summarize(client: AIClient, text: str) -> str`\n  Returns a one-line summary of the input text.\n- `ActionItemSuggestion` dataclass: `title: str`, `assignee_hint: str | None`,\n  `deadline_hint: str | None`, `verification: str | None`\n- `async def extract_action_items(client: AIClient, text: str) -> list[ActionItemSuggestion]`\n  Extracts zero or more action items from text. Returns structured suggestions\n  (not ORM objects — the caller decides whether to create them).\n- `NoteSuggestion` dataclass: `content: str`, `topic_hint: str | None`\n- `async def extract_notes(client: AIClient, text: str) -> list[NoteSuggestion]`\n  Extracts knowledge entries from text.\n\nAll three functions use JSON-mode system prompts. The mock client should\nreturn valid JSON for each function based on keywords in the input.\n\nTests: (1) summarize returns single line, (2) text with \"bring X by Friday\"\n→ action item with deadline hint, (3) text with no actions → empty list,\n(4) text with factual info → note extracted, (5) mock client JSON is valid.\nWrite test plan in `plans/test_plans/TEST_PLAN_SUMMARIZER.md`, then implement\nand test. Commit when green.\nThen ask the user: \"Ready to mark 4.2 as done?\"\nIf yes, check off in plans/TODO.md and remove from plans/PROJECT_MANAGER.md.\n```\n\n### 33. 4.3 Photo analyzer\n\n```prompt\nRead plans/TODO.md section \"4.3\" and plans/OUTLINE.md section 4.3. Read\n`src/ai/client.py` (AIClient protocol), `src/media.py` (MediaStorage,\nresolve_media_url), and `src/models.py` (Media, Snapshot).\n\nExtend `AIClient` protocol and implementations with a vision method:\n`async def complete_with_image(self, system: str, user: str, image_b64: str, media_type: str) -> str`\nMockAIClient returns canned JSON based on the system prompt keywords.\n\nCreate `src/ai/photo_analyzer.py` with three analysis modes:\n- `ChoreResult` dataclass: `status: \"pass\" | \"fail\" | \"unclear\"`,\n  `reasoning: str`\n- `ReceiptResult` dataclass: `store: str`, `date: str | None`,\n  `items: list[dict]`, `total: float | None`, `currency: str`,\n  `category: str`\n- `InventoryResult` dataclass: `items_visible: list[str]`,\n  `items_low: list[str]`, `items_missing: list[str]`\n- `async def analyze_chore(client: AIClient, image_b64: str) -> ChoreResult`\n- `async def analyze_receipt(client: AIClient, image_b64: str) -> ReceiptResult`\n- `async def analyze_inventory(client: AIClient, image_b64: str, baseline: list[str]) -> InventoryResult`\n\nEach function uses a mode-specific system prompt instructing the model to\nreturn JSON matching the dataclass schema. The baseline parameter for\ninventory is a list of expected items to compare against.\n\nTests: (1) chore pass image → pass result, (2) chore fail → fail result,\n(3) receipt image → structured receipt, (4) inventory with baseline →\nmissing items identified, (5) mock client returns valid JSON for each mode.\nWrite test plan in `plans/test_plans/TEST_PLAN_PHOTO_ANALYZER.md`, then\nimplement and test. Commit when green.\nThen ask the user: \"Ready to mark 4.3 as done?\"\nIf yes, check off in plans/TODO.md and remove from plans/PROJECT_MANAGER.md.\n```"
+    },
+    "timestamp": "2026-03-17T16:57:35.673Z"
+  },
+  {
+    "name": "Read",
+    "input": {
+      "file_path": "/Users/zev/repos/Noko/plans/PROJECT_MANAGER.md",
+      "offset": 1,
+      "limit": 15
+    },
+    "timestamp": "2026-03-17T17:42:47.261Z"
+  },
+  {
+    "name": "Grep",
+    "input": {
+      "pattern": "^## [^~]\"",
+      "path": "/Users/zev/repos/Noko/plans/PROJECT_MANAGER.md",
+      "output_mode": "content"
+    },
+    "timestamp": "2026-03-17T17:42:57.288Z"
+  },
+  {
+    "name": "Grep",
+    "input": {
+      "pattern": "^## (?!~~)\"",
+      "path": "/Users/zev/repos/Noko/plans/PROJECT_MANAGER.md",
+      "output_mode": "content"
+    },
+    "timestamp": "2026-03-17T17:43:03.483Z"
+  },
+  {
+    "name": "Grep",
+    "input": {
+      "pattern": "^##\"",
+      "path": "/Users/zev/repos/Noko/plans/PROJECT_MANAGER.md",
+      "output_mode": "content"
+    },
+    "timestamp": "2026-03-17T17:43:09.116Z"
+  },
+  {
+    "name": "Grep",
+    "input": {
+      "pattern": "^## ",
+      "path": "/Users/zev/repos/Noko/plans/PROJECT_MANAGER.md",
+      "output_mode": "content"
+    },
+    "timestamp": "2026-03-17T17:43:20.785Z"
+  },
+  {
+    "name": "Skill",
+    "input": {
+      "skill": "dispatch",
+      "args": "plans/PROJECT_MANAGER.md 31"
+    },
+    "timestamp": "2026-03-17T17:49:52.076Z"
+  },
+  {
+    "name": "Bash",
+    "input": {
+      "command": "cat > /tmp/dispatch-prompt-31 << 'PROMPT_EOF'\nYou are PAI. Read ~/.claude/CLAUDE.md for your operating instructions, then read ~/.claude/PAI/USER/AISTEERINGRULES.md for personal behavioral rules. Operate in the appropriate PAI mode for the task below.\n\nPARALLEL SESSION RULE: Multiple Claude Code sessions may be running on the same branch. During development, only run tests scoped to your task (specific test files or describe/it blocks). Run the full test suite only as a final validation when your task is complete. Never run DB migrations, seeds, or full builds without checking for lock contention.\n\nNow execute:\n\n---\n\nRead plans/TODO.md section \"4.1 — Email classifier\" and plans/OUTLINE.md section 4.1. Read `src/config.py` (settings pattern) and `src/models.py` (DataSource, Initiative).\n\nCreate `src/ai/__init__.py` and `src/ai/client.py` with:\n- `AIClient` Protocol: `async def complete(self, system: str, user: str) -> str`\n- `MockAIClient`: returns canned responses based on keywords in the prompt (for deterministic testing without API calls)\n- `AnthropicAIClient`: wraps `anthropic.AsyncAnthropic`, calls `messages.create` with the system/user prompts\n\nCreate `src/ai/classifier.py` with:\n- `EmailClassification` enum: `routine`, `action_required`, `ambiguous`\n- `ClassificationResult` dataclass: `classification: EmailClassification`, `confidence: float`, `reasoning: str`\n- `async def classify_email(client: AIClient, subject: str, body: str, sender: str) -> ClassificationResult`\n- The system prompt should instruct the model to classify school/family emails and return JSON with the three fields above\n\nTests: (1) routine email → routine classification, (2) email with deadline → action_required, (3) ambiguous email → ambiguous, (4) mock client returns expected JSON format. Write test plan in `plans/test_plans/TEST_PLAN_EMAIL_CLASSIFIER.md`, then implement and test. Commit when green.\nThen ask the user: \"Ready to mark 4.1 as done?\"\nIf yes, check off in plans/TODO.md and remove from plans/PROJECT_MANAGER.md.\nPROMPT_EOF\necho \"Prompt written\"",
+      "description": "Write dispatch prompt for task 31"
+    },
+    "timestamp": "2026-03-17T17:50:13.549Z"
+  },
+  {
+    "name": "Bash",
+    "input": {
+      "command": "tmux new-window -d -c /Users/zev/repos/Noko -n '31-email-classifier' && tmux send-keys -t '31-email-classifier' -l \" claude --dangerously-skip-permissions \\\"\\$(cat /tmp/dispatch-prompt-31)\\\"; printf '\\\\a'\" && tmux send-keys -t '31-email-classifier' Enter",
+      "description": "Dispatch task 31"
+    },
+    "timestamp": "2026-03-17T17:50:20.258Z"
+  },
+  {
+    "name": "Bash",
+    "input": {
+      "command": "cd /Users/zev/repos/Noko && git log --oneline -5",
+      "description": "Check recent commits"
+    },
+    "timestamp": "2026-03-17T18:03:30.296Z"
+  },
+  {
+    "name": "Bash",
+    "input": {
+      "command": "tmux list-windows -F '#{window_name} #{window_active}' 2>/dev/null",
+      "description": "Check tmux window status"
+    },
+    "timestamp": "2026-03-17T18:03:31.263Z"
+  },
+  {
+    "name": "Bash",
+    "input": {
+      "command": "cd /Users/zev/repos/Noko && git log --oneline -5",
+      "description": "Check recent commits"
+    },
+    "timestamp": "2026-03-17T18:04:57.479Z"
+  },
+  {
+    "name": "Bash",
+    "input": {
+      "command": "cd /Users/zev/repos/Noko && git log --oneline -10 --all",
+      "description": "Check all branches for commits"
+    },
+    "timestamp": "2026-03-17T18:05:03.021Z"
+  },
+  {
+    "name": "Bash",
+    "input": {
+      "command": "cd /Users/zev/repos/Noko && git diff --stat",
+      "description": "Check uncommitted changes"
+    },
+    "timestamp": "2026-03-17T18:05:03.312Z"
+  },
+  {
+    "name": "Bash",
+    "input": {
+      "command": "tmux capture-pane -t '31-email-classifier' -p | tail -30",
+      "description": "Peek at task 31 window output"
+    },
+    "timestamp": "2026-03-17T18:05:10.147Z"
+  },
+  {
+    "name": "Bash",
+    "input": {
+      "command": "cd /Users/zev/repos/Noko && git log --oneline -5",
+      "description": "Check commits again"
+    },
+    "timestamp": "2026-03-17T18:05:14.337Z"
+  },
+  {
+    "name": "Bash",
+    "input": {
+      "command": "cd /Users/zev/repos/Noko && git diff c191e54..a54dc1a -- src/",
+      "description": "Review task 31 source changes"
+    },
+    "timestamp": "2026-03-17T18:05:17.409Z"
+  },
+  {
+    "name": "Bash",
+    "input": {
+      "command": "cat > /tmp/dispatch-prompt-32 << 'PROMPT_EOF'\nYou are PAI. Read ~/.claude/CLAUDE.md for your operating instructions, then read ~/.claude/PAI/USER/AISTEERINGRULES.md for personal behavioral rules. Operate in the appropriate PAI mode for the task below.\n\nPARALLEL SESSION RULE: Multiple Claude Code sessions may be running on the same branch. During development, only run tests scoped to your task (specific test files or describe/it blocks). Run the full test suite only as a final validation when your task is complete. Never run DB migrations, seeds, or full builds without checking for lock contention.\n\nNow execute:\n\n---\n\nRead plans/TODO.md section \"4.2\" and plans/OUTLINE.md section 4.2. Read `src/ai/client.py` (AIClient protocol — created in 4.1), `src/models.py` (ActionItem, Note, Topic), and `src/engine/notes.py` (create_note).\n\nCreate `src/ai/summarizer.py` with:\n- `async def summarize(client: AIClient, text: str) -> str` Returns a one-line summary of the input text.\n- `ActionItemSuggestion` dataclass: `title: str`, `assignee_hint: str | None`, `deadline_hint: str | None`, `verification: str | None`\n- `async def extract_action_items(client: AIClient, text: str) -> list[ActionItemSuggestion]` Extracts zero or more action items from text. Returns structured suggestions (not ORM objects — the caller decides whether to create them).\n- `NoteSuggestion` dataclass: `content: str`, `topic_hint: str | None`\n- `async def extract_notes(client: AIClient, text: str) -> list[NoteSuggestion]` Extracts knowledge entries from text.\n\nAll three functions use JSON-mode system prompts. The mock client should return valid JSON for each function based on keywords in the input.\n\nTests: (1) summarize returns single line, (2) text with \"bring X by Friday\" → action item with deadline hint, (3) text with no actions → empty list, (4) text with factual info → note extracted, (5) mock client JSON is valid. Write test plan in `plans/test_plans/TEST_PLAN_SUMMARIZER.md`, then implement and test. Commit when green.\nThen ask the user: \"Ready to mark 4.2 as done?\"\nIf yes, check off in plans/TODO.md and remove from plans/PROJECT_MANAGER.md.\nPROMPT_EOF\n\ncat > /tmp/dispatch-prompt-33 << 'PROMPT_EOF'\nYou are PAI. Read ~/.claude/CLAUDE.md for your operating instructions, then read ~/.claude/PAI/USER/AISTEERINGRULES.md for personal behavioral rules. Operate in the appropriate PAI mode for the task below.\n\nPARALLEL SESSION RULE: Multiple Claude Code sessions may be running on the same branch. During development, only run tests scoped to your task (specific test files or describe/it blocks). Run the full test suite only as a final validation when your task is complete. Never run DB migrations, seeds, or full builds without checking for lock contention.\n\nNow execute:\n\n---\n\nRead plans/TODO.md section \"4.3\" and plans/OUTLINE.md section 4.3. Read `src/ai/client.py` (AIClient protocol), `src/media.py` (MediaStorage, resolve_media_url), and `src/models.py` (Media, Snapshot).\n\nExtend `AIClient` protocol and implementations with a vision method: `async def complete_with_image(self, system: str, user: str, image_b64: str, media_type: str) -> str` MockAIClient returns canned JSON based on the system prompt keywords.\n\nCreate `src/ai/photo_analyzer.py` with three analysis modes:\n- `ChoreResult` dataclass: `status: \"pass\" | \"fail\" | \"unclear\"`, `reasoning: str`\n- `ReceiptResult` dataclass: `store: str`, `date: str | None`, `items: list[dict]`, `total: float | None`, `currency: str`, `category: str`\n- `InventoryResult` dataclass: `items_visible: list[str]`, `items_low: list[str]`, `items_missing: list[str]`\n- `async def analyze_chore(client: AIClient, image_b64: str) -> ChoreResult`\n- `async def analyze_receipt(client: AIClient, image_b64: str) -> ReceiptResult`\n- `async def analyze_inventory(client: AIClient, image_b64: str, baseline: list[str]) -> InventoryResult`\n\nEach function uses a mode-specific system prompt instructing the model to return JSON matching the dataclass schema. The baseline parameter for inventory is a list of expected items to compare against.\n\nTests: (1) chore pass image → pass result, (2) chore fail → fail result, (3) receipt image → structured receipt, (4) inventory with baseline → missing items identified, (5) mock client returns valid JSON for each mode. Write test plan in `plans/test_plans/TEST_PLAN_PHOTO_ANALYZER.md`, then implement and test. Commit when green.\nThen ask the user: \"Ready to mark 4.3 as done?\"\nIf yes, check off in plans/TODO.md and remove from plans/PROJECT_MANAGER.md.\nPROMPT_EOF\n\necho \"Both prompt files written\"",
+      "description": "Write dispatch prompts for tasks 32 and 33"
+    },
+    "timestamp": "2026-03-17T18:07:02.687Z"
+  },
+  {
+    "name": "Bash",
+    "input": {
+      "command": "tmux new-window -d -c /Users/zev/repos/Noko -n '32-summarizer-extractor' && tmux send-keys -t '32-summarizer-extractor' -l \" claude --dangerously-skip-permissions \\\"\\$(cat /tmp/dispatch-prompt-32)\\\"; printf '\\\\a'\" && tmux send-keys -t '32-summarizer-extractor' Enter",
+      "description": "Dispatch task 32"
+    },
+    "timestamp": "2026-03-17T18:07:09.517Z"
+  },
+  {
+    "name": "Bash",
+    "input": {
+      "command": "tmux new-window -d -c /Users/zev/repos/Noko -n '33-photo-analyzer' && tmux send-keys -t '33-photo-analyzer' -l \" claude --dangerously-skip-permissions \\\"\\$(cat /tmp/dispatch-prompt-33)\\\"; printf '\\\\a'\" && tmux send-keys -t '33-photo-analyzer' Enter",
+      "description": "Dispatch task 33"
+    },
+    "timestamp": "2026-03-17T18:07:10.445Z"
+  },
+  {
+    "name": "Bash",
+    "input": {
+      "command": "cd /Users/zev/repos/Noko && git log --oneline -8",
+      "description": "Check recent commits"
+    },
+    "timestamp": "2026-03-17T18:23:40.176Z"
+  },
+  {
+    "name": "Bash",
+    "input": {
+      "command": "tmux list-windows -F '#{window_name} #{window_active}' 2>/dev/null",
+      "description": "Check tmux window status"
+    },
+    "timestamp": "2026-03-17T18:23:40.982Z"
+  },
+  {
+    "name": "Bash",
+    "input": {
+      "command": "cd /Users/zev/repos/Noko && git diff a54dc1a..a3d9408 -- src/ai/",
+      "description": "Review tasks 32 and 33 AI source changes"
+    },
+    "timestamp": "2026-03-17T18:23:45.493Z"
+  },
+  {
+    "name": "Read",
+    "input": {
+      "file_path": "/Users/zev/repos/Noko/plans/PROJECT_MANAGER.md",
+      "offset": 813,
+      "limit": 50
+    },
+    "timestamp": "2026-03-17T18:25:40.115Z"
+  },
+  {
+    "name": "Edit",
+    "input": {
+      "replace_all": false,
+      "file_path": "/Users/zev/repos/Noko/plans/PROJECT_MANAGER.md",
+      "old_string": "### 35. 5.1 Gmail API\n\n```prompt\nRead plans/TODO.md section \"5.1\" and plans/OUTLINE.md section 5.1. Write test\nplan (`plans/test_plans/TEST_PLAN_GMAIL.md`), stop for review. OAuth2 flow, inbox polling,\nsender filtering. Mock client. Stop after test plan.\nAfter implementation, ask the user: \"Ready to mark 5.1 as done?\"\nIf yes, check off in plans/TODO.md and remove from plans/PROJECT_MANAGER.md.\n```\n\n### 36. 5.2 WhatsApp scraper\n\n**Note:** Must include Python/Node.js interop bridge design. The Node.js process\nneeds an internal FastAPI endpoint (`POST /internal/ingest/whatsapp`) to push scraped\nmessages into the Python AI pipeline, secured with a pre-shared secret.\n\n```prompt\nRead plans/TODO.md section \"5.2\" and plans/OUTLINE.md section 5.2. Write test\nplan (`plans/test_plans/TEST_PLAN_WHATSAPP.md`), stop for review. whatsapp-web.js, QR\nsession, group polling, health monitoring. IMPORTANT: design the Node→Python\ninterop bridge (internal ingestion endpoint with pre-shared secret auth).\nStop after test plan.\nAfter implementation, ask the user: \"Ready to mark 5.2 as done?\"\nIf yes, check off in plans/TODO.md and remove from plans/PROJECT_MANAGER.md.\n```\n\n### 37. 5.3 Camera API\n\n```prompt\nRead plans/TODO.md section \"5.3\" and plans/OUTLINE.md section 5.3. Write test\nplan (`plans/test_plans/TEST_PLAN_CAMERA.md`), stop for review. Device registration,\nsnapshots via cloud API. Mock client. Stop after test plan.\nAfter implementation, ask the user: \"Ready to mark 5.3 as done?\"\nIf yes, check off in plans/TODO.md and remove from plans/PROJECT_MANAGER.md.\n```",
+      "new_string": "### 35. 5.1 Gmail API\n\n```prompt\nRead plans/TODO.md section \"5.1\" and plans/OUTLINE.md section 5.1. Read\n`src/config.py` (settings pattern), `src/models.py` (DataSource), and\n`src/ai/summarizer.py` (the AI pipeline that will consume Gmail output).\n\nCreate `src/integrations/gmail.py` with:\n- `GmailClient` Protocol: `async def list_messages(self, query: str, max_results: int) -> list[dict]`,\n  `async def get_message(self, msg_id: str) -> dict`,\n  `async def mark_as_read(self, msg_id: str) -> None`\n- `MockGmailClient`: returns canned email dicts for testing\n- `GoogleGmailClient`: wraps `google-auth` + `google-api-python-client`\n  for real Gmail API access (OAuth2 credentials from DataSource config)\n- `async def poll_inbox(client: GmailClient, data_source: DataSource) -> list[dict]`\n  Polls inbox using sender filter from `data_source.config[\"sender_filter\"]`.\n  Returns list of `{\"subject\": ..., \"body\": ..., \"sender\": ..., \"date\": ..., \"message_id\": ...}`\n- `async def process_emails(db, ai_client, gmail_client, data_source) -> list[dict]`\n  Orchestrates: poll → classify each → summarize action_required ones → mark as read.\n  Returns processing results for logging.\n\nOAuth2 flow: store refresh token in `DataSource.config[\"credentials\"]`.\nAdd `GOOGLE_CLIENT_ID` and `GOOGLE_CLIENT_SECRET` to settings.\n\nTests: (1) poll with sender filter → only matching emails returned,\n(2) process_emails → routine emails skipped, action_required classified and\nsummarized, (3) mark_as_read called for processed emails, (4) empty inbox\n→ no errors. Write test plan in `plans/test_plans/TEST_PLAN_GMAIL.md`,\nthen implement and test. Commit when green.\nThen ask the user: \"Ready to mark 5.1 as done?\"\nIf yes, check off in plans/TODO.md and remove from plans/PROJECT_MANAGER.md.\n```\n\n### 36. 5.2 WhatsApp scraper\n\n**Note:** Must include Python/Node.js interop bridge design. The Node.js process\nneeds an internal FastAPI endpoint (`POST /internal/ingest/whatsapp`) to push scraped\nmessages into the Python AI pipeline, secured with a pre-shared secret.\n\n```prompt\nRead plans/TODO.md section \"5.2\" and plans/OUTLINE.md section 5.2. Read\n`src/config.py` (settings), `src/routers/telegram.py` (webhook pattern with\nsecret validation — reuse for WhatsApp ingestion endpoint).\n\nThis is a two-part task: Python ingestion endpoint + Node.js scraper stub.\n\n**Part 1 — Python side (`src/integrations/whatsapp.py` + router):**\n- Create `POST /internal/ingest/whatsapp` endpoint in `src/routers/whatsapp.py`\n- Secured with `X-Internal-Secret` header validated against\n  `settings.internal_api_secret` (add to config)\n- Request body: `{\"group_name\": str, \"messages\": [{\"sender\": str, \"text\": str, \"timestamp\": str}]}`\n- For each message batch: run through AI summarizer/extractor, create Notes\n- Return `{\"processed\": count, \"notes_created\": count}`\n- Add `WhatsAppMessage` Pydantic schema\n\n**Part 2 — Node.js stub (`whatsapp/` directory):**\n- Create `whatsapp/package.json` with `whatsapp-web.js` dependency\n- Create `whatsapp/scraper.js` stub that:\n  - Initializes whatsapp-web.js client with QR auth\n  - Polls configured group chats\n  - POSTs message batches to the Python ingestion endpoint\n  - Includes health check logging\n- This is a STUB — enough to show the architecture, not a production scraper\n\nTests (Python side only): (1) valid secret + messages → processed,\n(2) invalid secret → 403, (3) empty messages → 200 with 0 processed,\n(4) malformed body → 422. Write test plan in\n`plans/test_plans/TEST_PLAN_WHATSAPP.md`, then implement and test.\nCommit when green.\nThen ask the user: \"Ready to mark 5.2 as done?\"\nIf yes, check off in plans/TODO.md and remove from plans/PROJECT_MANAGER.md.\n```\n\n### 37. 5.3 Camera API\n\n```prompt\nRead plans/TODO.md section \"5.3\" and plans/OUTLINE.md section 5.3. Read\n`src/models.py` (Device, Snapshot), `src/media.py` (MediaStorage,\nbuild_media_url), and `src/ai/photo_analyzer.py` (analyze_chore,\nanalyze_inventory).\n\nCreate `src/integrations/camera.py` with:\n- `CameraClient` Protocol:\n  `async def capture_snapshot(self, device_id: str) -> bytes` (returns JPEG bytes),\n  `async def get_device_status(self, device_id: str) -> dict`\n- `MockCameraClient`: returns fake JPEG bytes and status dicts\n- `TuyaCameraClient`: wraps Tuya Cloud API for real cameras\n  (API key/secret from `Device.config[\"tuya_credentials\"]`)\n- `async def take_snapshot(db, camera_client, media_storage, device: Device) -> Snapshot`\n  Captures image → saves to MediaStorage → creates Media record → creates\n  Snapshot record → returns Snapshot\n\nDevice registration is already handled by the existing Device CRUD.\nAdd `TUYA_API_KEY` and `TUYA_API_SECRET` to settings if needed.\n\nTests: (1) take_snapshot → Snapshot created with media_id,\n(2) camera offline → appropriate error, (3) mock client returns valid bytes,\n(4) media record created with correct source_type. Write test plan in\n`plans/test_plans/TEST_PLAN_CAMERA.md`, then implement and test.\nCommit when green.\nThen ask the user: \"Ready to mark 5.3 as done?\"\nIf yes, check off in plans/TODO.md and remove from plans/PROJECT_MANAGER.md.\n```"
+    },
+    "timestamp": "2026-03-17T18:26:14.908Z"
+  },
+  {
+    "name": "Bash",
+    "input": {
+      "command": "cat > /tmp/dispatch-prompt-35 << 'PROMPT_EOF'\nYou are PAI. Read ~/.claude/CLAUDE.md for your operating instructions, then read ~/.claude/PAI/USER/AISTEERINGRULES.md for personal behavioral rules. Operate in the appropriate PAI mode for the task below.\n\nPARALLEL SESSION RULE: Multiple Claude Code sessions may be running on the same branch. During development, only run tests scoped to your task (specific test files or describe/it blocks). Run the full test suite only as a final validation when your task is complete. Never run DB migrations, seeds, or full builds without checking for lock contention.\n\nNow execute:\n\n---\n\nRead plans/TODO.md section \"5.1\" and plans/OUTLINE.md section 5.1. Read `src/config.py` (settings pattern), `src/models.py` (DataSource), and `src/ai/summarizer.py` (the AI pipeline that will consume Gmail output).\n\nCreate `src/integrations/gmail.py` with:\n- `GmailClient` Protocol: `async def list_messages(self, query: str, max_results: int) -> list[dict]`, `async def get_message(self, msg_id: str) -> dict`, `async def mark_as_read(self, msg_id: str) -> None`\n- `MockGmailClient`: returns canned email dicts for testing\n- `GoogleGmailClient`: wraps `google-auth` + `google-api-python-client` for real Gmail API access (OAuth2 credentials from DataSource config)\n- `async def poll_inbox(client: GmailClient, data_source: DataSource) -> list[dict]` Polls inbox using sender filter from `data_source.config[\"sender_filter\"]`. Returns list of `{\"subject\": ..., \"body\": ..., \"sender\": ..., \"date\": ..., \"message_id\": ...}`\n- `async def process_emails(db, ai_client, gmail_client, data_source) -> list[dict]` Orchestrates: poll → classify each → summarize action_required ones → mark as read. Returns processing results for logging.\n\nOAuth2 flow: store refresh token in `DataSource.config[\"credentials\"]`. Add `GOOGLE_CLIENT_ID` and `GOOGLE_CLIENT_SECRET` to settings.\n\nTests: (1) poll with sender filter → only matching emails returned, (2) process_emails → routine emails skipped, action_required classified and summarized, (3) mark_as_read called for processed emails, (4) empty inbox → no errors. Write test plan in `plans/test_plans/TEST_PLAN_GMAIL.md`, then implement and test. Commit when green.\nThen ask the user: \"Ready to mark 5.1 as done?\"\nIf yes, check off in plans/TODO.md and remove from plans/PROJECT_MANAGER.md.\nPROMPT_EOF\n\ncat > /tmp/dispatch-prompt-36 << 'PROMPT_EOF'\nYou are PAI. Read ~/.claude/CLAUDE.md for your operating instructions, then read ~/.claude/PAI/USER/AISTEERINGRULES.md for personal behavioral rules. Operate in the appropriate PAI mode for the task below.\n\nPARALLEL SESSION RULE: Multiple Claude Code sessions may be running on the same branch. During development, only run tests scoped to your task (specific test files or describe/it blocks). Run the full test suite only as a final validation when your task is complete. Never run DB migrations, seeds, or full builds without checking for lock contention.\n\nNow execute:\n\n---\n\nRead plans/TODO.md section \"5.2\" and plans/OUTLINE.md section 5.2. Read `src/config.py` (settings), `src/routers/telegram.py` (webhook pattern with secret validation — reuse for WhatsApp ingestion endpoint).\n\nThis is a two-part task: Python ingestion endpoint + Node.js scraper stub.\n\n**Part 1 — Python side (`src/integrations/whatsapp.py` + router):**\n- Create `POST /internal/ingest/whatsapp` endpoint in `src/routers/whatsapp.py`\n- Secured with `X-Internal-Secret` header validated against `settings.internal_api_secret` (add to config)\n- Request body: `{\"group_name\": str, \"messages\": [{\"sender\": str, \"text\": str, \"timestamp\": str}]}`\n- For each message batch: run through AI summarizer/extractor, create Notes\n- Return `{\"processed\": count, \"notes_created\": count}`\n- Add `WhatsAppMessage` Pydantic schema\n\n**Part 2 — Node.js stub (`whatsapp/` directory):**\n- Create `whatsapp/package.json` with `whatsapp-web.js` dependency\n- Create `whatsapp/scraper.js` stub that: initializes whatsapp-web.js client with QR auth, polls configured group chats, POSTs message batches to the Python ingestion endpoint, includes health check logging\n- This is a STUB — enough to show the architecture, not a production scraper\n\nTests (Python side only): (1) valid secret + messages → processed, (2) invalid secret → 403, (3) empty messages → 200 with 0 processed, (4) malformed body → 422. Write test plan in `plans/test_plans/TEST_PLAN_WHATSAPP.md`, then implement and test. Commit when green.\nThen ask the user: \"Ready to mark 5.2 as done?\"\nIf yes, check off in plans/TODO.md and remove from plans/PROJECT_MANAGER.md.\nPROMPT_EOF\n\ncat > /tmp/dispatch-prompt-37 << 'PROMPT_EOF'\nYou are PAI. Read ~/.claude/CLAUDE.md for your operating instructions, then read ~/.claude/PAI/USER/AISTEERINGRULES.md for personal behavioral rules. Operate in the appropriate PAI mode for the task below.\n\nPARALLEL SESSION RULE: Multiple Claude Code sessions may be running on the same branch. During development, only run tests scoped to your task (specific test files or describe/it blocks). Run the full test suite only as a final validation when your task is complete. Never run DB migrations, seeds, or full builds without checking for lock contention.\n\nNow execute:\n\n---\n\nRead plans/TODO.md section \"5.3\" and plans/OUTLINE.md section 5.3. Read `src/models.py` (Device, Snapshot), `src/media.py` (MediaStorage, build_media_url), and `src/ai/photo_analyzer.py` (analyze_chore, analyze_inventory).\n\nCreate `src/integrations/camera.py` with:\n- `CameraClient` Protocol: `async def capture_snapshot(self, device_id: str) -> bytes` (returns JPEG bytes), `async def get_device_status(self, device_id: str) -> dict`\n- `MockCameraClient`: returns fake JPEG bytes and status dicts\n- `TuyaCameraClient`: wraps Tuya Cloud API for real cameras (API key/secret from `Device.config[\"tuya_credentials\"]`)\n- `async def take_snapshot(db, camera_client, media_storage, device: Device) -> Snapshot` Captures image → saves to MediaStorage → creates Media record → creates Snapshot record → returns Snapshot\n\nDevice registration is already handled by the existing Device CRUD. Add `TUYA_API_KEY` and `TUYA_API_SECRET` to settings if needed.\n\nTests: (1) take_snapshot → Snapshot created with media_id, (2) camera offline → appropriate error, (3) mock client returns valid bytes, (4) media record created with correct source_type. Write test plan in `plans/test_plans/TEST_PLAN_CAMERA.md`, then implement and test. Commit when green.\nThen ask the user: \"Ready to mark 5.3 as done?\"\nIf yes, check off in plans/TODO.md and remove from plans/PROJECT_MANAGER.md.\nPROMPT_EOF\n\necho \"All 3 prompt files written\"",
+      "description": "Write dispatch prompts for tasks 35, 36, 37"
+    },
+    "timestamp": "2026-03-17T18:26:42.915Z"
+  },
+  {
+    "name": "Bash",
+    "input": {
+      "command": "tmux new-window -d -c /Users/zev/repos/Noko -n '35-gmail-api' && tmux send-keys -t '35-gmail-api' -l \" claude --dangerously-skip-permissions \\\"\\$(cat /tmp/dispatch-prompt-35)\\\"; printf '\\\\a'\" && tmux send-keys -t '35-gmail-api' Enter",
+      "description": "Dispatch task 35"
+    },
+    "timestamp": "2026-03-17T18:26:48.582Z"
+  },
+  {
+    "name": "Bash",
+    "input": {
+      "command": "tmux new-window -d -c /Users/zev/repos/Noko -n '36-whatsapp-scraper' && tmux send-keys -t '36-whatsapp-scraper' -l \" claude --dangerously-skip-permissions \\\"\\$(cat /tmp/dispatch-prompt-36)\\\"; printf '\\\\a'\" && tmux send-keys -t '36-whatsapp-scraper' Enter",
+      "description": "Dispatch task 36"
+    },
+    "timestamp": "2026-03-17T18:26:49.918Z"
+  },
+  {
+    "name": "Bash",
+    "input": {
+      "command": "tmux new-window -d -c /Users/zev/repos/Noko -n '37-camera-api' && tmux send-keys -t '37-camera-api' -l \" claude --dangerously-skip-permissions \\\"\\$(cat /tmp/dispatch-prompt-37)\\\"; printf '\\\\a'\" && tmux send-keys -t '37-camera-api' Enter",
+      "description": "Dispatch task 37"
+    },
+    "timestamp": "2026-03-17T18:26:50.669Z"
+  },
+  {
+    "name": "Bash",
+    "input": {
+      "command": "cd /Users/zev/repos/Noko && git log --oneline -10",
+      "description": "Check recent commits"
+    },
+    "timestamp": "2026-03-17T18:49:51.812Z"
+  },
+  {
+    "name": "Bash",
+    "input": {
+      "command": "tmux list-windows -F '#{window_name} #{window_active}' 2>/dev/null",
+      "description": "Check tmux window status"
+    },
+    "timestamp": "2026-03-17T18:49:52.131Z"
+  },
+  {
+    "name": "Bash",
+    "input": {
+      "command": "cd /Users/zev/repos/Noko && git diff a3d9408..582a131 -- src/ whatsapp/",
+      "description": "Review integrations source changes"
+    },
+    "timestamp": "2026-03-17T18:49:56.592Z"
+  },
+  {
+    "name": "Skill",
+    "input": {
+      "skill": "dispatch",
+      "args": "plans/PROJECT_MANAGER.md 38"
+    },
+    "timestamp": "2026-03-17T18:51:01.238Z"
+  },
+  {
+    "name": "Bash",
+    "input": {
+      "command": "cat > /tmp/dispatch-prompt-38 << 'PROMPT_EOF'\nYou are PAI. Read ~/.claude/CLAUDE.md for your operating instructions, then read ~/.claude/PAI/USER/AISTEERINGRULES.md for personal behavioral rules. Operate in the appropriate PAI mode for the task below.\n\nPARALLEL SESSION RULE: Multiple Claude Code sessions may be running on the same branch. During development, only run tests scoped to your task (specific test files or describe/it blocks). Run the full test suite only as a final validation when your task is complete. Never run DB migrations, seeds, or full builds without checking for lock contention.\n\nNow execute:\n\n---\n\nRead plans/TODO.md — \"GDPR / data protection compliance.\" This is a compliance task, not a feature. Catalog all PII in `src/models.py`. Implement `DELETE /members/{id}/data` that cascade-deletes or anonymizes all member PII across all tables. Implement `GET /members/{id}/export` that returns a JSON archive of all member data. Add retention-based cleanup for ephemeral data. Add tests verifying erasure completeness. Commit when green.\nThen ask the user: \"Ready to mark GDPR compliance as done?\"\nIf yes, check off in plans/TODO.md and remove from plans/PROJECT_MANAGER.md.\nPROMPT_EOF\necho \"Prompt written\"",
+      "description": "Write dispatch prompt for task 38"
+    },
+    "timestamp": "2026-03-17T18:51:16.250Z"
+  },
+  {
+    "name": "Bash",
+    "input": {
+      "command": "tmux new-window -d -c /Users/zev/repos/Noko -n '38-gdpr-compliance' && tmux send-keys -t '38-gdpr-compliance' -l \" claude --dangerously-skip-permissions \\\"\\$(cat /tmp/dispatch-prompt-38)\\\"; printf '\\\\a'\" && tmux send-keys -t '38-gdpr-compliance' Enter",
+      "description": "Dispatch task 38"
+    },
+    "timestamp": "2026-03-17T18:51:22.523Z"
+  },
+  {
+    "name": "Bash",
+    "input": {
+      "command": "ls /Users/zev/repos/dotfiles/claude/.claude/commands/",
+      "description": "See existing commands"
+    },
+    "timestamp": "2026-03-17T19:10:55.710Z"
+  },
+  {
+    "name": "Bash",
+    "input": {
+      "command": "ls -la /Users/zev/.claude/commands/ 2>/dev/null || echo \"No commands dir\"",
+      "description": "Check symlink target"
+    },
+    "timestamp": "2026-03-17T19:10:56.463Z"
+  },
+  {
+    "name": "Bash",
+    "input": {
+      "command": "file /Users/zev/.claude/commands/dispatch.md",
+      "description": "Check if dispatch is a symlink"
+    },
+    "timestamp": "2026-03-17T19:11:01.152Z"
+  },
+  {
+    "name": "Read",
+    "input": {
+      "file_path": "/Users/zev/repos/dotfiles/claude/.claude/commands/dispatch.md",
+      "limit": 10
+    },
+    "timestamp": "2026-03-17T19:11:07.203Z"
+  },
+  {
+    "name": "Write",
+    "input": {
+      "file_path": "/Users/zev/repos/dotfiles/claude/.claude/commands/make-command.md",
+      "content": "---\ndescription: Create a new slash command and symlink it\nargument-hint: <command-name> <description>\n---\n\nCreate a new Claude Code slash command.\n\n## Input\n\n`$ARGUMENTS` — two arguments: `{command-name} {description}` (e.g., `my-command \"Does something useful\"`).\n\n## Steps\n\n1. Parse the command name from the first argument. Validate it's kebab-case (lowercase, hyphens only, no spaces).\n\n2. Create the command file at `~/repos/dotfiles/claude/.claude/commands/{command-name}.md` with this template:\n\n   ```\n   ---\n   description: {description}\n   argument-hint: <args>\n   ---\n\n   {description}\n\n   ## Input\n\n   `$ARGUMENTS`\n\n   ## Steps\n\n   1. [TODO: Define what this command does]\n   ```\n\n3. Create a symlink from `~/.claude/commands/{command-name}.md` → `~/repos/dotfiles/claude/.claude/commands/{command-name}.md`\n\n4. Report to the user:\n   - The source file path (for editing)\n   - The symlink path\n   - Remind them to edit the command file to define its behavior\n"
+    },
+    "timestamp": "2026-03-17T19:11:18.788Z"
+  },
+  {
+    "name": "Bash",
+    "input": {
+      "command": "ln -sf /Users/zev/repos/dotfiles/claude/.claude/commands/make-command.md /Users/zev/.claude/commands/make-command.md",
+      "description": "Symlink make-command to active commands"
+    },
+    "timestamp": "2026-03-17T19:11:29.379Z"
+  },
+  {
+    "name": "Skill",
+    "input": {
+      "skill": "make-command",
+      "args": "project-manager \"Review project plan, nominate next tasks, review prompts with user, then dispatch\""
+    },
+    "timestamp": "2026-03-17T19:13:11.621Z"
+  },
+  {
+    "name": "Write",
+    "input": {
+      "file_path": "/Users/zev/repos/dotfiles/claude/.claude/commands/project-manager.md",
+      "content": "---\ndescription: Review project plan, nominate tasks, review prompts, dispatch\nargument-hint: [plans-file-path]\n---\n\nYou are acting as the project manager for this codebase. Your job is to drive the project forward by reviewing the plan, nominating work, collaborating on prompt quality, dispatching tasks, and auditing results.\n\n## Input\n\n`$ARGUMENTS` — optional path to the project management file (default: `plans/PROJECT_MANAGER.md`).\n\n## Workflow\n\nFollow these steps in order. Do NOT skip steps or auto-dispatch without user approval.\n\n### Step 1: Orient\n\n- Read the project management file (default `plans/PROJECT_MANAGER.md`)\n- Identify the **critical path** line and determine where we are on it\n- List what's been completed recently and what's next\n- Present a concise status summary to the user\n\n### Step 2: Nominate batch\n\n- Identify the next batch of tasks that can run in parallel\n- Consider:\n  - **Dependencies** — don't nominate tasks whose prerequisites aren't done\n  - **Parallelism limits** — recommend 2-4 tasks per batch for meatier work, up to 4-6 for small/mechanical fixes\n  - **Merge conflict risk** — tasks touching the same files shouldn't run in parallel\n  - **Sequencing** — if task B depends on task A's output (e.g., a shared protocol/model), run A first\n- Present the batch recommendation with a brief rationale\n- Wait for user approval before proceeding\n\n### Step 3: Review prompts (for each task in the approved batch)\n\nFor each task, one at a time:\n\n1. **Read the prompt** from the ` ```prompt``` ` block in the project management file\n2. **Read the relevant source code** — the files mentioned in the prompt, plus any related models, routers, engine modules, or tests\n3. **Analyze the prompt** for:\n   - Vagueness — does it specify concrete files, function signatures, return types?\n   - Missing context — does it reference code that has changed since the prompt was written?\n   - Scope issues — is it too broad (\"write test plan, stop for review\") or missing implementation instructions?\n   - Design decisions — are there ambiguous choices the agent will have to make? These should be resolved with the user, not left to the agent.\n   - Dependencies — does it assume code exists that hasn't been created yet?\n4. **Present findings** to the user with specific improvement suggestions\n5. **Discuss** — let the user weigh in on design decisions and scope\n6. **Rewrite the prompt** in the project management file if improvements were agreed upon\n\nDo NOT bundle all tasks into one review. Go one at a time so the user can engage with each.\n\n### Step 4: Dispatch\n\nOnce all prompts in the batch are reviewed and approved:\n\n- Use `/dispatch {plans-file} {item_id}` for each task\n- If `/dispatch` is not available, write the prompt to a temp file with the PAI preamble and create the tmux window manually\n- Report the window names and what's running\n\n### Step 5: Audit (when user asks)\n\nWhen the user asks how implementations look:\n\n1. Run `git log --oneline -N` to check for new commits\n2. Run `tmux list-windows` to see which sessions are still running\n3. For completed tasks, run `git diff {before}..{after} -- src/` to review changes\n4. Evaluate against:\n   - **Correctness** — does the diff match what the prompt asked for?\n   - **Scope** — no unrelated changes?\n   - **Security** — no hardcoded secrets, no new injection vectors?\n   - **Patterns** — follows existing codebase conventions?\n5. Report PASS / WARN / FAIL per task with specific notes\n6. Flag any follow-up items the dispatched session discovered\n\n### Step 6: Advance\n\nAfter a batch is complete:\n- Update the critical path line in the project management file if appropriate\n- Return to Step 1 to nominate the next batch\n\n## Key principles\n\n- **You are a collaborator, not an executor.** Your job is to think critically about each task with the user, not to rubber-stamp and dispatch as fast as possible.\n- **Read code before reviewing prompts.** You can't evaluate a prompt without understanding the code it references.\n- **Surface design decisions.** If a prompt leaves an architectural choice ambiguous, raise it with the user. The agent shouldn't be making design decisions in isolation.\n- **Respect the critical path.** Don't skip ahead to exciting features when there are blocking fixes to do first.\n- **Keep batches manageable.** It's better to do 3 tasks well than 8 tasks with merge conflicts and half-baked prompts.\n"
+    },
+    "timestamp": "2026-03-17T19:13:49.727Z"
+  },
+  {
+    "name": "Bash",
+    "input": {
+      "command": "ln -sf /Users/zev/repos/dotfiles/claude/.claude/commands/project-manager.md /Users/zev/.claude/commands/project-manager.md",
+      "description": "Symlink project-manager command"
+    },
+    "timestamp": "2026-03-17T19:13:54.324Z"
+  }
+]

@@ -35,10 +35,21 @@ Dispatch a task from a project file to a new tmux window with a Claude Code sess
      followed by the extracted prompt text.
    - Create a new tmux window **without changing focus**: `tmux new-window -d -c {project_dir} -n '{window_name}'`
    - Launch claude reading the prompt from the temp file:
-     `tmux send-keys -t '{window_name}' -l " claude --dangerously-skip-permissions \"\$(cat {tempfile})\""`
+     `tmux send-keys -t '{window_name}' -l " claude --dangerously-skip-permissions \"\$(cat {tempfile})\"; printf '\\a'"`
      then `tmux send-keys -t '{window_name}' Enter`
 
 5. Report to the user:
    - The new tmux window name
    - What task is running
    - Remind them the window will highlight red in the status bar when the session stops for input
+
+6. **Post-execution audit.** When the user reports that a dispatched session has finished (or you are asked to review it), run the following in the project directory:
+   - `git diff` — review all uncommitted changes made by the dispatched session
+   - `git log --oneline -10` — check for any commits it made
+   - Evaluate the diff against PAI's safety rules:
+     - **No destructive actions** taken without justification (deleted files, dropped resources, force pushes)
+     - **No security issues** introduced (hardcoded secrets, exposed credentials, injection vectors)
+     - **Minimal scope** — changes are scoped to the dispatched task, no unrelated modifications
+     - **No unintended side effects** on shared state (migrations, config changes, dependency modifications)
+   - Report a summary: what changed, any concerns flagged, and a PASS/WARN/FAIL verdict
+   - If WARN or FAIL: list specific issues and recommend whether to keep, revert, or amend the changes

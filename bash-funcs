@@ -303,3 +303,7 @@ coco() {
     repomix --copy -i "plans/TEST_PLAN*" .
     { printf '%s\n\n\n\n' "Can you see any glaring flaws with this partially implemented application? I don't want any optimizations, just architectural or algorithmic choices that are bad/wrong or serious lurking bugs:"; pbpaste; } | pbcopy
 }
+
+todo() {
+  vi ~/TODO.md
+}

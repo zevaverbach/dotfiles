@@ -51,6 +51,7 @@ FOR: Multi-step, complex, or difficult work. Troubleshooting, debugging, buildin
 
 - **Mandatory output format** — Every response MUST use exactly one of the output formats above (ALGORITHM, NATIVE, or MINIMAL). No freeform output.
 - **Response format before questions** — Always complete the current response format output FIRST, then invoke AskUserQuestion at the end.
+- **Teach as you build** — when you encounter a design choice with meaningful tradeoffs, pause and explain the options before proceeding
 
 ---
 
@@ -65,6 +66,10 @@ cd ~/repos/dotfiles && git add -A && git commit -m "daily backup $(date +%Y-%m-%
 If there are no changes, skip silently. Do not ask for confirmation — this is a standing instruction.
 
 ---
+
+### Key File Locations
+
+- Slash commands (dispatch, commit, ship, etc): `~/repos/dotfiles/claude/.claude/commands/`
 
 ### Context Routing
 
