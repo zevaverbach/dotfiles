@@ -25,8 +25,7 @@
       "TodoWrite",
       "ExitPlanMode",
       "Task",
-      "Skill",
-      "mcp__*"
+      "Skill"
     ],
     "deny": [],
     "ask": [
@@ -62,6 +61,7 @@
     ],
     "defaultMode": "default"
   },
+  "model": "opus",
   "enableAllProjectMcpServers": true,
   "enabledMcpjsonServers": [],
   "hooks": {
@@ -884,7 +884,9 @@
       "Context compaction at phase boundaries prevents context rot — the #1 cause of late-phase failures."
     ]
   },
+  "effortLevel": "medium",
   "plansDirectory": "Plans/",
+  "tui": "fullscreen",
   "skipDangerousModePermissionPrompt": true,
   "teammateMode": "in-process",
   "loadAtStartup": {
@@ -1042,11 +1044,10 @@
     "hooks": 20,
     "signals": 19,
     "files": 20,
-    "work": 18,
+    "work": 20,
     "sessions": 11,
     "research": 0,
-    "ratings": 20,
-    "updatedAt": "2026-05-22T08:54:40.954Z"
-  },
-  "effortLevel": "high"
+    "ratings": 22,
+    "updatedAt": "2026-08-05T11:04:09.010Z"
+  }
 }

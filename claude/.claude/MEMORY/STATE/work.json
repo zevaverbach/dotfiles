@@ -1,467 +1,425 @@
 {
   "sessions": {
-    "20260504-130000_obsidian-to-db-and-claude-on-beelink": {
-      "prd": "/Users/zev/repos/dotfiles/claude/.claude/MEMORY/WORK/20260504-130000_obsidian-to-db-and-claude-on-beelink/PRD.md",
-      "task": "Replace Obsidian data with DB; Claude Code on Beelink",
-      "sessionName": "Beelink Setup Scans Torrent",
-      "sessionUUID": "b5be7122-b9bb-4e6d-a82b-d27fcb950b1f",
+    "20260704-202200_seem-beelink-matt-soller": {
+      "task": "Seem Beelink Matt Soller",
+      "sessionName": "Seem Beelink Matt Soller",
+      "sessionUUID": "1c508fa3-480e-4f00-aba7-aa85cb855aad",
+      "phase": "native",
+      "progress": "0/0",
+      "effort": "native",
+      "mode": "native",
+      "started": "2026-07-04T18:22:30.845Z",
+      "updatedAt": "2026-07-06T18:49:35.577Z"
+    },
+    "20260708-212500_nvim-is-hyperactively-showing-notificati": {
+      "task": "nvim is hyperactively showing notifications about pyright running whenever i make a single code change, even without sav",
+      "sessionName": "Nvim Hyperactively Showing Notifications",
+      "sessionUUID": "9bcdfe8c-07cb-475d-a873-d8b0e09e435b",
+      "phase": "native",
+      "progress": "0/0",
+      "effort": "native",
+      "mode": "native",
+      "started": "2026-07-08T19:25:31.481Z",
+      "updatedAt": "2026-07-08T19:25:31.481Z"
+    },
+    "20260712-201239_beelink-chat-jellyfin-torrent": {
+      "prd": "MEMORY/WORK/20260712-201239_beelink-chat-jellyfin-torrent/PRD.md",
+      "task": "Add secure chat, clean Jellyfin, expand torrent indexers",
+      "sessionName": "Modify Beelink Setup Ways",
+      "sessionUUID": "d11e43f2-00bd-4e8c-ae72-eb9b55c9cc3b",
       "phase": "complete",
-      "progress": "35/35",
+      "progress": "25/25",
       "effort": "advanced",
       "mode": "interactive",
-      "started": "2026-05-04T09:19:17+02:00",
-      "updatedAt": "2026-05-04T07:56:52.923Z",
+      "started": "2026-07-12T18:12:39Z",
+      "updatedAt": "2026-07-12T20:16:13.373Z",
       "criteria": [
         {
           "id": "ISC-1",
-          "description": "SQLite DB file exists at `/srv/media-ext/db/beelink.db` owned by averbachs",
+          "description": "chat.averba.ch DNS/tunnel route exists in cloudflared config",
           "type": "criterion",
           "status": "completed"
         },
         {
           "id": "ISC-2",
-          "description": "Schema file `/srv/media-ext/db/schema.sql` (placed at /srv/media-ext/schema.sql alongside db.py — repo not in sync with runtime, runtime is SoT)",
+          "description": "chat.averba.ch is served only through the existing Cloudflare Tunnel, no separate exposed port",
           "type": "criterion",
           "status": "completed"
         },
         {
           "id": "ISC-3",
-          "description": "`torrent_requests` table has columns id, raw_text, media_type, status, created_at, processed_at, retry_count, error_msg, source",
+          "description": "Cloudflare Access application is created for chat.averba.ch",
           "type": "criterion",
           "status": "completed"
         },
         {
           "id": "ISC-4",
-          "description": "DB file mode 0640, parent dir 0750",
+          "description": "Cloudflare Access policy allows only zev@averba.ch",
           "type": "criterion",
           "status": "completed"
         },
         {
           "id": "ISC-5",
-          "description": "Idempotent init via `db.py:_ensure_initialized()`",
+          "description": "Cloudflare Access policy denies all other identities",
           "type": "criterion",
           "status": "completed"
         },
         {
           "id": "ISC-6",
-          "description": "`db.py` provides connect, add_torrent_lines, claim_pending, mark_done, mark_failed, mark_retry, list_recent, list_pending",
+          "description": "A backend on the beelink bridges chat.averba.ch to Claude Code or the pi agent",
           "type": "criterion",
           "status": "completed"
         },
         {
           "id": "ISC-7",
-          "description": "`/torrents` GET returns HTML form with textarea",
+          "description": "Chat session retains conversation context across messages in a session",
           "type": "criterion",
           "status": "completed"
         },
         {
           "id": "ISC-8",
-          "description": "`/add-torrent` POST handler exists",
+          "description": "Unauthenticated requests to chat.averba.ch are redirected to Access login, never reach the chat UI",
           "type": "criterion",
           "status": "completed"
         },
         {
           "id": "ISC-9",
-          "description": "`/torrents` + `/add-torrent` behind Cloudflare Access (verified: external curl 302 → cloudflareaccess.com login)",
+          "description": "Recent torrent.averba.ch downloads are diffed against the Jellyfin library for entries to playlist",
           "type": "criterion",
           "status": "completed"
         },
         {
           "id": "ISC-10",
-          "description": "POST inserts each non-empty line into `torrent_requests` with status='pending'",
+          "description": "At least one director-based playlist is created covering 2+ recently-added titles by that director",
           "type": "criterion",
           "status": "completed"
         },
         {
           "id": "ISC-11",
-          "description": "`/torrents` lists last 20 with status badges",
+          "description": "Movies with garbled/incorrect titles are identified via a metadata mismatch scan",
           "type": "criterion",
           "status": "completed"
         },
         {
           "id": "ISC-12",
-          "description": "`fetch-torrents.py` reads from DB (verified by manual run on test row)",
+          "description": "Each garbled title is corrected using a verified TMDb/IMDb match",
           "type": "criterion",
           "status": "completed"
         },
         {
           "id": "ISC-13",
-          "description": "`fetch-torrents.py` updates row status processing/done/failed",
+          "description": "Titles by directors/works clearly not for kids (e.g. Gaspar Noe) are enumerated",
           "type": "criterion",
           "status": "completed"
         },
         {
           "id": "ISC-14",
-          "description": "retry tracking now in DB column (queue.txt.retries no longer touched by code)",
+          "description": "Each enumerated mature title is gated behind a PIN/password in Jellyfin",
           "type": "criterion",
           "status": "completed"
         },
         {
           "id": "ISC-15",
-          "description": "`obsidian-torrent.py` cron line removed",
+          "description": "Ambiguous mature-content candidates are surfaced to",
           "type": "criterion",
-          "status": "completed"
-        },
-        {
-          "id": "ISC-16",
-          "description": "archived to `~/.archive/obsidian-torrent.py.20260504`",
-          "type": "criterion",
-          "status": "completed"
-        },
-        {
-          "id": "ISC-17",
-          "description": "`CRON_DESCRIPTIONS[\"obsidian-torrent.py\"]` removed",
-          "type": "criterion",
-          "status": "completed"
-        },
-        {
-          "id": "ISC-18",
-          "description": "`supplement-reminder.py` Obsidian mention removed",
-          "type": "criterion",
-          "status": "completed"
-        },
-        {
-          "id": "ISC-19",
-          "description": "`render_get_started()` had no Obsidian refs (already clean)",
-          "type": "criterion",
-          "status": "completed"
-        },
-        {
-          "id": "ISC-20",
-          "description": "`render_home()` includes \"⬇️ Torrents\" nav card",
-          "type": "criterion",
-          "status": "completed"
-        },
-        {
-          "id": "ISC-21",
-          "description": "`grep [Oo]bsidian /srv/media-ext/*.py` → 0 hits",
-          "type": "criterion",
-          "status": "completed"
-        },
-        {
-          "id": "ISC-22",
-          "description": "TORRENT.md removed from Mac vault",
-          "type": "criterion",
-          "status": "completed"
-        },
-        {
-          "id": "ISC-23",
-          "description": "vault git push succeeded (4b81796..30d6af4)",
-          "type": "criterion",
-          "status": "completed"
-        },
-        {
-          "id": "ISC-24",
-          "description": "Beelink vault clone pulled fast-forward, TORRENT.md gone",
-          "type": "criterion",
-          "status": "completed"
-        },
-        {
-          "id": "ISC-25",
-          "description": "`safety.py` module with `is_adult_result()` (TPB cat 500–599 + keyword fallback) and `is_adult_query()`",
-          "type": "criterion",
-          "status": "completed"
-        },
-        {
-          "id": "ISC-26",
-          "description": "`fetch-torrents.py` `search_torrent` rejects adult-category results before returning them",
-          "type": "criterion",
-          "status": "completed"
-        },
-        {
-          "id": "ISC-27",
-          "description": "`fetch-torrents.py` `generate_alt_queries` Claude prompt explicitly forbids adult content",
-          "type": "criterion",
-          "status": "completed"
-        },
-        {
-          "id": "ISC-28",
-          "description": "`email-torrent.py` `parse_with_claude` prompt explicitly forbids adult content",
-          "type": "criterion",
-          "status": "completed"
-        },
-        {
-          "id": "ISC-29",
-          "description": "`db.add_torrent_lines` rejects lines where `is_adult_query()` matches; dashboard POST surfaces count",
-          "type": "criterion",
-          "status": "completed"
-        },
-        {
-          "id": "ISC-30",
-          "description": "`jellyfin` user added to `averbachs` group",
-          "type": "criterion",
-          "status": "completed"
-        },
-        {
-          "id": "ISC-31",
-          "description": "`/mnt/media/{movies,downloads}` are group-writable + setgid (new subdirs inherit group)",
-          "type": "criterion",
-          "status": "completed"
-        },
-        {
-          "id": "ISC-32",
-          "description": "Default POSIX ACL set so future qBittorrent-written files are group-writable",
-          "type": "criterion",
-          "status": "completed"
-        },
-        {
-          "id": "ISC-33",
-          "description": "`jellyfin` service restarted; `sudo -u jellyfin test -w` returns writable for both dirs",
-          "type": "criterion",
-          "status": "completed"
-        },
-        {
-          "id": "ISC-A-1",
-          "description": "No queued torrent request lost (queue.txt was 0 lines pre-migration)",
-          "type": "anti-criterion",
-          "status": "completed"
-        },
-        {
-          "id": "ISC-A-2",
-          "description": "CF Access enforced — anonymous external curl returns 302",
-          "type": "anti-criterion",
-          "status": "completed"
-        },
-        {
-          "id": "ISC-A-3",
-          "description": "qBittorrent password not in db.py / safety.py / schema.sql",
-          "type": "anti-criterion",
-          "status": "completed"
-        },
-        {
-          "id": "ISC-A-4",
-          "description": "error_msg surfaced in /torrents page rows",
-          "type": "anti-criterion",
-          "status": "completed"
-        },
-        {
-          "id": "ISC-A-5",
-          "description": "email-claude.py untouched; email-torrent.py only had the parse-prompt safety guardrail added (functional flow unchanged)",
-          "type": "anti-criterion",
-          "status": "completed"
-        },
-        {
-          "id": "ISC-A-6",
-          "description": "CryptPad untouched, MediaCat untouched, qBittorrent untouched",
-          "type": "anti-criterion",
           "status": "completed"
         }
       ],
       "phaseHistory": [
         {
           "phase": "OBSERVE",
-          "startedAt": 1777879231821,
-          "criteriaCount": 33,
+          "startedAt": 1783879968435,
+          "criteriaCount": 0,
           "agentCount": 0,
-          "completedAt": 1777879592250
+          "completedAt": 1783880012727
         },
         {
           "phase": "THINK",
-          "startedAt": 1777879592250,
-          "criteriaCount": 33,
+          "startedAt": 1783880012727,
+          "criteriaCount": 15,
           "agentCount": 0,
-          "completedAt": 1777879866653
-        },
-        {
-          "phase": "PLAN",
-          "startedAt": 1777879866653,
-          "criteriaCount": 30,
-          "agentCount": 0,
-          "completedAt": 1777880404750
-        },
-        {
-          "phase": "BUILD",
-          "startedAt": 1777880404750,
-          "criteriaCount": 30,
-          "agentCount": 0,
-          "completedAt": 1777880466813
-        },
-        {
-          "phase": "EXECUTE",
-          "startedAt": 1777880466813,
-          "criteriaCount": 39,
-          "agentCount": 0,
-          "completedAt": 1777881359489
-        },
-        {
-          "phase": "VERIFY",
-          "startedAt": 1777881359489,
-          "criteriaCount": 39,
-          "agentCount": 0,
-          "completedAt": 1777881412924
+          "completedAt": 1783887348515
         },
         {
           "phase": "COMPLETE",
-          "startedAt": 1777881412924,
-          "criteriaCount": 39,
+          "startedAt": 1783887348515,
+          "criteriaCount": 15,
           "agentCount": 0
         }
       ]
     },
-    "20260504-095700_beelink-setup-scans-torrent": {
-      "task": "Beelink Setup Scans Torrent",
-      "sessionName": "Beelink Setup Scans Torrent",
-      "sessionUUID": "b5be7122-b9bb-4e6d-a82b-d27fcb950b1f",
+    "20260712-222400_modify-beelink-setup-ways": {
+      "task": "Modify Beelink Setup Ways",
+      "sessionName": "Modify Beelink Setup Ways",
+      "sessionUUID": "d11e43f2-00bd-4e8c-ae72-eb9b55c9cc3b",
       "phase": "native",
       "progress": "0/0",
       "effort": "native",
       "mode": "native",
-      "started": "2026-05-04T07:57:48.428Z",
-      "updatedAt": "2026-05-04T15:02:53.983Z"
+      "started": "2026-07-12T20:24:19.558Z",
+      "updatedAt": "2026-07-12T23:57:57.468Z"
     },
-    "20260506-194200_how-can-i-examine-the-file-table-of-a-pr": {
-      "task": "how can i examine the file table of a process from within a C program? (or any other way)",
-      "sessionName": "Examine Table Process Within",
-      "sessionUUID": "b7eb28a3-2446-4166-8524-6178d6a957dd",
+    "20260713-092000_please-make-it-so-that-if-i-hold-down-th": {
+      "task": "please make it so that if i hold down the function key here on my macbook pro, it shows the function keys in the control",
+      "sessionName": "Enable Function Key Control",
+      "sessionUUID": "45331b37-c3e2-49ad-a801-88c7e5827c77",
       "phase": "native",
       "progress": "0/0",
       "effort": "native",
       "mode": "native",
-      "started": "2026-05-06T17:42:21.372Z",
-      "updatedAt": "2026-05-06T17:49:41.292Z"
+      "started": "2026-07-13T07:20:46.010Z",
+      "updatedAt": "2026-07-13T07:35:02.636Z"
     },
-    "20260506-195400_what-options-do-i-have-for-strace-on-mac": {
-      "task": "what options do i have for strace on macos?",
-      "sessionName": "Options Strace Macos Task",
-      "sessionUUID": "7a87a490-7dc3-48e7-9ef9-f9845a17329c",
-      "phase": "native",
-      "progress": "0/0",
-      "effort": "native",
-      "mode": "native",
-      "started": "2026-05-06T17:54:31.225Z",
-      "updatedAt": "2026-05-06T18:00:20.608Z"
+    "20260713-095119_fix-touchbar-function-keys": {
+      "prd": "/Users/zev/repos/MEMORY/WORK/20260713-095119_fix-touchbar-function-keys/PRD.md",
+      "task": "Fix MacBook Control Strip function key remapping issue",
+      "sessionName": "Fix Macbook Function Keys",
+      "sessionUUID": "260b08b7-ad65-40f8-9a46-9ce5d0a18dcd",
+      "phase": "complete",
+      "progress": "15/15",
+      "effort": "standard",
+      "mode": "interactive",
+      "started": "2026-07-13T07:51:19Z",
+      "updatedAt": "2026-07-13T07:55:29.784Z",
+      "criteria": [
+        {
+          "id": "ISC-1",
+          "description": "Confirmed MacBook Pro has physical Touch Bar hardware (MacBookPro16,1)",
+          "type": "criterion",
+          "status": "completed"
+        },
+        {
+          "id": "ISC-2",
+          "description": "Confirmed macOS version recorded (26.5.2 / 25F84)",
+          "type": "criterion",
+          "status": "completed"
+        },
+        {
+          "id": "ISC-3",
+          "description": "Confirmed global fnState preference value (1 = standard function keys enabled)",
+          "type": "criterion",
+          "status": "completed"
+        },
+        {
+          "id": "ISC-4",
+          "description": "Confirmed Touch Bar PresentationModeGlobal value (was fullControlStrip)",
+          "type": "criterion",
+          "status": "completed"
+        },
+        {
+          "id": "ISC-5",
+          "description": "Confirmed Touch Bar PresentationModeFnModes value (functionKeys on fn-hold)",
+          "type": "criterion",
+          "status": "completed"
+        },
+        {
+          "id": "ISC-6",
+          "description": "Ruled out Karabiner-Elements complex_modifications affecting F-keys",
+          "type": "criterion",
+          "status": "completed"
+        },
+        {
+          "id": "ISC-7",
+          "description": "Ruled out Karabiner-Elements simple_modifications affecting F-keys",
+          "type": "criterion",
+          "status": "completed"
+        },
+        {
+          "id": "ISC-8",
+          "description": "Ruled out Keyboard Maestro hotkey triggers bound to F-key keycodes",
+          "type": "criterion",
+          "status": "completed"
+        },
+        {
+          "id": "ISC-9",
+          "description": "Identified root cause as Control-Strip-as-default Touch Bar mode",
+          "type": "criterion",
+          "status": "completed"
+        },
+        {
+          "id": "ISC-10",
+          "description": "Changed PresentationModeGlobal to functionKeys via defaults write",
+          "type": "criterion",
+          "status": "completed"
+        },
+        {
+          "id": "ISC-11",
+          "description": "Restarted ControlStrip agent process to apply new default",
+          "type": "criterion",
+          "status": "completed"
+        },
+        {
+          "id": "ISC-12",
+          "description": "Verified plist value updated to functionKeys post-restart",
+          "type": "criterion",
+          "status": "completed"
+        },
+        {
+          "id": "ISC-13",
+          "description": "Verified ControlStrip process restarted with new PID",
+          "type": "criterion",
+          "status": "completed"
+        },
+        {
+          "id": "ISC-14",
+          "description": "Documented equivalent System Settings UI path for user",
+          "type": "criterion",
+          "status": "completed"
+        },
+        {
+          "id": "ISC-15",
+          "description": "Provided fn-hold fallback instructions to regain Control Strip access",
+          "type": "criterion",
+          "status": "completed"
+        }
+      ],
+      "phaseHistory": [
+        {
+          "phase": "OBSERVE",
+          "startedAt": 1783929088513,
+          "criteriaCount": 0,
+          "agentCount": 0,
+          "completedAt": 1783929329784
+        },
+        {
+          "phase": "COMPLETE",
+          "startedAt": 1783929329784,
+          "criteriaCount": 15,
+          "agentCount": 0
+        }
+      ]
     },
-    "20260506-195700_where-do-i-include-open-in-c": {
-      "task": "where do i 'include' 'open' in C?",
-      "sessionName": "Include Session Work Task",
-      "sessionUUID": "291e0704-2b00-4b79-98ba-67c69e302a94",
+    "20260713-095800_fix-macbook-function-keys": {
+      "task": "Fix Macbook Function Keys",
+      "sessionName": "Fix Macbook Function Keys",
+      "sessionUUID": "260b08b7-ad65-40f8-9a46-9ce5d0a18dcd",
       "phase": "native",
       "progress": "0/0",
       "effort": "native",
       "mode": "native",
-      "started": "2026-05-06T17:57:41.774Z",
-      "updatedAt": "2026-05-06T17:57:41.774Z"
+      "started": "2026-07-13T07:58:34.657Z",
+      "updatedAt": "2026-07-13T09:43:44.424Z"
     },
-    "20260506-200400_how-well-would-asahi-linux-run-on-this-p": {
-      "task": "how well would asahi linux run on this particular machine? any hesitations?",
-      "sessionName": "Asahi Linux Particular Machine",
-      "sessionUUID": "57c65bcc-4c58-4395-a874-96c0f4f990e6",
+    "20260715-215700_in-a-tree-file-in-git-what-does-the-size": {
+      "task": "in a tree file in git, what does the size refer to in the header? is it the number of objects in the tree or their total",
+      "sessionName": "Tree Git Size Refer",
+      "sessionUUID": "af774f71-0a99-48c1-a43f-decd292f9125",
       "phase": "native",
       "progress": "0/0",
       "effort": "native",
       "mode": "native",
-      "started": "2026-05-06T18:04:27.199Z",
-      "updatedAt": "2026-05-06T19:06:49.134Z"
+      "started": "2026-07-15T19:57:54.584Z",
+      "updatedAt": "2026-07-15T19:57:54.584Z"
     },
-    "20260506-202200_what-s-the-difference-on-a-basic-level-b": {
-      "task": "what's the difference on a basic level between FIFOs and sockets?",
-      "sessionName": "Difference Basic Level Between",
-      "sessionUUID": "276d8763-fd00-4019-a3e9-e7c79fccf5b1",
+    "20260715-220000_i-just-learned-about-bytes-hex-how-do-yo": {
+      "task": "i just learned about bytes.hex(), how do you do the reverse in python? from a hex string to bytes?",
+      "sessionName": "Learned Bytes Hex Reverse",
+      "sessionUUID": "31d8307c-4aab-473a-9eb2-18b47118ad78",
       "phase": "native",
       "progress": "0/0",
       "effort": "native",
       "mode": "native",
-      "started": "2026-05-06T18:22:33.516Z",
-      "updatedAt": "2026-05-06T18:28:45.767Z"
+      "started": "2026-07-15T20:00:22.868Z",
+      "updatedAt": "2026-07-15T20:00:22.868Z"
     },
-    "20260506-205700_what-is-this-void-thing-ssize-t-read-int": {
-      "task": "what is this \"void *...\" thing? ssize_t read(int, void *_LIBC_SIZE(__nbyte), size_t __nbyte) __DARWIN_ALIAS_C(read);",
-      "sessionName": "Void Ssize Int Libc",
-      "sessionUUID": "7be4566a-0825-4908-ba2d-f6adba23866a",
+    "20260715-221000_how-do-you-calculate-the-hash-of-a-tree-": {
+      "task": "how do you calculate the hash of a tree object? is it a hash of all its contents, like a blob?",
+      "sessionName": "Calculate Hash Tree Object",
+      "sessionUUID": "00c6f489-b156-4c64-8623-d95b762428a0",
       "phase": "native",
       "progress": "0/0",
       "effort": "native",
       "mode": "native",
-      "started": "2026-05-06T18:57:15.541Z",
-      "updatedAt": "2026-05-06T18:58:35.665Z"
+      "started": "2026-07-15T20:10:36.828Z",
+      "updatedAt": "2026-07-15T20:10:36.828Z"
     },
-    "20260521-112400_put-ghostty-in-light-theme-mode-please": {
-      "task": "put ghostty in light theme mode please",
-      "sessionName": "Ghostty Light Theme Mode",
-      "sessionUUID": "afb6f180-9899-4354-858c-abc338eca084",
+    "20260720-112600_please-fix-up-my-neovim-c-y-isn-t-workin": {
+      "task": "please fix up my neovim, c-y isn't working as expected to auto-select the highest-probabibility tab complete",
+      "sessionName": "Neovim Isn Expected Auto",
+      "sessionUUID": "ad60e3e9-21a3-4250-bbb2-8e5f39727440",
       "phase": "native",
       "progress": "0/0",
       "effort": "native",
       "mode": "native",
-      "started": "2026-05-21T09:24:17.658Z",
-      "updatedAt": "2026-05-21T09:24:17.658Z"
+      "started": "2026-07-20T09:26:47.119Z",
+      "updatedAt": "2026-07-20T11:10:20.097Z"
     },
-    "20260521-113100_what-s-the-alternate-way-of-writing-prin": {
-      "task": "what's the alternate way of writing printNums here?",
-      "sessionName": "Alternate Writing Printnums Task",
-      "sessionUUID": "669d1c52-65b3-4c9d-a340-764f0a06ae87",
-      "phase": "native",
+    "20260729-202700_i-ve-gone-through-methods-and-interfaces": {
+      "task": "I've gone through methods and interfaces and pointers now in the tour of go. Please create some exercises for me, includ",
+      "sessionName": "Gone Through Methods Interfaces",
+      "sessionUUID": "72531fd6-29af-4123-90f5-dc8c9362c93c",
+      "phase": "starting",
       "progress": "0/0",
-      "effort": "native",
-      "mode": "native",
-      "started": "2026-05-21T09:31:31.060Z",
-      "updatedAt": "2026-05-21T09:33:56.227Z"
+      "effort": "standard",
+      "mode": "starting",
+      "started": "2026-07-29T18:27:16.335Z",
+      "updatedAt": "2026-07-30T05:33:11.658Z"
     },
-    "20260521-181700_how-can-i-define-an-array-of-arrays-of-i": {
-      "task": "how can i define an array of arrays of integers via \"#define\" in C?",
-      "sessionName": "Define Array Arrays Integers",
-      "sessionUUID": "097c25b3-aa3c-4873-8e83-adf836ae37ee",
+    "20260801-144400_please-move-todo-staging-averba-ch-over-": {
+      "task": "please move todo-staging.averba.ch over to replace todo.averba.ch without stomping on any DB records in -staging",
+      "sessionName": "Todo Staging Averba Over",
+      "sessionUUID": "6f3d4102-e0db-48f2-acf5-a22ef57ee30d",
       "phase": "native",
       "progress": "0/0",
       "effort": "native",
       "mode": "native",
-      "started": "2026-05-21T16:17:37.626Z",
-      "updatedAt": "2026-05-22T05:37:00.234Z"
+      "started": "2026-08-01T12:44:10.877Z",
+      "updatedAt": "2026-08-01T12:44:10.877Z"
     },
-    "20260522-082000_go-to-definition-and-go-to-references-is": {
-      "task": "\"go to definition\" and \" go to references\" isn't working in my neovim for C. i don't want you to fix it, but rather plea",
-      "sessionName": "Definition References Isn Neovim",
-      "sessionUUID": "c7af6373-bb27-4c81-95d5-b6aaaa09521f",
+    "20260801-202100_get-me-set-up-with-exercism-and-golang-i": {
+      "task": "get me set up with exercism and golang in this dir pls",
+      "sessionName": "Exercism Golang Dir Pls",
+      "sessionUUID": "b0b09208-76c5-4735-ad5f-a69484c855d4",
       "phase": "native",
       "progress": "0/0",
       "effort": "native",
       "mode": "native",
-      "started": "2026-05-22T06:20:08.511Z",
-      "updatedAt": "2026-05-22T06:43:57.911Z"
+      "started": "2026-08-01T18:21:24.317Z",
+      "updatedAt": "2026-08-01T18:21:24.317Z"
     },
-    "20260522-084700_when-i-run-lspinfo-in-neovim-it-lists-a-": {
-      "task": "when i run :LspInfo in neovim it lists a bunch of attached language servers and the buffers they're attached to. the pro",
-      "sessionName": "Lspinfo Neovim Lists Attached",
-      "sessionUUID": "ee58e6db-f469-4185-b6d9-814c7f27568b",
+    "20260801-203200_how-do-i-skip-exercism-steps": {
+      "task": "how do i skip exercism steps?",
+      "sessionName": "Skip Exercism Steps Task",
+      "sessionUUID": "39164989-cbbb-4c86-97bb-daffb1d93a8b",
       "phase": "native",
       "progress": "0/0",
       "effort": "native",
       "mode": "native",
-      "started": "2026-05-22T06:47:44.907Z",
-      "updatedAt": "2026-05-22T06:47:44.907Z"
+      "started": "2026-08-01T18:32:37.170Z",
+      "updatedAt": "2026-08-01T18:32:37.170Z"
     },
-    "20260522-085200_i-want-to-bind-t-to-toggle-light-dark-mo": {
-      "task": "i want to bind -t to \"toggle light/dark mode\" in neovim, but i want to set this up myself. can you lead me to the soluti",
-      "sessionName": "Bind Toggle Light Dark",
-      "sessionUUID": "59115fc6-3176-4b31-8de2-8c5cbf99b702",
+    "20260802-215700_it-looks-like-a-porn-movie-made-its-way-": {
+      "task": "it looks like a porn movie made its way through https:/ today, i'm not sure based on what query. i removed it but it was",
+      "sessionName": "Looks Porn Movie Its",
+      "sessionUUID": "1b576a75-7f8c-48f1-af0e-ab71b333b0e6",
       "phase": "native",
       "progress": "0/0",
       "effort": "native",
       "mode": "native",
-      "started": "2026-05-22T06:52:39.230Z",
-      "updatedAt": "2026-05-22T08:23:27.739Z"
+      "started": "2026-08-02T19:57:43.644Z",
+      "updatedAt": "2026-08-02T19:57:43.644Z"
     },
-    "20260522-103500_i-m-trying-to-determine-why-it-takes-abo": {
-      "task": "i'm trying to determine why it takes about 1000ms for `toggleTheme` to take effect in my ~ what should be my first step ",
-      "sessionName": "Debug Slow Theme Toggle",
-      "sessionUUID": "7ca315e6-68f6-48fd-af92-263d4d9fd2cf",
+    "20260805-130300_what-are-these-in-the-beelink-dashboard-": {
+      "task": "what are these in the beelink dashboard? 📋 Recent Activity 2026-08-05 10:06:15 torrents [INFO] Another instance running",
+      "sessionName": "Beelink Dashboard Recent Activity",
+      "sessionUUID": "4bffa3a9-fe24-47b4-9767-2b5f5a708d43",
       "phase": "native",
       "progress": "0/0",
       "effort": "native",
       "mode": "native",
-      "started": "2026-05-22T08:35:24.730Z",
-      "updatedAt": "2026-05-22T08:51:24.358Z"
+      "started": "2026-08-05T11:03:07.027Z",
+      "updatedAt": "2026-08-05T11:03:07.027Z"
     },
-    "20260522-105900_please-look-at-my-and-the-unstaged-chang": {
-      "task": "please look at my ~ and the unstaged changes to help me determine why n has stopped working? i have made some changes, a",
-      "sessionName": "Unstaged Changes Determine Stopped",
-      "sessionUUID": "2f12b993-fc9c-438d-a0d4-6ef7134f7548",
+    "20260813-144800_please-fix-up-my-neovim-the-golang-diagn": {
+      "task": "please fix up my neovim, the golang diagnostics have stopped working",
+      "sessionName": "Neovim Golang Diagnostics Stopped",
+      "sessionUUID": "3924483a-86a2-4e8a-95de-25d11bda7fc2",
       "phase": "native",
       "progress": "0/0",
       "effort": "native",
       "mode": "native",
-      "started": "2026-05-22T08:59:57.339Z",
-      "updatedAt": "2026-05-22T10:13:50.326Z"
+      "started": "2026-08-13T18:48:58.148Z",
+      "updatedAt": "2026-08-13T18:49:58.113Z"
     }
   }
 }

@@ -1,7 +1,7 @@
 alias pyp='vi pyproject.toml'
 alias p3='python3'
 alias cx='codex'
-alias cc='claude --dangerously-skip-permissions'
+# alias cc='claude --dangerously-skip-permissions'
 alias ccr='claude --dangerously-skip-permissions --resume'
 alias ccc='claude --dangerously-skip-permissions --continue'
 bx() {

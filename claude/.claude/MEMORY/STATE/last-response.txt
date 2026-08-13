@@ -1,19 +1,34 @@
-🔧 CHANGE:
-- Removed `~/.config/nvim/lua.bak/` (the kickstart template backup)
-- Created `~/repos/dotfiles/.stylua.toml` (mirror of the one at `~/.config/nvim/.stylua.toml`) so stylua finds the config when walking up from files in the dotfiles repo
-- Reformatted all lua modules with the correct config (2 spaces, single quotes, 160-col)
-- Removed `nvim-treesitter-textobjects` from `lua/plugins/treesitter.lua`
+════ PAI | NATIVE MODE ═══════════════════════
+🗒️ TASK: Diagnose exercise 10, build interface-focused follow-up set
 
-✅ VERIFY:
-- `ls ~/.config/nvim/lua.bak` returns "No such file" — backup gone
-- `head` of `lua/plugins/lsp.lua` shows 2-space indent, single quotes
-- `lazy.plugins()` no longer contains `textobjects` — confirmed via headless query
-- nvim still loads cleanly with no errors
+🔄 ITERATION on: Zev believes review_1 is complete; exercise 10 still fails. Wants more practice, especially declaring interfaces.
 
-**On the underlying lesson**
+📃 CONTENT:
 
-The stylua thing is worth pocketing: *config discovery via parent-walk is invisible until it breaks, and it breaks specifically at symlink boundaries*. The same pattern bites people with `.eslintrc`, `pyproject.toml`, `.editorconfig`, `tsconfig.json`, etc. When config "isn't being picked up," the first question to ask is **where does the tool actually start walking from?** — almost always the resolved real path of the file being processed, not the path the user typed. Then **what's the closest ancestor that holds the config?** If those two directories aren't on the same trunk of the filesystem tree, the tool finds nothing.
+## First — exercise 10 isn't passing yet
 
-The fix is always one of three: (a) put the config closer to the file's real location, (b) symlink the config too, or (c) tell the tool explicitly where to look via a CLI flag.
+```go
+func (r *Repeater) Read(p []byte) (int, error) {
+	numAppended := 0
+	for range r.Remaining {
+		p = append(p, r.Char)   // ← same bug as Push, one layer deeper
+		numAppended++
+	}
+	...
+	return r.Remaining, nil
+}
+```
 
-🗣️ Vennari: Backup removed, stylua fixed via dotfiles-root `.stylua.toml` + reformat, treesitter-textobjects dropped from plugin list.
+It's the **same slice-header mistake as `Push`**, which is exactly why it's worth sitting with. Three questions, no answers:
+
+1. **`append` on `p` writes past the end of what the caller can see.** A caller does `buf := make([]byte, 2); r.Read(buf)` and then looks at `buf[:n]`. Your first `append` puts the byte at index `len(p)` — index 2 — which is *outside* `buf`. And, as with `Push`, `p = append(...)` only rebinds your local header. So: which indices of `p` does the caller actually read, and how do you put bytes there?
+2. **`len(p)` never appears in your function.** The contract calls it the caller's budget. What should happen when `Remaining` is 1000 and `len(p)` is 2 — and what does your loop currently do in that case?
+3. **The return value is bytes remaining, not bytes written.** You already computed the right number in `numAppended`. And consider `Repeater{Char: 'x', Remaining: 5}` read with a 5-byte buffer: after that read `Remaining` hits 0, so your `EOF` branch fires — did the caller ever learn about those 5 bytes?
+
+Take the same "write into the buffer I was handed" idea and it collapses into a few lines.
+
+## Second — review_2, ten new exercises
+
+`~/repos/learn-go-2026/tour-of-go/review_2/` — same layout, own module.
+
+**You asked specifically about declaring interfaces. That's exercises 1–4, and it's the more important skill.** Implementing someone else's interface is mechanical; *deciding what the interface should be* is the design work, and

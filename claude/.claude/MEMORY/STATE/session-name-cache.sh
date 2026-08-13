@@ -1,2 +1,2 @@
-cached_session_id='2f12b993-fc9c-438d-a0d4-6ef7134f7548'
-cached_session_label='Unstaged Changes Determine Stopped'
+cached_session_id='3924483a-86a2-4e8a-95de-25d11bda7fc2'
+cached_session_label='Neovim Golang Diagnostics Stopped'

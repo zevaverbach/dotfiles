@@ -1,31 +1,21 @@
 return {
   {
-    'rcarriga/nvim-notify',
-    opts = {
-      render = 'minimal',
-      timeout = 3000,
-      background_colour = 'Normal',
-      merge_duplicates = true,
-    },
-  },
-  {
     'stevearc/dressing.nvim',
     event = 'VeryLazy',
-    opts = {},
+    -- Only wrap vim.ui.input (rename prompts etc.). vim.ui.select is left for
+    -- telescope-ui-select so list pickers get fuzzy search.
+    opts = { select = { enabled = false } },
   },
   {
-    'catppuccin/nvim',
-    name = 'catppuccin',
-    priority = 1000,
-    config = function()
-      local flavor = vim.go.background == 'light' and 'latte' or 'mocha'
-      vim.cmd('colorscheme catppuccin-' .. flavor)
-      vim.cmd.hi 'Comment gui=none'
-    end,
-  },
-  {
+    -- Collection of various small independent plugins/modules.
+    -- Note: mini.notify is intentionally not used — notifications go through
+    -- the filtering wrapper in config.options backed by nvim-notify.
     'echasnovski/mini.nvim',
     config = function()
+      -- Better Around/Inside textobjects
+      --  - va)  - [V]isually select [A]round [)]paren
+      --  - yinq - [Y]ank [I]nside [N]ext [']quote
+      --  - ci'  - [C]hange [I]nside [']quote
       require('mini.ai').setup { n_lines = 500 }
 
       local statusline = require 'mini.statusline'

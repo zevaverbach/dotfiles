@@ -3,6 +3,7 @@ return {
   lazy = false,
   opts = {
     notify_on_error = false,
+    notify_no_formatters = false,
     format_on_save = function(bufnr)
       local disable_filetypes = { c = true, cpp = true, python = true }
       return {
@@ -26,6 +27,7 @@ return {
       javascript = { 'prettierd', 'prettier' },
       typescript = { 'prettierd', 'prettier' },
       typescriptreact = { 'prettierd', 'prettier' },
+      markdown = { 'prettierd', 'prettier' },
     },
   },
 }

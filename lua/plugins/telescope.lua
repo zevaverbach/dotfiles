@@ -58,5 +58,6 @@ return {
         end,
       }
     end, { desc = '[S]earch by [G]rep' })
+    vim.keymap.set('n', '<leader>d', builtin.diagnostics, { desc = '[S]earch [D]iagnostics' })
   end,
 }
